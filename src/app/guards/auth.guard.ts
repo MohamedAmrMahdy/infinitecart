@@ -1,5 +1,18 @@
-import { CanActivateFn } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  RouterStateSnapshot,
+  createUrlTreeFromSnapshot,
+} from "@angular/router";
 
-export const authGuard: CanActivateFn = (route, state) => {
-  return true;
+export const authGuard: CanActivateFn = (
+  next: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const email = localStorage.getItem("email");
+  if (!!email) {
+    return true;
+  } else {
+    return createUrlTreeFromSnapshot(next, ["/auth"]);
+  }
 };
