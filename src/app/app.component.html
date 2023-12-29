@@ -1,6 +1,17 @@
-<div class="card">
-  <p-menubar [model]="items"></p-menubar>
-</div>
+<app-navbar/>
+
+<p-card header="Title" class="text-center">
+  <p class="m-0">
+      State Test Main : {{ mainStore.myVariable() }} , Computed : {{ mainStore.doubleMyVariable() }}
+  </p>
+  <p class="m-0">
+      State Test Products : {{ productsStore.myVariable() }} , Computed : {{ productsStore.doubleMyVariable() }}
+  </p>
+  <div class="card flex justify-content-center mt-5">
+    <p-button pRipple label="Reset Main" (click)="mainStore.reset()"></p-button>
+    <p-button pRipple label="Reset Products" class="ml-2" (click)="productsStore.reset()"></p-button>
+  </div>
+</p-card>
 
 <div class="card flex flex-column md:flex-row gap-3  m-5">
   <p-inputGroup>
@@ -20,9 +31,6 @@
   </p-inputGroup>
 </div>
 
-<div class="card flex justify-content-center mb-5">
-  <p-button pRipple label="Submit"></p-button>
-</div>
 
 <div pRipple class="card flex justify-content-center">
   <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
@@ -39,3 +47,7 @@
       </ng-template>
   </p-card>
 </div>
+
+<router-outlet/>
+
+<app-footer/>
