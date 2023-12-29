@@ -12,12 +12,12 @@ export const routes: Routes = [
     path: "",
     component: MainComponent,
     children: [
-      { path: "", component: HomeComponent },
-      { path: "products", component: ProductsComponent },
-      { path: "cart", component: CartComponent },
-      { path: "profile", component: ProfileComponent },
+      { path: "", title: 'InfinitCart - Home', component: HomeComponent },
+      { path: "products", title: 'InfinitCart - Products', component: ProductsComponent },
+      { path: "cart", title: 'InfinitCart - Cart', component: CartComponent },
+      { path: "profile", title: 'InfinitCart - Profile', component: ProfileComponent },
     ],
   },
-  { path: "auth", component: AuthComponent },
-  { path: "**", component: ErrorComponent },
+  { path: "auth", title: 'InfinitCart - Login / Register', component: AuthComponent },
+  { path: "**", title: 'InfinitCart - Error', component: ErrorComponent },
 ];
