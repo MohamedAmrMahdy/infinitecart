@@ -1,7 +1,25 @@
 <div class="authGradientBG flex flex-column justify-content-center align-items-center h-full">
   <img src="assets/ic_logo.png" class="authLogo mb-4" />
-  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-    <p-card header="Login" class="authCard">
+  <form [formGroup]="loginForm" (ngSubmit)="isLogin ? loginUser() : registerUser()">
+    <p-card [header]="isLogin ? 'Login' : 'Register'" class="authCard">
+
+      @if(!isLogin){
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input type="text" pInputText formControlName="name" class="w-full" name="name"
+            placeholder="Enter your name" />
+          @if (name.invalid && (name.dirty || name.touched)) {
+            <small class="block p-error">
+              @if (name.errors?.['required']) {
+                <div>Name is required.</div>
+              }
+              @if (name.errors?.['minlength']) {
+                <div>Name should be valid</div>
+              }
+            </small>
+          }
+        </div>
+      }
       <div class="field">
         <label for="email">Email</label>
         <input type="text" pInputText formControlName="email" class="w-full" name="email"
@@ -17,6 +35,7 @@
           </small>
         }
       </div>
+
       <div class="field">
         <label for="password">Password</label>
         <input type="password" pInputText formControlName="password" class="w-full" name="password" autocomplete="on"
@@ -32,8 +51,33 @@
           </small>
         }
       </div>
-      <p-button label="SIGN IN" styleClass="w-full" [disabled]="loginForm.invalid" type="submit"></p-button>
-      <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
+
+      @if(isLogin){
+        <p-button label="SIGN IN" styleClass="w-full" [disabled]="password.invalid || email.invalid" type="submit"></p-button>
+      }@else{
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" pInputText formControlName="confirmPassword" class="w-full" name="confirmPassword" autocomplete="on"
+            placeholder="Re-enter your password" />
+          @if (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)) {
+            <small class="block p-error">
+              @if (confirmPassword.errors?.['required']) {
+                <div>Re Entering Password is required.</div>
+              }
+              @if (confirmPassword.errors?.['minlength']) {
+                <div>Password should be at least 6 characters</div>
+              }
+              @if (confirmPassword.errors?.['passwordmismatch']) {
+                <div>Password does not match</div>
+              }
+            </small>
+          }
+        </div>
+
+        <p-button label="CREATE ACCOUNT" styleClass="w-full" [disabled]="password.invalid || email.invalid || name.invalid || confirmPassword.invalid" type="submit"></p-button>
+      }
+
+      <div class="mt-2">{{isLogin ? 'Not a member?' : 'is a member?'}} <a class="toogleLogin" (click)="toggleLogin()">{{isLogin ? 'Register' : 'Login'}}</a></div>
     </p-card>
   </form>
 </div>

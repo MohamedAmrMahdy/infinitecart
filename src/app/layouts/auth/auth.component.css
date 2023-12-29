@@ -11,3 +11,8 @@
   width: 360px;
 }
 
+.toogleLogin{
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
