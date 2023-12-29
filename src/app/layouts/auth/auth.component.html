@@ -1,1 +1,39 @@
-<p>auth works!</p>
+<div class="authGradientBG flex flex-column justify-content-center align-items-center h-full">
+  <img src="assets/ic_logo.png" class="authLogo mb-4" />
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+    <p-card header="Login" class="authCard">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text" pInputText formControlName="email" class="w-full" name="email"
+          placeholder="Enter your email" />
+        @if (email.invalid && (email.dirty || email.touched)) {
+          <small class="block p-error">
+            @if (email.errors?.['required']) {
+              <div>Email is required.</div>
+            }
+            @if (email.errors?.['pattern'] || email.errors?.['email']) {
+              <div>Email should be valid</div>
+            }
+          </small>
+        }
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" pInputText formControlName="password" class="w-full" name="password" autocomplete="on"
+          placeholder="Enter your password" />
+        @if (password.invalid && (password.dirty || password.touched)) {
+          <small class="block p-error">
+            @if (password.errors?.['required']) {
+              <div>Password is required.</div>
+            }
+            @if (password.errors?.['minlength']) {
+              <div>Password should be at least 6 characters</div>
+            }
+          </small>
+        }
+      </div>
+      <p-button label="SIGN IN" styleClass="w-full" [disabled]="loginForm.invalid" type="submit"></p-button>
+      <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
+    </p-card>
+  </form>
+</div>

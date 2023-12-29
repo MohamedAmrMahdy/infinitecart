@@ -1,0 +1,13 @@
+.authGradientBG{
+  background: linear-gradient(125deg, #3454F5, #6457F9);
+}
+
+.authLogo{
+  width: 200px;
+  margin-left: -32px;
+}
+
+.authCard{
+  width: 360px;
+}
+
