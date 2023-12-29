@@ -1,5 +1,4 @@
 <app-navbar/>
-
 <p-card header="Title" class="text-center">
   <p class="m-0">
       State Test Main : {{ mainStore.myVariable() }} , Computed : {{ mainStore.doubleMyVariable() }}
@@ -12,7 +11,7 @@
     <p-button pRipple label="Reset Products" class="ml-2" (click)="productsStore.reset()"></p-button>
   </div>
 </p-card>
-
+<!-- 
 <div class="card flex flex-column md:flex-row gap-3  m-5">
   <p-inputGroup>
       <p-inputGroupAddon>
@@ -46,7 +45,7 @@
           <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
       </ng-template>
   </p-card>
-</div>
+</div> -->
 
 <router-outlet/>
 
