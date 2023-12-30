@@ -1,12 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [],
+  imports: [CardModule, ButtonModule, TagModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
+
 export class ProductCardComponent {
+  @Input() product: any;
+
+
+  getStock(text: string) {
+    if (text == "Stock")
+      return "In Stock"
+    else if (text == "lowstock")
+      return "Low Stock"
+    else
+      return "Out of Stock"
+  }
+
+  getSeverity(text: string) {
+    if (text == "Stock")
+      return "success"
+    else if (text == "lowstock")
+      return "warning"
+    else
+      return "danger"
+  }
+
+  disableChk(text: string) {
+    if (text == "Stock" || text == "lowstock")
+      return false;
+    else
+      return true;
+  }
 
 }
+
