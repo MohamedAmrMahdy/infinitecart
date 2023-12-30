@@ -1,6 +1,6 @@
 <div class="mx-3">
     <span class="mx-2 text-6xl font-bold ">{{cat_title}}</span>
-    <p-carousel [showNavigators]="false" [value]="products" [numVisible]="4" [numScroll]="2" [circular]="false"
+    <p-carousel [showNavigators]="true" [value]="products" [numVisible]="6" [numScroll]="2" [circular]="false"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
             <app-product-card [product]="product" />

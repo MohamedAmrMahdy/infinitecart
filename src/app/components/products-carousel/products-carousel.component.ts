@@ -84,12 +84,47 @@ export class ProductsCarouselComponent {
       price: 9.99,
       inventoryStatus: "nostock"
     },
+    {
+      name: "Item Seven",
+      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      description: "This is some very random description written as placeholder for each product lol",
+      price: 9.99,
+      inventoryStatus: "Stock"
+    },
+    {
+      name: "Item Eight",
+      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      description: "This is some very random description written as placeholder for each product lol",
+      price: 9.99,
+      inventoryStatus: "Stock"
+    },
+    {
+      name: "Item Nine",
+      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      description: "This is some very random description written as placeholder for each product lol",
+      price: 9.99,
+      inventoryStatus: "Stock"
+    },
+    {
+      name: "Item Seven",
+      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      description: "This is some very random description written as placeholder for each product lol",
+      price: 9.99,
+      inventoryStatus: "Stock"
+    },
+    {
+      name: "Item Seven",
+      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      description: "This is some very random description written as placeholder for each product lol",
+      price: 9.99,
+      inventoryStatus: "Stock"
+    },
   ]
 
   getStock(text: string) {
     if (text == "Stock")
       return "In Stock"
-    else if(text== "lowstock")
+    else if (text == "lowstock")
       return "Low Stock"
     else
       return "Out of Stock"
@@ -98,15 +133,14 @@ export class ProductsCarouselComponent {
   getSeverity(text: string) {
     if (text == "Stock")
       return "success"
-    else if(text == "lowstock")
+    else if (text == "lowstock")
       return "warning"
     else
       return "danger"
   }
 
-  disableChk(text: string)
-  {
-    if(text == "Stock" || text == "lowstock")
+  disableChk(text: string) {
+    if (text == "Stock" || text == "lowstock")
       return false;
     else
       return true;
