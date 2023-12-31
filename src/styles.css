@@ -6,4 +6,8 @@ html,
 body {
   height: 100%;
   margin: 0;
+  background: #f5f5f5;
+}
+.p-card .p-card-content {
+  padding: 0rem !important;
 }
