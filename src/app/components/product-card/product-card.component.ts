@@ -26,7 +26,7 @@ export class ProductCardComponent {
 
   getSeverity(text: string) {
     if (text == "Stock")
-      return "success"
+      return "info"
     else if (text == "lowstock")
       return "warning"
     else

@@ -4,12 +4,14 @@
         <ng-template pTemplate="header">
             <div class="relative">
                 <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" />
-                <div class="absolute top-100 right-0" style="transform: translate(-2%,-174%);">
-                    <p-button label="Add to Cart" icon="pi pi-plus" [disabled]="disableChk(product.inventoryStatus)"
+                <div class="absolute top-100 right-0" style="transform: translate(-5%, 420%);">
+                    <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.inventoryStatus)"
                         [severity]="getSeverity(product.inventoryStatus)" />
+                    <!-- <p-button label="Add to Cart" icon="pi pi-plus" [disabled]="disableChk(product.inventoryStatus)"
+                        [severity]="getSeverity(product.inventoryStatus)" /> -->
                 </div>
-                <div class="absolute top-0" style="transform: translate(625%, 10%);">
-                    <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                <div class="absolute top-0" style="transform: translate(380%, 10%);">
+                    <p-button icon="pi pi-heart"  [outlined]="true" [rounded]="true" severity="secondary" />
                 </div>
                 <div class="text-center">
                     <p-tag [value]="getStock(product.inventoryStatus)"
