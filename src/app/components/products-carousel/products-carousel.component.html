@@ -1,25 +1,9 @@
 <div class="mx-3">
     <span class="mx-2 text-6xl font-bold ">{{cat_title}}</span>
-    <p-carousel [showNavigators]="true" [value]="products" [numVisible]="6" [numScroll]="2" [circular]="false"
+    <p-carousel [style]="{'transform': skewDir(sign) }" [showNavigators]="true" [value]="products" [numVisible]="6" [numScroll]="1" [circular]="false"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
             <app-product-card [product]="product" />
-            <!-- <div class=" border-1 surface-border border-round m-2 text-center py-5 px-3">
-            <div class="mb-3">
-                <img src="{{ product.image }}" [alt]="product.name" class="w-6 shadow-2" />
-            </div>
-            <div>
-                <h4 class="mb-1">{{ product.name }}</h4>
-                <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
-                <p-tag [value]="getStock(product.inventoryStatus)"
-                [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                    <p-button icon="pi pi-plus" [disabled]="disableChk(product.inventoryStatus)" [rounded]="true"
-                    [severity]="getSeverity(product.inventoryStatus)" />
-                    <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
-                </div>
-            </div>
-        </div> -->
         </ng-template>
     </p-carousel>
 </div>

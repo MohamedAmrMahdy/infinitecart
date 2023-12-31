@@ -41,6 +41,9 @@ export class ProductsCarouselComponent {
   @Input() cat_title = "";
   // placeholder "products"
   // to-do: implement onInit and fetch the needed data then 
+  @Input() sign: any;
+
+
   products = [
     {
       name: "Item One",
@@ -106,14 +109,14 @@ export class ProductsCarouselComponent {
       inventoryStatus: "Stock"
     },
     {
-      name: "Item Seven",
+      name: "Item Ten",
       image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
-      name: "Item Seven",
+      name: "Item Eleven",
       image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
@@ -144,6 +147,13 @@ export class ProductsCarouselComponent {
       return false;
     else
       return true;
+  }
+
+  skewDir(text: string) {
+    if (text == "1")
+      return "skewX(2deg)"
+    else
+      return "skewX(-2deg)"
   }
 }
 
