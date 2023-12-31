@@ -1,0 +1,13 @@
+.contSideCard {
+  height: 40rem !important;
+  width: 50rem !important;
+}
+.productImg{
+  max-height: 30rem;
+  max-width: 40rem;
+  border-radius: 25px;
+}
+.productBrandImg{
+  max-height: 2rem;
+  max-width: 6rem;
+}
