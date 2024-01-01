@@ -9,13 +9,8 @@ import { MenuModule } from 'primeng/menu';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MenuItem } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { count } from 'rxjs';
-
-interface Country {
-  name: string;
-  phoneCode: string;
-  flag: string;
-}
+import {ICountry} from '../../interfaces/Country';
+import {environment} from '../../../environments/environment'
 
 @Component({
   selector: 'app-profile',
@@ -29,16 +24,16 @@ interface Country {
 
 
 export class ProfileComponent {
-  fromSubmitted = false;
   items?:MenuItem[];
+  fromSubmitted = false;
   fNameValMsg="min length of first name is 3 litters";
   lNameValMsg="min length of last name is 3 litters";
   emailValMsg = "email invalid";
-  selectedCountry?: Country;
   flagSrc:any;
-  countries: Country[] = [];
-  value: any;
   imgSrc:string = '';
+  selectedCountry?: ICountry;
+  countries: ICountry[] = [];
+
   profileForm = new FormGroup({
     fName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
     lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
@@ -49,8 +44,69 @@ export class ProfileComponent {
   })
 
   constructor (private http: HttpClient){
-
   }
+
+// handle uploading image
+onUpload(event:any) {
+  let reader = new FileReader();
+      reader.readAsDataURL(event.files[0]);
+      reader.onload = (event: any) => {
+        this.imgSrc = event.target.result;
+      };
+
+}
+
+// getting list of all countries
+fetchCountries() {
+  const {apiUrl, apiKey}  = environment;
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`
+  });
+  
+  this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe(
+    (response: any) => {
+      const countryList: any[] = response.data;
+      console.log(countryList);
+      countryList.forEach(countryData => {
+        const country: ICountry = {
+          name: countryData.name,
+          phoneCode: countryData.phone_code,
+          flag: countryData.href.flag
+        };
+        this.countries.push(country);
+      });
+  
+    },
+    error => {
+      console.error('Error fetching countries:', error);
+    }
+  );
+  
+  console.log(this.countries);
+  
+}
+
+
+// handle selecting country
+selectedCountryHandler(event:any) {
+  let selectedCountryName = this.profileForm.controls.country.value;
+
+  console.log(this.profileForm.controls.country.value);
+  this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
+  .map((country: any) => ({
+    name: country.name,
+    phoneCode: country.phoneCode,
+    flag: country.flag
+  }))[0];
+
+  this.flagSrc = this.selectedCountry.flag;
+  this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
+}
+
+
+// handle form validations
+
   get isfirstNameValid(){    
     return this.profileForm.controls.fName.valid
   }
@@ -87,21 +143,8 @@ export class ProfileComponent {
 
   }
   
-  selectedCountryHandler(event:any) {
-     let selectedCountryName = this.profileForm.controls.country.value;
 
-     console.log(this.profileForm.controls.country.value);
-     this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
-     .map((country: any) => ({
-       name: country.name,
-       phoneCode: country.phoneCode,
-       flag: country.flag
-     }))[0];
-
-     this.flagSrc = this.selectedCountry.flag;
-     this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
-  }
-
+  // handle form subimission
   submitProfileData(){
     this.fromSubmitted = true;
     if(this.profileForm.valid){
@@ -119,31 +162,7 @@ export class ProfileComponent {
 }
 
 
-onUpload(event:any) {
-  // console.log("onUpload()")
-  // console.log(event);
-  // console.log( event.files[0].name);
 
-  let reader = new FileReader();
-      reader.readAsDataURL(event.files[0]);
-      reader.onload = (event: any) => {
-        this.imgSrc = event.target.result;
-      };
-
-  // console.log(decodeURIComponent(event.files[0].name));
-  // console.log(event.target.files[0])
-  // const file = event.files;
-  // console.log(file)
-
-  // if(file.url)
-  //   console.log(file.url)
-}
-
-// onFileUpload(event:any) {
-//   console.log("onFileUpload()")
-//   console.log(event)
-
-// }
 
 
 ngOnInit(){
@@ -171,33 +190,8 @@ ngOnInit(){
       icon: "pi pi-fw pi-spinner",
     },
 ];
-const apiKey = '479|NTS6CcO0iYqRXqJX0Nnt6KWv8gG87pbuliG50MXg';
 
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${apiKey}`
-});
-
-this.http.get<any[]>('https://restfulcountries.com/api/v1/countries', { headers }).subscribe(
-  (response: any) => {
-    const countryList: any[] = response.data;
-    console.log(countryList);
-    countryList.forEach(countryData => {
-      const country: Country = {
-        name: countryData.name,
-        phoneCode: countryData.phone_code,
-        flag: countryData.href.flag
-      };
-      this.countries.push(country);
-    });
-
-  },
-  error => {
-    console.error('Error fetching countries:', error);
-  }
-);
-
-console.log(this.countries);
+this.fetchCountries();
 
 } 
 
