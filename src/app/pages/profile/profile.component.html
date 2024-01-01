@@ -1,1 +1,121 @@
-<p>profile works!</p>
+<!-- <input type="text" pInputText [(ngModel)]="value" /> -->
+<div class="grid">
+    <div class="md:col-6 lg:col-2 my-auto mr-3 w-auto" >
+        <p-menu [model]="items" ></p-menu>
+        <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->
+    </div>
+<div class="lg:col-10">
+    <form autocomplete="off" (ngSubmit)="submitProfileData()" [formGroup]="profileForm" class="form">
+        <div class="formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label for="firstname6">Firstname</label>
+                <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                @if ((!isfirstNameValid && firstNameValChanged)  || (!isfirstNameValid && isSubmitted)) {
+                    <p class = "error" style="color: red;">{{fNameValMsg}}</p>
+                }
+            
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="lastname6">Lastname</label>
+                <input id="lastname6" formControlName="lName"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                @if ((!isLastNameValid && lastNameValChanged)  || (!isLastNameValid && isSubmitted)) {
+                    <p class = "error" style="color: red;">{{lNameValMsg}}</p>
+                }
+            </div>
+            <div class="field col-12">
+                <label for="birthDate">BirthDate</label>
+                <p-calendar [showIcon]="true" inputId="templatedisplay" class=" calender" >
+                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
+                        <i class="pi pi-user" (click)="clickCallBack($event)" ></i>
+                    </ng-template>
+                </p-calendar>
+            </div>
+            <div class="field col-12">
+                <label for="email">Email</label>
+                <input id="email" formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
+                    <p class = "error" style="color: red;">{{emailValMsg}}</p>
+                }
+            </div>
+        
+            <div class="field col-12">
+                <label for="address">Address</label>
+                <textarea id="address" type="text" rows="3" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                
+            </div>
+            <div class="field col-12 md:col-6">
+                <label for="country">Country</label>
+                <select id="country" formControlName="country" (change) = "selectedCountryHandler($event)" class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" style="appearance: auto">
+                    @for (country of countries; track country.phoneCode){
+                        <option [value]="country.name">{{ country.name }}</option>
+                    }
+                </select>
+            </div>            
+            <div class="field col-12 md:col-3">
+                <label for="state">State</label>
+                <input id="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-12 md:col-2">
+                <label for="city">City</label>
+                <input id="city" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+            <div class="field col-12 md:col-1">
+                <label for="zip">Zip</label>
+                <input id="zip" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+            </div>
+        </div>
+
+        <div class="field col-12 md:col-2">
+            <label for="phone">Phone</label>
+            <div class="phone-container">
+              <input style="display: inline;" id="phone" formControlName="phone" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              @if(flagSrc){
+                  <img [src]="flagSrc" height="20px" width="30px" alt="" class="flag-icon">
+              }
+            </div>
+        </div>
+        <div class="field col-12 md:col-3">
+            <label for="pic" class="">Profile Picture</label>
+        <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
+         (onUpload)="onUpload($event)" [auto] = "true"></p-fileUpload>
+        @if (imgSrc){
+            <img width="250" height="250" [src]="imgSrc" class="mt-2" alt="pic"/>
+        }
+        </div>
+      
+        <p-button
+        styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
+        transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700"
+        type="submit">Submit</p-button>
+
+    </form>
+</div>   
+</div>
+
+
+
+<!-- <img src="https://flagcdn.com/al.svg" alt="Albania Flag" style="width: 50px; height: 50px;"> -->
+
+
+
+<!-- <button type="button" class="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
+     transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700">Submit</button> -->
+
+
+
+
+<!-- 
+     <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
+        <ng-template pTemplate="selectedItem">
+            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
+                <div>{{ selectedCountry.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template let-country pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                <div>{{ country.name }}</div>
+            </div>
+        </ng-template>    
+    </p-dropdown> -->
