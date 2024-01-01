@@ -8,10 +8,13 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MenuModule } from 'primeng/menu';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { MenuItem } from 'primeng/api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { count } from 'rxjs';
+
 interface Country {
   name: string;
-  code: string;
-  population: number;
+  phoneCode: string;
+  flag: string;
 }
 
 @Component({
@@ -31,10 +34,9 @@ export class ProfileComponent {
   fNameValMsg="min length of first name is 3 litters";
   lNameValMsg="min length of last name is 3 litters";
   emailValMsg = "email invalid";
-  selectedCountry: Country ={ name: 'United States', code: 'US', population: 331002651 } ;
-  countries: Country[] = [
-    { name: 'United States', code: 'US', population: 331002651 },
-    { name: 'India', code: 'IN', population: 1380004385 }];
+  selectedCountry?: Country;
+  flagSrc:any;
+  countries: Country[] = [];
   value: any;
   imgSrc:string = '';
   profileForm = new FormGroup({
@@ -42,9 +44,13 @@ export class ProfileComponent {
     lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
     email:new FormControl(null,[Validators.required, Validators.email]),
     address:new FormControl(null,[Validators.required, Validators.minLength(20)]),
-
+    country:new FormControl(null),
+    phone:new FormControl('')
   })
 
+  constructor (private http: HttpClient){
+
+  }
   get isfirstNameValid(){    
     return this.profileForm.controls.fName.valid
   }
@@ -81,6 +87,20 @@ export class ProfileComponent {
 
   }
   
+  selectedCountryHandler(event:any) {
+     let selectedCountryName = this.profileForm.controls.country.value;
+
+     console.log(this.profileForm.controls.country.value);
+     this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
+     .map((country: any) => ({
+       name: country.name,
+       phoneCode: country.phoneCode,
+       flag: country.flag
+     }))[0];
+
+     this.flagSrc = this.selectedCountry.flag;
+     this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
+  }
 
   submitProfileData(){
     this.fromSubmitted = true;
@@ -151,7 +171,38 @@ ngOnInit(){
       icon: "pi pi-fw pi-spinner",
     },
 ];
+const apiKey = '479|NTS6CcO0iYqRXqJX0Nnt6KWv8gG87pbuliG50MXg';
+
+const headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${apiKey}`
+});
+
+this.http.get<any[]>('https://restfulcountries.com/api/v1/countries', { headers }).subscribe(
+  (response: any) => {
+    const countryList: any[] = response.data;
+    console.log(countryList);
+    countryList.forEach(countryData => {
+      const country: Country = {
+        name: countryData.name,
+        phoneCode: countryData.phone_code,
+        flag: countryData.href.flag
+      };
+      this.countries.push(country);
+    });
+
+  },
+  error => {
+    console.error('Error fetching countries:', error);
+  }
+);
+
+console.log(this.countries);
+
+} 
 
 }
 
-}
+
+
+
