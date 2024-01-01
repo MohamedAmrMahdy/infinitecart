@@ -2,10 +2,10 @@
     <p-card class="m-3" [style]="{ width: '240px'} ">
         <ng-template pTemplate="header">
             <div class="relative">
-                <p-carousel routerLink="/products/1" [showNavigators]="false" [showIndicators]="true" [value]="product.images" [numVisible]="1"
+                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.images" [numVisible]="1"
                     [numScroll]="1" [circular]="false">
                     <ng-template let-product pTemplate="images">
-                        <img class="border-3 border-round" alt="{{product}}" src="{{product}}" />
+                        <img routerLink="/products/1" class="border-3 border-round" alt="{{product}}" src="{{product}}" />
                     </ng-template>
                 </p-carousel>
                 <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
