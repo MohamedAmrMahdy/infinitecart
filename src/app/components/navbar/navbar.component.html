@@ -1,57 +1,52 @@
-<div style="background-color: var(--primary);">
+<div class="firstNav">
   <div class="contain">
     <div class="grid align-items-center lg:gap-3">
-      <div class="col-3 lg:col-4 grid align-items-center" >
-        <img class="col-1 lg:col-3" src="../../../assets/ic_logo.png" alt="" style="min-width: 50px;;width: 100px;" >
-        <h1 class="hidden lg:block lg:col-6" style="color: var(--color);">InfiniteCart</h1>
+      <div class="col-3 lg:col-4 grid align-items-center">
+        <img class="col-1 lg:col-3" src="../../../assets/ic_logo.png" alt="" style="min-width: 50px;;width: 100px;">
+        <h1 class="hidden lg:block lg:col-6" style="color: var(--primary-color-text);">InfiniteCart</h1>
       </div>
 
       <div class="move_icon col-6 lg:col-4 grid mx-auto ">
         <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="value" />
-        <i style="color: var(--primary);" class="icon fa-solid fa-magnifying-glass"></i>
+        <i style="color: var(--primary-color-darken);" class="icon fa-solid fa-magnifying-glass"></i>
       </div>
 
       <div class="col-2 lg:col-3">
         <a routerLink="/profile" class="grid lg:justify-content-end align-items-center">
-          <div style="width: 60px;height: 60px;border: 1px solid white;" class="border-circle hidden md:inline-flex md:col-3">
-            <img [src]="profile_img"  class="border-circle" alt="">
+          <div style="width: 60px;height: 60px;border: 1px solid white;"
+            class="border-circle hidden md:inline-flex md:col-3">
+            <img [src]="profile_img" class="border-circle" alt="">
           </div>
-          <p class="col-4 fw-bold" style="color: var(--color);">{{user}}</p>
+          <p class="col-4 fw-bold" style="color: var(--primary-color-text);">{{user}}</p>
         </a>
       </div>
     </div>
   </div>
 </div>
 
-<div style="background-color: var(--BACKGROUND); padding: 5px;">
-  <div  class="justify-content-center" >
+<div class="secNav">
+  <div class="justify-content-center">
     <div class="grid align-items-center text-lg my-auto">
-        <div class="flex col-12 lg:col-6 grid align-items-center justify-content-between xl:justify-content-center" style="color: black;">
-          <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/">Home</a>
-          <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/products">Products</a>
-          <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/categories">Categories</a>
-          <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/Brands">Brands</a>
-          <div class="col-12 text-center xl:col-3 grid align-items-center" style="margin-top: 8px;">
-            <a class="col grid flex-row flex-nowrap align-items-center mx-0"><span>All_Categories</span>
-              <div class="col-12 w-6 sm:w-8 lg:w-7 mx-0">
-                <p-dropdown class="text-center" [options]="Categories"  placeholder="See All" [editable]="true" optionLabel="name"></p-dropdown>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="flex grid align-items-center justify-content-center lg:justify-content-end col-12 lg:col-6 grid">
-            <div class="col-2">
-              <a routerLink="/cart" class="" style="color: black !important;">
-                <i class="text-5xl fa-solid fa-cart-shopping text-black"></i>
-                <span class="badge border-circle p-1">{{items_count}}</span>
-              </a>
+      <div class="flex col-12 lg:col-6 grid align-items-center justify-content-between xl:justify-content-center"
+        style="color: black;">
+        <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/">Home</a>
+        <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/products">Products</a>
+        <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/categories">Categories</a>
+        <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/Brands">Brands</a>
+        <div class="col-12 text-center xl:col-3 grid align-items-center" style="margin-top: 8px;">
+          <a class="lg:hidden xl:hidden col grid flex-row flex-nowrap align-items-center mx-0"><span>All_Categories</span>
+            <div class="col-12 w-6 sm:w-8 lg:w-7 mx-0">
+              <p-dropdown class="text-center" [options]="Categories" placeholder="See All" [editable]="true"
+                optionLabel="name"></p-dropdown>
             </div>
-            <div class="col-2">
-              <a routerLink="/wishlist"><i class="fa-solid fa-heart text-5xl " ></i></a>
-
-            </div>
-            <button class="mx-3 btn col-2 w-2" (click)="changeTheme()"><i style="color: white;" class="text-xl fa-solid {{classIcon}}"> </i><span style="display: inline-block;padding-left: 2px;"> {{Mode}}</span></button>
+          </a>
         </div>
+      </div>
+      <div class="flex grid align-items-center justify-content-center lg:justify-content-end col-12 lg:col-6 grid">
+        <p-button routerLink="/cart" class="mr-2" [rounded]="true" [text]="true" icon="pi pi-shopping-cart" severity="secondary"></p-button>
+        <p-button routerLink="/wishlist" class="mr-2" [rounded]="true" [text]="true" icon="pi pi-heart" severity="secondary"></p-button>
+        <p-button class="mr-5" [rounded]="true" [text]="true" icon="text-xl fa-solid {{classIcon}}" severity="secondary" (click)="changeTheme()"></p-button>
+      </div>
     </div>
   </div>
 </div>

@@ -1,3 +1,12 @@
+.firstNav{
+  background-color: var(--primary-color-darken);
+}
+
+.secNav{
+  background-color: var(--surface-d);
+  padding: 5px;
+  border-bottom: 2px solid #e3e3e3;
+}
 
 .move_icon .icon{
   position: relative;
@@ -18,7 +27,7 @@ img{
   height: 100%;
 }
 a{
-  color: var(--primary-gradient) !important;
+  color: var(--primary-color) !important;
   font-weight: bold;
   text-align: center;
 }
@@ -31,7 +40,7 @@ a{
   color: white;
 }
 .btn{
-  border: 1px solid var(--primary-gradient);
+  border: 1px solid var(--primary-color);
   background-color: black;
   color: white;
   max-width: 90px;

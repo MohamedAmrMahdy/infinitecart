@@ -1,7 +1,7 @@
 footer{
   padding-block: 25px;
-  background-color: var(--BACKGROUND);
-  
+  background-color: var(--surface-d);
+  border-top: 2px solid #e3e3e3;
 }
 img{
   object-fit: contain;
@@ -23,7 +23,7 @@ div{
   margin: auto;
 }
 input{
-  border: 1px solid var(--primary-gradient);
+  border: 1px solid var(--primary-color);
 }
 .border-circle{
   display: flex;
@@ -32,7 +32,7 @@ input{
 }
 .btn{
   border: none;
-  background-color: var(--primary-gradient);
+  background-color: var(--primary-color);
   color: white !important;
   max-width: 90px;
   height: 40px;

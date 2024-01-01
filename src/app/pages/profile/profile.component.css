@@ -1,16 +1,5 @@
-.sec-gradient{
-  background-color:  #6457F9;
-}
-
-.bg-primary-gradient {
-    background-color: #303339
-}
-
-.d-block {
-    display: block;
-}
 
 .calender {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }

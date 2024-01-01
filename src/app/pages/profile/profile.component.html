@@ -1,5 +1,5 @@
 <!-- <input type="text" pInputText [(ngModel)]="value" /> -->
-<div class="grid">
+<div class="grid mt-5 mb-5">
     <div class="md:col-6 lg:col-2 my-auto mr-3 w-auto" >
         <p-menu [model]="items" ></p-menu>
         <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->
@@ -13,7 +13,7 @@
                 @if ((!isfirstNameValid && firstNameValChanged)  || (!isfirstNameValid && isSubmitted)) {
                     <p class = "error" style="color: red;">{{fNameValMsg}}</p>
                 }
-            
+
             </div>
             <div class="field col-12 md:col-6">
                 <label for="lastname6">Lastname</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="field col-12">
                 <label for="birthDate">BirthDate</label>
-                <p-calendar [showIcon]="true" inputId="templatedisplay" class=" calender" >
+                <p-calendar [showIcon]="true" inputId="templatedisplay" class="calender" >
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
                         <i class="pi pi-user" (click)="clickCallBack($event)" ></i>
                     </ng-template>
@@ -37,11 +37,11 @@
                     <p class = "error" style="color: red;">{{emailValMsg}}</p>
                 }
             </div>
-        
+
             <div class="field col-12">
                 <label for="address">Address</label>
                 <textarea id="address" type="text" rows="3" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-                
+
             </div>
             <div class="field col-12 md:col-6">
                 <label for="country">Country</label>
@@ -50,7 +50,7 @@
                         <option [value]="country.name">{{ country.name }}</option>
                     }
                 </select>
-            </div>            
+            </div>
             <div class="field col-12 md:col-3">
                 <label for="state">State</label>
                 <input id="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -82,14 +82,14 @@
             <img width="250" height="250" [src]="imgSrc" class="mt-2" alt="pic"/>
         }
         </div>
-      
+
         <p-button
         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700"
         type="submit">Submit</p-button>
 
     </form>
-</div>   
+</div>
 </div>
 
 
@@ -104,7 +104,7 @@
 
 
 
-<!-- 
+<!--
      <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
         <ng-template pTemplate="selectedItem">
             <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
@@ -117,5 +117,5 @@
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
                 <div>{{ country.name }}</div>
             </div>
-        </ng-template>    
+        </ng-template>
     </p-dropdown> -->

@@ -8,6 +8,7 @@ import { MenuItem } from "primeng/api";
 import { MenubarModule } from 'primeng/menubar';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
             DropdownModule,
             RouterModule,
             RouterLinkActive,
-            InputTextModule,FormsModule,MenubarModule,CommonModule
+            InputTextModule,FormsModule,MenubarModule,CommonModule,ButtonModule
           ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
