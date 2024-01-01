@@ -7,6 +7,12 @@
 <div class="lg:col-10">
     <form autocomplete="off" (ngSubmit)="submitProfileData()" [formGroup]="profileForm" class="form">
         <div class="formgrid grid">
+
+          <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
+            <p class="text-3xl my-0 uppercase">Account details</p>
+            <p class="text-400 my-0 uppercase">Don't share your account data</p>
+          </div>
+
             <div class="field col-12 md:col-6">
                 <label for="firstname6">Firstname</label>
                 <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -36,6 +42,11 @@
                 @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
                     <p class = "error" style="color: red;">{{emailValMsg}}</p>
                 }
+            </div>
+
+            <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
+              <p class="text-3xl my-0 uppercase">Contact Info</p>
+              <p class="text-400 my-0 uppercase">Please provide correct data for delivery</p>
             </div>
 
             <div class="field col-12">
