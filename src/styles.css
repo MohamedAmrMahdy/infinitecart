@@ -3,17 +3,12 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 @import "primeflex/primeflex.min.css";
 
-html,
+:root, html,
 body {
   height: 100%;
   margin: 0;
   background: var(--surface-c);
 }
-:root
-{
-  --primary-color-darken : #3454F5;
-}
-
 
 .p-card .p-card-content {
   padding: 0rem !important;

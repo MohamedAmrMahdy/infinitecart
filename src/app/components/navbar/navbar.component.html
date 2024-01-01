@@ -1,23 +1,26 @@
-<div class="firstNav">
+<div class="firstNav bg-gray-900">
   <div class="contain">
     <div class="grid align-items-center lg:gap-3">
-      <div class="col-3 lg:col-4 grid align-items-center">
-        <img class="col-1 lg:col-3" src="../../../assets/ic_logo.png" alt="" style="min-width: 50px;;width: 100px;">
-        <h1 class="hidden lg:block lg:col-6" style="color: var(--primary-color-text);">InfiniteCart</h1>
+      <div class="col-3 lg:col-4 grid align-items-center" routerLink="/">
+        <img class="col-1 lg:col-3 cursor-pointer" src="../../../assets/ic_logo.png" alt="" style="min-width: 50px;;width: 100px;">
+        <h1 class="hidden lg:block lg:col-6 cursor-pointer select-none" style="color: var(--primary-color-text);">InfiniteCart</h1>
       </div>
 
       <div class="move_icon col-6 lg:col-4 grid mx-auto ">
         <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="value" />
-        <i style="color: var(--primary-color-darken);" class="icon fa-solid fa-magnifying-glass"></i>
+        <i style="color: var(--primary-color);" class="icon fa-solid fa-magnifying-glass"></i>
       </div>
 
       <div class="col-2 lg:col-3">
         <a routerLink="/profile" class="grid lg:justify-content-end align-items-center">
-          <div style="width: 60px;height: 60px;border: 1px solid white;"
-            class="border-circle hidden md:inline-flex md:col-3">
-            <img [src]="profile_img" class="border-circle" alt="">
-          </div>
-          <p class="col-4 fw-bold" style="color: var(--primary-color-text);">{{user}}</p>
+          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{user}}</p>
+          <p-avatar size="large" shape="circle" class="hidden lg:block">
+            @if(profile_img){
+              <img [src]="profile_img" alt="">
+            }@else {
+              <i class="pi pi-user" style="font-size: 1.8rem"></i>
+            }
+        </p-avatar>
         </a>
       </div>
     </div>

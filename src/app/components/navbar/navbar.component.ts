@@ -9,6 +9,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,7 @@ import { ButtonModule } from 'primeng/button';
             DropdownModule,
             RouterModule,
             RouterLinkActive,
-            InputTextModule,FormsModule,MenubarModule,CommonModule,ButtonModule
+            InputTextModule,FormsModule,MenubarModule,CommonModule,ButtonModule,AvatarModule
           ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -27,8 +28,8 @@ export class NavbarComponent {
   selectedCategory:any;
   items_count:number = 10;
   value:any;
-  user:any="Hi,Guest";
-  profile_img:any="../../../assets/user1.jpg";
+  user:any="Guest";
+  profile_img:any="";
   Mode:string="Dark";
   classIcon:string ="fa-moon";
   colorIcon:string ="white"

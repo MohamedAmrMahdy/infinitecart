@@ -1,11 +1,14 @@
 .firstNav{
-  background-color: var(--primary-color-darken);
+
 }
 
 .secNav{
   background-color: var(--surface-d);
   padding: 5px;
   border-bottom: 2px solid #e3e3e3;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .move_icon .icon{
