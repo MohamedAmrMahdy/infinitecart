@@ -8,6 +8,9 @@ import { ProfileComponent } from "./pages/profile/profile.component";
 import { MainComponent } from "./layouts/main/main.component";
 import { authGuard } from "./guards/auth.guard";
 import { ProductComponent } from "./pages/product/product.component";
+import { WishlistComponent } from "./pages/wishlist/wishlist.component";
+import { BrandsComponent } from "./pages/brands/brands.component";
+import { CategoriesComponent } from "./pages/categories/categories.component";
 
 export const routes: Routes = [
   {
@@ -19,6 +22,9 @@ export const routes: Routes = [
       { path: "products/:id", title: 'InfinitCart - Products', component: ProductComponent, canActivate:[authGuard] },
       { path: "cart", title: 'InfinitCart - Cart', component: CartComponent, canActivate:[authGuard] },
       { path: "profile", title: 'InfinitCart - Profile', component: ProfileComponent, canActivate:[authGuard] },
+      { path: "wishlist", title: 'InfinitCart - Wishlist',component:WishlistComponent, canActivate:[authGuard]},
+      { path: "categories", title: 'InfinitCart - Categories',component:CategoriesComponent},
+      { path: "Brands", title: 'InfinitCart - Brands',component:BrandsComponent}
     ]
   },
   { path: "auth", title: 'InfinitCart - Login / Register', component: AuthComponent },

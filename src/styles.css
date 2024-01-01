@@ -7,3 +7,19 @@ body {
   height: 100%;
   margin: 0;
 }
+:root
+{
+  --sec : #997DF2;
+  --BACKGROUND : #f5f5f5;
+  --primary-gradient : #2071F8;
+  --primary : #3454F5;
+  --color:white;
+}
+
+a
+{
+  text-decoration: none;
+  color: black !important;
+}
+
+
