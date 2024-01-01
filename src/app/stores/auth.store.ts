@@ -6,7 +6,7 @@ import {
   withMethods,
 } from '@ngrx/signals';
 
-const SESSION_TIME_IN_MINUTES = 1;
+const SESSION_TIME_IN_MINUTES = 60;
 
 export const AuthStore = signalStore(
   withState({ currentUser: {} }),
