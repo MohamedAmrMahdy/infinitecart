@@ -1,15 +1,17 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { CardModule } from "primeng/card";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { Router } from "@angular/router";
+import { AuthStore } from "../../stores/auth.store";
 
 @Component({
   selector: "app-auth",
   standalone: true,
   imports: [ReactiveFormsModule, CardModule, InputTextModule, ButtonModule],
+  providers: [AuthStore],
   templateUrl: "./auth.component.html",
   styleUrl: "./auth.component.css",
 })
@@ -19,7 +21,7 @@ export class AuthComponent {
     private authService: AuthService,
     private router: Router
   ) {}
-
+  readonly authStore = inject(AuthStore);
   isLogin:boolean = true;
 
   passwordMatchValidator(): ValidatorFn {
@@ -59,6 +61,10 @@ export class AuthComponent {
     const { email, password } = this.loginForm.value;
     this.authService.login(email as string, password as string).subscribe(
       (response) => {
+        this.authStore.login({
+          email:response.email,
+          name: 'Mohamed'
+        })
         console.log(`Email: ${response.email}, Password: ${response.password}`)
         this.router.navigate(["/"]);
       },
@@ -72,6 +78,10 @@ export class AuthComponent {
     const { name, email, password } = this.loginForm.value;
     this.authService.register(name as string, email as string, password as string).subscribe(
       (response) => {
+        this.authStore.login({
+          email: response.email,
+          name: response.name
+        })
         console.log(`Name: ${response.name}, Email: ${response.email}, Password: ${response.password}`)
         this.router.navigate(["/"]);
       },

@@ -11,29 +11,36 @@ import {
 } from '@ngrx/signals';
 
 export const MainStore = signalStore(
-  withState({ myVariable: 0 }),
-  withComputed(({ myVariable }) => ({
-    doubleMyVariable: computed(() => myVariable() * 2),
-  })),
-  withMethods(({ myVariable, ...store }) => ({
-    increment() {
-      patchState(store, { myVariable: myVariable() + 1 });
+  withState({
+    cart: {
+
+    }
+  }),
+  withMethods(({ cart, ...store }) => ({
+    refreshCart(newCart) {
+      patchState(store, { cart: newCart });
     },
-    decrement() {
-      patchState(store, { myVariable: myVariable() - 1 });
+    resetCart() {
+      patchState(store, { cart: {} });
+      localStorage.removeItem('cart');
     },
-    reset(){
-      patchState(store, { myVariable: 0 });
+    addToCart() {
+      // TODO
+      //patchState(store, { cart: {// TODO} });
+    },
+    removeFromCart(){
+      // TODO
+      //patchState(store, { cart: {// TODO} });
     }
   })),
   withHooks({
-    onInit({ increment }) {
-      interval(500)
-        .pipe(takeUntilDestroyed())
-        .subscribe(() => increment());
-    },
-    onDestroy({ myVariable }) {
-      console.log('count on destroy', myVariable());
+    onInit({ cart, refreshCart }) {
+      if (!cart){
+        let savedCart = JSON.parse(localStorage.getItem('cart') || "{}")
+        if (savedCart){
+          refreshCart(savedCart);
+        }
+      }
     },
   }),
 );
