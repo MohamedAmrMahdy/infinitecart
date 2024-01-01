@@ -47,77 +47,92 @@ export class ProductsCarouselComponent {
   products = [
     {
       name: "Item One",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: [
+        'https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg'
+      ],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Two",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg",
+      images: [
+        'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg'
+      ],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Three",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg",
+      images: [
+        'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg',
+        'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 
+      ],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "lowstock"
     },
     {
       name: "Item Four",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: [
+        'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 
+        'https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 
+      ],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "nostock"
     },
     {
       name: "Item Five",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "nostock"
     },
     {
       name: "Item Six",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "nostock"
     },
     {
       name: "Item Seven",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Eight",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Nine",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Ten",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"
     },
     {
       name: "Item Eleven",
-      image: "https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg",
+      images: ["https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg"],
       description: "This is some very random description written as placeholder for each product lol",
       price: 9.99,
       inventoryStatus: "Stock"

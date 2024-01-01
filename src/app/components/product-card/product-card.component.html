@@ -1,17 +1,20 @@
-<div class="m-2 border-round">
-    <!-- <p-card header="{{product.name}}" subheader="{{'$' + product.price}}" class="m-3" [style]="{ width: '22.5rem' }"> -->
+<div class="m-2">
     <p-card class="m-3" [style]="{ width: '240px'} ">
         <ng-template pTemplate="header">
             <div class="relative">
-                <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" />
-                <div class="absolute top-100 right-0" style="transform: translate(-5%, 420%);">
+                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.images" [numVisible]="1"
+                    [numScroll]="1" [circular]="false">
+                    <ng-template let-product pTemplate="images">
+                        <img class="border-3 border-round" alt="{{product}}" src="{{product}}" />
+                    </ng-template>
+                </p-carousel>
+                <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
+                <div class="absolute top-100 right-0" style="transform: translate(-1%, 340%);">
                     <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.inventoryStatus)"
                         [severity]="getSeverity(product.inventoryStatus)" />
-                    <!-- <p-button label="Add to Cart" icon="pi pi-plus" [disabled]="disableChk(product.inventoryStatus)"
-                        [severity]="getSeverity(product.inventoryStatus)" /> -->
                 </div>
                 <div class="absolute top-0" style="transform: translate(380%, 10%);">
-                    <p-button icon="pi pi-heart"  [outlined]="true" [rounded]="true" severity="secondary" />
+                    <p-button icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
                 </div>
                 <div class="text-center">
                     <p-tag [value]="getStock(product.inventoryStatus)"
@@ -22,15 +25,5 @@
         <ng-template pTemplate="title">{{product.name}}</ng-template>
         <ng-template pTemplate="subtitle">{{'$' + product.price}}</ng-template>
         <ng-template pTemplate="content">{{product.description}}</ng-template>
-        <!-- <ng-template pTemplate="footer">
-            <div class="text-center ">
-                <p-tag [value]="getStock(product.inventoryStatus)"
-                    [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                <br>
-                <p-button label="Add to Cart" icon="pi pi-plus" [disabled]="disableChk(product.inventoryStatus)"
-                    [rounded]="false" [severity]="getSeverity(product.inventoryStatus)" />
-                <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
-            </div>
-        </ng-template> -->
     </p-card>
 </div>

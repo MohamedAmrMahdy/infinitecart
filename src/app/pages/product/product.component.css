@@ -11,3 +11,11 @@
   max-height: 2rem;
   max-width: 6rem;
 }
+
+.sellerCard{
+  width: 80rem;
+}
+
+.p-card .p-card-content {
+  padding: 0rem !important;
+}

@@ -2,18 +2,19 @@ import { Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CardModule, ButtonModule, TagModule],
+  imports: [CardModule, ButtonModule, TagModule, CarouselModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
 
 export class ProductCardComponent {
   @Input() product: any;
-
+  // images = ['https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg'];
 
   getStock(text: string) {
     if (text == "Stock")

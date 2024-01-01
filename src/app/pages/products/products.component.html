@@ -1,1 +1,114 @@
-<p>products works!</p>
+<!--Container For All-->
+<div class="container bg-blue-50 grid col-12">
+  <!--Container For Filter-->
+  <div class="filter mt-3 xl:col-2 lg:col-3 md:col-3 sm:col-12 col-12">
+    <div class="card flex justify-content-center">
+      <!--Using Accordion Component For Filter-->
+       <p-accordion [activeIndex]="0">
+         <p-accordionTab header="Filter">
+          <!--Filter For Price-->
+          <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Price">
+              <input class="w-3 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceRange1" type="text">
+              <span class="p-2 text-300">To</span>
+              <input class="w-3 border-300 border-solid border-1" [(ngModel)]="priceRange2" type="text">
+              <input class="cursor-pointer bg-white text-300" type="button" value="Go">
+            </p-accordionTab>
+          </p-accordion>
+          <!--Filter For Sellers-->
+          <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Sellers">
+              <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Egy Gamers" name="seller" value="EgyGamers" [(ngModel)]="seller"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="B-Tech" name="seller" value="B-Tech" [(ngModel)]="seller"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Original Stores" name="seller" value="OriginalStores" [(ngModel)]="seller"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Compu Touch" name="seller" value="CompuTouch" [(ngModel)]="seller"></p-checkbox>
+           </div>
+            </p-accordionTab>
+          </p-accordion>
+          <!--Filter For Brands-->
+          <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Brands">
+              <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Samsung" name="brand" value="Samsung" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Apple" name="brand" value="Apple" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="HP" name="brand" value="HP" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Lenovo" name="brand" value="Lenovo" [(ngModel)]="brand"></p-checkbox>
+           </div>
+            </p-accordionTab>
+          </p-accordion>
+          <!--Filter For Categories-->
+          <p-accordion [activeIndex]="0">
+            <p-accordionTab header="Categories">
+              <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Electronics" name="Category" value="Electronics" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Clothing" name="Category" value="Clothing" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Home" name="Category" value="Home" [(ngModel)]="brand"></p-checkbox>
+            </div>
+            <div class="flex align-items-center mt-2 mb-2">
+                <p-checkbox label="Toys" name="Category" value="Toys" [(ngModel)]="brand"></p-checkbox>
+           </div>
+            </p-accordionTab>
+          </p-accordion>
+      </p-accordionTab>
+  </p-accordion>
+</div>
+  </div>
+  <!--Cards Container-->
+  <div class="cards  xl:col-10 lg:col-9 md:col-9 sm:col-12 col-12">
+    <div class="grid">
+      <!--Select Products Data To Display In Card-->
+      @for(product of products; track product.id){
+        <div class="cards mt-3 xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12">
+          <!--Card Component-->
+          <div class="card flex justify-content-center">
+            <p-card header="{{product.name}}" subheader="{{product.desc}}"  [style]="{ width: '300px'}">
+               <!--Card Header Image-->
+                <ng-template pTemplate="header">
+                    <img class="img-card" alt="Card" src="{{product.image}}" />
+                </ng-template>
+                <!--Display Details like price, Seller Data and Rating-->
+                <div class="details-card">
+                  @for(listed of listed_products; track listed.id){
+                    @if(listed.product_id == product.id){
+                      <span>{{listed.price | currency}}</span>
+                      <div class="card flex justify-content-strat">
+                        <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
+                      </div>
+                      @for(seller of sellers; track seller.id){
+                        @if(seller.id == listed.seller_id){
+                          <div class="seller-Data">
+                            <img src="{{seller.image}}" width="40px" height="40px" class="border-circle vertical-align-middle">
+                            <span class="inline-block pl-3">{{seller.name}}</span>
+                          </div>
+                        }
+                      }
+                    }
+                  }
+                </div>
+                <!--Footer For The Card-->
+                <ng-template pTemplate="footer">
+                    <p-button label="Add To Cart" icon="pi pi-cart-plus"></p-button>
+                </ng-template>
+            </p-card>
+          </div>
+        </div>}
+    </div>
+  </div>
+</div>
