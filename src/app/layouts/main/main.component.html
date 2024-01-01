@@ -1,22 +1,9 @@
-<app-navbar/>
-<p-card header="Title" class="text-center">
-  <p class="m-0">
-      State Test Main : {{ mainStore.myVariable() }} , Computed : {{ mainStore.doubleMyVariable() }}
-  </p>
-  <p class="m-0">
-      State Test Products : {{ productsStore.myVariable() }} , Computed : {{ productsStore.doubleMyVariable() }}
-  </p>
-  <div class="card flex justify-content-center mt-5">
-    <p-button pRipple label="Reset Main" (click)="mainStore.reset()"></p-button>
-    <p-button pRipple label="Reset Products" class="ml-2" (click)="productsStore.reset()"></p-button>
-  </div>
-</p-card>
+<app-navbar />
 
 <div class="flex justify-content-center fullHeight">
-    <div class="w-11">
-      <router-outlet/>
-    </div>
+  <div class="w-11">
+    <router-outlet />
   </div>
+</div>
 
-
-<app-footer/>
+<app-footer />
