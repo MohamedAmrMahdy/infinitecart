@@ -11,13 +11,18 @@ import { MenuItem } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {ICountry} from '../../interfaces/Country';
 import {environment} from '../../../environments/environment'
+import { DialogModule } from 'primeng/dialog';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+
+
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [FormsModule , DropdownModule ,ReactiveFormsModule,
      InputTextModule, RadioButtonModule , CalendarModule,
-      FileUploadModule, MenuModule],
+      FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -34,6 +39,9 @@ export class ProfileComponent {
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
 
+  visible = false;
+  userPassword = 'Pa$$word122';
+
   profileForm = new FormGroup({
     fName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
     lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
@@ -44,6 +52,10 @@ export class ProfileComponent {
   })
 
   constructor (private http: HttpClient){
+  }
+
+  showDialog() {
+    this.visible = true;
   }
 
 // handle uploading image
@@ -64,8 +76,9 @@ fetchCountries() {
     'Authorization': `Bearer ${apiKey}`
   });
   
-  this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe(
-    (response: any) => {
+  this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
+    next:(response: any)=>{
+
       const countryList: any[] = response.data;
       console.log(countryList);
       countryList.forEach(countryData => {
@@ -76,12 +89,10 @@ fetchCountries() {
         };
         this.countries.push(country);
       });
-  
     },
-    error => {
-      console.error('Error fetching countries:', error);
-    }
-  );
+    error:(err)=> console.error('Error fetching countries:', err)
+   });
+
   
   console.log(this.countries);
   
