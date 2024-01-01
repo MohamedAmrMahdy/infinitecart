@@ -81,7 +81,7 @@
             <p-card header="{{product.name}}" subheader="{{product.desc}}"  [style]="{ width: '300px'}">
                <!--Card Header Image-->
                 <ng-template pTemplate="header">
-                    <img class="img-card" alt="Card" src="{{product.image}}" />
+                    <img class="img-card" alt="Card" src="{{product.image}}" routerLink="/products/1" />
                 </ng-template>
                 <!--Display Details like price, Seller Data and Rating-->
                 <div class="details-card">

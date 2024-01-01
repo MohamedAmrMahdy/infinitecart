@@ -6,11 +6,12 @@ import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [FormsModule,
+  imports: [RouterModule, FormsModule,
     CardModule,
   ButtonModule,
   RatingModule,
