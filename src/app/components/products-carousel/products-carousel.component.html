@@ -3,7 +3,7 @@
     <p-carousel [style]="{'transform': skewDir(sign) }" [showNavigators]="true" [value]="products" [numVisible]="6" [numScroll]="1" [circular]="false"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
-            <app-product-card [product]="product" />
+            <app-product-card [product]="product"/>
         </ng-template>
     </p-carousel>
 </div>
