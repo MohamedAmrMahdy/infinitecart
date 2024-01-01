@@ -15,6 +15,8 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
 
+
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -36,8 +38,10 @@ export class ProfileComponent {
   imgSrc:string = '';
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
+
   visible = false;
   userPassword = 'Pa$$word122';
+
   profileForm = new FormGroup({
     fName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
     lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
@@ -74,6 +78,7 @@ fetchCountries() {
   
   this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
     next:(response: any)=>{
+
       const countryList: any[] = response.data;
       console.log(countryList);
       countryList.forEach(countryData => {
@@ -87,6 +92,7 @@ fetchCountries() {
     },
     error:(err)=> console.error('Error fetching countries:', err)
    });
+
   
   console.log(this.countries);
   
