@@ -14,10 +14,6 @@ import { InputTextModule } from "primeng/inputtext";
 import { CardModule } from "primeng/card";
 import { MenubarModule } from 'primeng/menubar';
 
-// State Stores
-import { MainStore } from "../../stores/main.store";
-import { ProductsStore } from "../../stores/products.store";
-
 // Angular Components
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -40,12 +36,9 @@ import { FooterComponent } from '../../components/footer/footer.component';
     NavbarComponent,
     FooterComponent
   ],
-  providers: [MainStore, ProductsStore],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-  readonly mainStore = inject(MainStore);
-  readonly productsStore = inject(ProductsStore);
 
 }

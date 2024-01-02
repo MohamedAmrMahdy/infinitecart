@@ -9,8 +9,8 @@ export const authGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const email = localStorage.getItem("email");
-  if (!!email) {
+  let savedCurrentUser = JSON.parse(localStorage.getItem('userData') || "{}")
+  if (savedCurrentUser.sessionExpires && savedCurrentUser.sessionExpires > new Date().getTime()){
     return true;
   } else {
     return createUrlTreeFromSnapshot(next, ["/auth"]);

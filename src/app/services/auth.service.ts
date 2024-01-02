@@ -14,7 +14,6 @@ export class AuthService {
   login(email: string, password: string): Observable<IAuthUser> {
     return new Observable((observer) => {
       console.log('Simulated Request to', this.apiUrl + "/login");
-      localStorage.setItem('email', email);
       observer.next({email, password});
       observer.complete();
     });
@@ -23,7 +22,6 @@ export class AuthService {
   register(name:string, email: string, password: string): Observable<IAuthUser> {
     return new Observable((observer) => {
       console.log('Simulated Request to', this.apiUrl + "/register");
-      localStorage.setItem('email', email);
       observer.next({name, email, password});
       observer.complete();
     });

@@ -1,39 +1,73 @@
 import { computed } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
 import {
   signalStore,
   withState,
   patchState,
   withComputed,
-  withHooks,
   withMethods,
 } from '@ngrx/signals';
 
 export const ProductsStore = signalStore(
-  withState({ myVariable: 0 }),
-  // withComputed(({ myVariable }) => ({
-  //   doubleMyVariable: computed(() => myVariable() * 2),
-  // })),
-  // withMethods(({ myVariable, ...store }) => ({
-  //   increment() {
-  //     patchState(store, { myVariable: myVariable() + 1 });
-  //   },
-  //   decrement() {
-  //     patchState(store, { myVariable: myVariable() - 1 });
-  //   },
-  //   reset(){
-  //     patchState(store, { myVariable: 0 });
-  //   }
-  // })),
-  // withHooks({
-  //   onInit({ increment }) {
-  //     interval(1_000)
-  //       .pipe(takeUntilDestroyed())
-  //       .subscribe(() => increment());
-  //   },
-  //   onDestroy({ myVariable }) {
-  //     console.log('count on destroy', myVariable());
-  //   },
-  // }),
+  withState({
+    products: {},
+    productsFilters:{
+      minPrice: null,
+      maxPrice: null,
+      category: '',
+      brand: '',
+      seller: '',
+    }
+  }),
+  withComputed(({ products }) => ({
+    listedProducts: computed(() => {
+      // TODO
+      return products
+    }),
+    watchedProducts: computed(() => {
+      // TODO
+      return products
+    }),
+    phonesProducts: computed(() => {
+      // TODO
+      return products
+    }),
+    hatsProducts: computed(() => {
+      // TODO
+      return products
+    }),
+  })),
+  withMethods(({ products, productsFilters, ...store }) => ({
+    // PRODUCTS
+    refreshProducts() {
+      // TODO
+      //patchState(store, { products: {// TODO} });
+    },
+    addProduct() {
+      // TODO
+      //patchState(store, { products: {// TODO} });
+    },
+    removeProduct() {
+      // TODO
+      //patchState(store, { products: {// TODO} });
+    },
+    // PRODUCTS LIST COMPUTED
+    resetProductsFilters() {
+      patchState(store, { productsFilters: {
+        minPrice: null,
+        maxPrice: null,
+        category: '',
+        brand: '',
+        seller: '',
+      }});
+    },
+    updateProductsFilters(newProductsFilters) {
+      patchState(store, { productsFilters: {
+        minPrice: newProductsFilters.minPrice || productsFilters.minPrice,
+        maxPrice: newProductsFilters.maxPrice || productsFilters.maxPrice,
+        category: newProductsFilters.category || productsFilters.category,
+        brand: newProductsFilters.brand || productsFilters.brand,
+        seller: newProductsFilters.seller || productsFilters.seller,
+      }});
+    },
+  })),
 );
