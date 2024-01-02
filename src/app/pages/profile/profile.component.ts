@@ -41,6 +41,7 @@ export class ProfileComponent {
 
   visible = false;
   userEmail = 'johnDoe@gmail';
+
   userPassword = 'Pa$$word122';
 
   profileForm = new FormGroup({

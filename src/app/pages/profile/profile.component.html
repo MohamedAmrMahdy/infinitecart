@@ -92,6 +92,7 @@
             <p class="text-400 my-0 uppercase">Don't share your account data</p>
           </div>
 
+
         <div class="lg:flex items-center" >
             <div class="field lg:col-3 sm:12 pl-0 ">
                 <label for="email">Email</label>
@@ -103,15 +104,21 @@
             </div>
             
             <div class="field lg:col-3 sm:12 "  >
+
                 <label for="password">Password</label>
                 <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">           
             </div>
         
             <div class="field lg:col-3 sm:12 mb-0 p-0 lg:ml-3 lg:mb-0 w-auto h-min sm:ml-0 sm:mb-3 md:mb-3"  style="align-self:center;">
+            
+
                 <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
                 <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">                    
 
                     <div class="field">
+                        <!-- <label for="oldPassword">Old Password</label> -->
+                        <!-- <input id="oldPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
+
                         <span class="p-float-label">
                             <p-password [feedback]="false" [toggleMask]="true"></p-password>
                             <label for="password">Old Password</label>
@@ -136,10 +143,12 @@
                             </ng-template>
                     </p-password>
                     <label for="password">New Password</label>
+
                     </span>                       
                     </div>
                 
                     <div class="field w-full mt-4">
+
                         <span class="p-float-label">
                             <p-password [toggleMask]="true" [feedback]="false"></p-password>
                             <label for="password">Confirm Password</label>
