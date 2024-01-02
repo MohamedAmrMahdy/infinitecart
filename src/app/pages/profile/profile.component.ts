@@ -37,11 +37,12 @@ export class ProfileComponent {
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
   visible = false;
+  userEmail = 'johnDoe@gmail';
   userPassword = 'Pa$$word122';
   profileForm = new FormGroup({
     fName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
     lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
-    email:new FormControl(null,[Validators.required, Validators.email]),
+    email:new FormControl({ value: this.userEmail, disabled: true },  [Validators.required, Validators.email]),
     address:new FormControl(null,[Validators.required, Validators.minLength(20)]),
     country:new FormControl(null),
     phone:new FormControl('')

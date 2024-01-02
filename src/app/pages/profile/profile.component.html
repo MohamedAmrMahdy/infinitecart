@@ -95,7 +95,7 @@
         <div class="lg:flex items-center" >
             <div class="field lg:col-3 sm:12 pl-0 ">
                 <label for="email">Email</label>
-                <input id="email" formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                <input id="email"  formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
                     <p class = "error" style="color: red;">{{emailValMsg}}</p>
                    <!-- <br><br> <span class = "error" style="color: red;">{{emailValMsg}}</span> -->
