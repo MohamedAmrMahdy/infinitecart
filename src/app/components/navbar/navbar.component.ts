@@ -10,6 +10,7 @@ import { RouterLinkActive, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,13 @@ import { AvatarModule } from 'primeng/avatar';
             DropdownModule,
             RouterModule,
             RouterLinkActive,
-            InputTextModule,FormsModule,MenubarModule,CommonModule,ButtonModule,AvatarModule
+            InputTextModule,
+            FormsModule,
+            MenubarModule,
+            CommonModule,
+            ButtonModule,
+            AvatarModule,
+            OverlayPanelModule
           ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -38,132 +45,66 @@ export class NavbarComponent {
       this.Mode = "Dark";
       this.classIcon="fa-moon"
       this.colorIcon = "white"
-      // --var(--BACKGROUND) = "black !important";
     }else{
       this.Mode = "Light";
       this.classIcon="fa-sun"
       this.colorIcon="goldenrod"
-
     }
   }
-  // items: MenuItem[] | undefined;
-  // ngOnInit(){
-  //   this.items = [
-  //     {
-  //       label: '<a routerLink="/products">Home</a>',
-  //       // icon: "pi pi-fw pi-file",
-  //       styleClass:"col-2 ",
-
-  //       // items: [
-  //       //   {
-  //       //     label: "New",
-  //       //     icon: "pi pi-fw pi-plus",
-  //       //   },
-  //       //   {
-  //       //     label: "Delete",
-  //       //     icon: "pi pi-fw pi-trash",
-  //       //   },
-  //       //   {
-  //       //     separator: true,
-  //       //   },
-  //       //   {
-  //       //     label: "Export",
-  //       //     icon: "pi pi-fw pi-external-link",
-  //       //   },
-  //       // ],
-  //     },
-  //     {
-  //       label: "Edit",
-  //       icon: "pi pi-fw pi-pencil",
-  //       items: [
-  //         {
-  //           label: "Left",
-  //           icon: "pi pi-fw pi-align-left",
-  //         },
-  //         {
-  //           label: "Right",
-  //           icon: "pi pi-fw pi-align-right",
-  //         },
-  //         {
-  //           label: "Center",
-  //           icon: "pi pi-fw pi-align-center",
-  //         },
-  //         {
-  //           label: "Justify",
-  //           icon: "pi pi-fw pi-align-justify",
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       label: "Users",
-  //       icon: "pi pi-fw pi-user",
-  //       items: [
-  //         {
-  //           label: "New",
-  //           icon: "pi pi-fw pi-user-plus",
-  //         },
-  //         {
-  //           label: "Delete",
-  //           icon: "pi pi-fw pi-user-minus",
-  //         },
-  //         {
-  //           label: "Search",
-  //           icon: "pi pi-fw pi-users",
-  //           items: [
-  //             {
-  //               label: "Filter",
-  //               icon: "pi pi-fw pi-filter",
-  //               items: [
-  //                 {
-  //                   label: "Print",
-  //                   icon: "pi pi-fw pi-print",
-  //                 },
-  //               ],
-  //             },
-  //             {
-  //               icon: "pi pi-fw pi-bars",
-  //               label: "List",
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       label: "Events",
-  //       icon: "pi pi-fw pi-calendar",
-  //       items: [
-  //         {
-  //           label: "Edit",
-  //           icon: "pi pi-fw pi-pencil",
-  //           items: [
-  //             {
-  //               label: "Save",
-  //               icon: "pi pi-fw pi-calendar-plus",
-  //             },
-  //             {
-  //               label: "Delete",
-  //               icon: "pi pi-fw pi-calendar-minus",
-  //             },
-  //           ],
-  //         },
-  //         {
-  //           label: "Archieve",
-  //           icon: "pi pi-fw pi-calendar-times",
-  //           items: [
-  //             {
-  //               label: "Remove",
-  //               icon: "pi pi-fw pi-calendar-minus",
-  //             },
-  //           ],
-  //         },
-  //       ],
-  //     },
-  //     {
-  //       label: "Quit",
-  //       icon: "pi pi-fw pi-power-off",
-  //     },
-  //   ];
-  // }
-
+  cartItems:{id:number,name:string,price:number,quantity:number,img:string}[] = [
+    {
+      id:1,
+      name:"IPhone 11 pro Max 256 GB",
+      img:"../../../assets/images cart/mobile.jpg",
+      price:1_250,
+      quantity:3
+    },
+    {
+      id:2,
+      name:"Electronic Device",
+      img:"../../../assets/images cart/electronics.webp",
+      price:7_250,
+      quantity:1
+    },
+    {
+      id:3,
+      name:"T_Shirt",
+      img:"../../../assets/images cart/men.webp",
+      price:500,
+      quantity:10
+    },
+    {
+      id:4,
+      name:"T_Shirt",
+      img:"../../../assets/images cart/mobile.jpg",
+      price:500,
+      quantity:10
+    },
+    {
+      id:5,
+      name:"T_Shirt",
+      img:"../../../assets/images cart/men.webp",
+      price:500,
+      quantity:10
+    },
+    {
+      id:6,
+      name:"T_Shirt",
+      img:"../../../assets/images cart/men.webp",
+      price:500,
+      quantity:10
+    },
+  ]
+  subtotal:any = this.getTotal();
+  getTotal(){
+    let sum = 0;
+    for (let i = 0; i < this.cartItems.length; i++) {
+      if(this.cartItems[i].id <= 4)
+        sum += +this.cartItems[i].price * this.cartItems[i].quantity
+    }
+    return sum;
+  }
 
 }
+
+
