@@ -2,6 +2,9 @@ const fs = require('fs');
 const products = require('./products.json');
 const users = require('./users.json');
 
+const bcrypt = require('bcryptjs');
+const SALT_LENGTH = 10
+
 let myUsers = [
     ...users.map((user)=>{
         return {
@@ -13,7 +16,7 @@ let myUsers = [
             birthDate: user.birthDate,
             phone: user.phone,
             email: user.email,
-            password: user.password,
+            password: bcrypt.hashSync(user.password, SALT_LENGTH),
             address: {
                 address: user.address.address,
                 country: 'USA',
