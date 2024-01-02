@@ -11,6 +11,16 @@
   z-index: 1000;
 }
 
+.btn-cart{
+  border: 5px solid var(--primary-color);
+  background-color: white;
+  color: black;
+}
+.move-dropdown {
+  position: relative;
+  right: 20px;
+  top: 10px;
+}
 .move_icon .icon{
   position: relative;
   right: 25px;

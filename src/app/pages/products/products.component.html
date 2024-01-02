@@ -75,13 +75,13 @@
   </div>
   <!--Cards Container-->
   <div class="cards  xl:col-10 lg:col-9 md:col-9 sm:col-12 col-12">
-    <div class="grid">
+    <div class="flex flex-wrap gap-3 lg:gap-7 md:gap-3  xl:gap-3 xl:justify-content-start lg:justify-content-start md:justify-content-center sm:justify-content-center justify-content-center">
       <!--Select Products Data To Display In Card-->
       @for(product of products; track product.id){
-        <div class="cards mt-3 xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12">
+        <div class=" cards mt-3">
           <!--Card Component-->
-          <div class="card flex justify-content-center">
-            <p-card header="{{product.name}}" subheader="{{product.desc}}"  [style]="{ width: '300px'}">
+          <div class="card flex justify-content-center ">
+            <p-card header="{{product.name}}" subheader="{{product.desc}}"  [style]="{ width: '270px'}">
                <!--Card Header Image-->
                 <ng-template pTemplate="header">
                     <img class="img-card" alt="Card" src="{{product.image}}" routerLink="/products/1" />
