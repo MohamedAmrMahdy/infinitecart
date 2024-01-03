@@ -29,8 +29,8 @@ export class AuthService {
   }
 
   register(name:string, email: string, password: string): Observable<any> {
-    let firstName = name.split(' ').slice(0, -1).join(' ');
-    let lastName = name.split(' ').slice(-1).join(' ');
+    let firstName = name.split(' ').slice(0, 1).join(' ');
+    let lastName = name.split(' ').slice(1).join(' ');
     return this.http.post(AUTH_API + 'register', {
       image: "",
       firstName,
