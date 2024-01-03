@@ -1,9 +1,19 @@
-<p-carousel [autoplayInterval]="3000" [showNavigators]="true" [showIndicators]="false" [value]="data" [numVisible]="1"
+<!-- <p-carousel [autoplayInterval]="3000" [showNavigators]="true" [showIndicators]="false" [value]="data" [numVisible]="1"
     [numScroll]="1" [circular]="false">
-    <ng-template let-item pTemplate="item">
-        <!-- <div class=" border-1 surface-border border-round m-2 text-center py-5 px-3"> -->
-        <div class="mb-3 ">
+    <ng-template let-item pTemplate="item"> -->
+<!-- <div class=" border-1 surface-border border-round m-2 text-center py-5 px-3"> -->
+<!-- <div class="mb-3 ">
             <a href="{{item.dest}}"><img src="{{ item.image }}" [alt]="item.name" /></a>
         </div>
     </ng-template>
-</p-carousel>
+</p-carousel> -->
+
+<p-galleria [value]="data" [showIndicators]="false" [showThumbnails]="false" [autoPlay]="true"
+    [showItemNavigators]="true" [circular]="true" [transitionInterval]="3000"
+    [containerStyle]="{ 'max-width': '100%' }">
+    <ng-template pTemplate="item" let-item>
+        <a routerLink="{{item.dest}}">
+            <img [src]="item.image" style="width: 100%; display: block;" class="mb-5" />
+        </a>
+    </ng-template>
+</p-galleria>
