@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-// import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { GalleriaModule } from 'primeng/galleria';
