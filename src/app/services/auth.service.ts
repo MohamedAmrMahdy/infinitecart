@@ -1,29 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IAuthUser } from '../interfaces/auth';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+const AUTH_API = 'http://localhost:3000/';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3030';
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
 
-  constructor() { }
-
-  login(email: string, password: string): Observable<IAuthUser> {
-    return new Observable((observer) => {
-      console.log('Simulated Request to', this.apiUrl + "/login");
-      observer.next({email, password});
-      observer.complete();
-    });
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('accessToken');
+    return !this.jwtHelper.isTokenExpired(token);
   }
 
-  register(name:string, email: string, password: string): Observable<IAuthUser> {
-    return new Observable((observer) => {
-      console.log('Simulated Request to', this.apiUrl + "/register");
-      observer.next({name, email, password});
-      observer.complete();
-    });
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(AUTH_API + 'login', {
+      email,
+      password,
+    }, httpOptions);
+    // return new Observable((observer) => {
+    //   console.log('Simulated Request to', AUTH_API + "/login");
+    //   observer.next({email, password});
+    //   observer.complete();
+    // });
   }
+
+  register(name:string, email: string, password: string): Observable<any> {
+    let firstName = name.split(' ').slice(0, -1).join(' ');
+    let lastName = name.split(' ').slice(-1).join(' ');
+    return this.http.post(AUTH_API + 'register', {
+      image: "",
+      firstName,
+      lastName,
+      gender: "male",
+      birthDate: "",
+      phone: "",
+      email,
+      password,
+      address: {
+        address: "",
+        country: "",
+        city: "",
+        state: "",
+        postalCode: ""
+      },
+    }, httpOptions);
+    // return new Observable((observer) => {
+    //   console.log('Simulated Request to', AUTH_API + "/register");
+    //   observer.next({name, email, password});
+    //   observer.complete();
+    // });
+  }
+
 }

@@ -5,45 +5,45 @@ import {
   withHooks,
   withMethods,
 } from '@ngrx/signals';
-
-const SESSION_TIME_IN_MINUTES = 60;
+import { AuthService } from '../services/auth.service';
+import { inject } from '@angular/core';
 
 export const AuthStore = signalStore(
-  withState({ currentUser: {} }),
+  withState({ currentUser: {}, token: "" }),
   withMethods(({ currentUser, ...store }) => ({
-    login(user) {
-      //Update currentUser State
-      //Check if old saved data
+    login(user, token) {
       let loginUser = {
         ...user
       }
-      if(!user.sessionExpires) {
-        loginUser.sessionExpires = new Date(new Date().getTime() + (SESSION_TIME_IN_MINUTES*60000)).getTime().toString()
-        loginUser.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFzZEBhc2Rhc2QuYXNkYXNkIiwibmFtZSI6ImFzZGFzZCBhc2Rhc2QiLCJzZXNzaW9uRXhwaXJlcyI6MTcwNDEzNTU4NDY0M30.Tvf3vOs4UJ0vagUEwuvqT90CzmmlIctTZCR1406kBRQ"
-      }
+
       patchState(store, {
         currentUser: loginUser
       });
-      //Save Data To Local Storage
+
+      localStorage.setItem('accessToken', token);
       localStorage.setItem('userData', JSON.stringify({
         ...loginUser
-      }) );
+      }));
     },
     logout() {
       patchState(store, {
-        currentUser: {}
+        currentUser: {},
+        token: ""
       });
+      localStorage.removeItem('accessToken')
       localStorage.removeItem('userData')
     },
   })),
   withHooks({
-    onInit({ currentUser, logout, login }) {
-      if (!currentUser){
+    onInit({ currentUser, token, logout, login }) {
+      const authService = inject(AuthService)
+      if (!currentUser || !token){
+        let accessToken = localStorage.getItem('accessToken')
         let savedCurrentUser = JSON.parse(localStorage.getItem('userData') || "{}")
-        if (savedCurrentUser.sessionExpires && savedCurrentUser.sessionExpires < new Date().getTime()){
+        if (!authService.isAuthenticated()){
           logout()
         }else{
-          login(savedCurrentUser)
+          login(savedCurrentUser, accessToken)
         }
       }
     },

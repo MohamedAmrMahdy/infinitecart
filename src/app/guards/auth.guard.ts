@@ -1,16 +1,18 @@
+import { inject } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
   RouterStateSnapshot,
   createUrlTreeFromSnapshot,
 } from "@angular/router";
+import { AuthService } from "../services/auth.service";
 
 export const authGuard: CanActivateFn = (
   next: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  let savedCurrentUser = JSON.parse(localStorage.getItem('userData') || "{}")
-  if (savedCurrentUser.sessionExpires && savedCurrentUser.sessionExpires > new Date().getTime()){
+  const authService = inject(AuthService)
+  if (authService.isAuthenticated()){
     return true;
   } else {
     return createUrlTreeFromSnapshot(next, ["/auth"]);

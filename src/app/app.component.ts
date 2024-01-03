@@ -1,4 +1,5 @@
 // Angular Modules
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -10,6 +11,7 @@ import { PrimeNGConfig } from "primeng/api";
   standalone: true,
   imports: [
     RouterOutlet,
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

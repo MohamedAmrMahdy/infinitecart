@@ -10,8 +10,8 @@ import { AuthStore } from "../../stores/auth.store";
 @Component({
   selector: "app-auth",
   standalone: true,
-  imports: [ReactiveFormsModule, CardModule, InputTextModule, ButtonModule],
-  providers: [AuthStore],
+  imports: [ ReactiveFormsModule, CardModule, InputTextModule, ButtonModule],
+  providers: [AuthStore, AuthService],
   templateUrl: "./auth.component.html",
   styleUrl: "./auth.component.css",
 })
@@ -59,36 +59,28 @@ export class AuthComponent {
 
   loginUser() {
     const { email, password } = this.loginForm.value;
-    this.authService.login(email as string, password as string).subscribe(
-      (response) => {
-        this.authStore.login({
-          email:response.email,
-          name: 'Mohamed'
-        })
-        console.log(`Email: ${response.email}, Password: ${response.password}`)
+    this.authService.login(email as string, password as string).subscribe({
+      next: response => {
+        this.authStore.login(response.user, response.accessToken)
         this.router.navigate(["/"]);
       },
-      (err) => {
+      error: err => {
         console.log(err);
       }
-    );
+    });
   }
 
   registerUser() {
     const { name, email, password } = this.loginForm.value;
-    this.authService.register(name as string, email as string, password as string).subscribe(
-      (response) => {
-        this.authStore.login({
-          email: response.email,
-          name: response.name
-        })
-        console.log(`Name: ${response.name}, Email: ${response.email}, Password: ${response.password}`)
+    this.authService.register(name as string, email as string, password as string).subscribe({
+      next: response => {
+        this.authStore.login(response.user, response.accessToken)
         this.router.navigate(["/"]);
       },
-      (err) => {
+      error: err => {
         console.log(err);
       }
-    );
+    });
   }
 
   toggleLogin(){
