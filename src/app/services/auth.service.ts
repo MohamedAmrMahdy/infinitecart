@@ -26,11 +26,6 @@ export class AuthService {
       email,
       password,
     }, httpOptions);
-    // return new Observable((observer) => {
-    //   console.log('Simulated Request to', AUTH_API + "/login");
-    //   observer.next({email, password});
-    //   observer.complete();
-    // });
   }
 
   register(name:string, email: string, password: string): Observable<any> {
@@ -53,11 +48,6 @@ export class AuthService {
         postalCode: ""
       },
     }, httpOptions);
-    // return new Observable((observer) => {
-    //   console.log('Simulated Request to', AUTH_API + "/register");
-    //   observer.next({name, email, password});
-    //   observer.complete();
-    // });
   }
 
 }
