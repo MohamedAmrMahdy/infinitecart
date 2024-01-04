@@ -7,7 +7,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductsService } from '../../services/products.service';
+import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 
 @Component({
   selector: 'app-product',
@@ -20,19 +22,41 @@ import { ActivatedRoute } from '@angular/router';
     AvatarModule,
     TagModule,
     ButtonModule,
-    CardModule
+    CardModule,
+    PriceFormatPipe
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent {
-  rating: number = 4;
+  rating: number = 0;
   productId: number = 1;
-
-  constructor(private myRoute:ActivatedRoute){
+  product: any;
+  otherSellers: any;
+  constructor(private myRoute:ActivatedRoute, private productsService:ProductsService, private router:Router){
     this.productId = myRoute.snapshot.params['id']
   }
   ngOnInit(){
-    console.log(this.productId)
+    this.productsService.getProductById(this.productId).subscribe({
+      next: response => {
+        this.product = response;
+        this.productsService.getProductsById(this.product[0].product.id).subscribe({
+          next: response => {
+            this.otherSellers = response;
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      },
+      error: err => {
+        this.router.navigate(["/products"]);
+        console.log(err);
+      }
+    });
+  }
+  goToProduct(id:number){
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(["/products/"+id])});
   }
 }

@@ -31,5 +31,15 @@ export class ProductsService{
     return this.products.get(this.DB_URL, {params: queryParams});
   }
 
+  getProductById(id:number) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("id", id);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
 
+  getProductsById(id:number) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("product.id", id);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
 }

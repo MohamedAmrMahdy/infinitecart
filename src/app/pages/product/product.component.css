@@ -18,3 +18,7 @@
 .p-card .p-card-content {
   padding: 0rem !important;
 }
+
+.sameSeller {
+  box-shadow: 0px 0px 11px 0px #4678cdd4;
+}
