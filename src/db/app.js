@@ -115,13 +115,18 @@ let productCounter = 1;
 mySellers.forEach((seller)=>{
     let numOfProducts = Math.floor(Math.random() * Math.floor(myMetaProducts.length*0.1))
     while (numOfProducts > 0){
+      let discount = 0;
+      if (Math.random() > 0.5) {
+        discount =  Number(Math.random().toFixed(2));
+      }
         myListedProducts.push({
             id: productCounter,
             seller: seller,
             product: myMetaProducts[Math.floor(Math.random() * Math.floor(myMetaProducts.length))],
             stock: Math.floor(Math.random() * 1000) + 1,
             price: Math.floor(Math.random() * 100000) + 1,
-            rating: Number((Math.random() * 10).toFixed(1))
+            rating: Number((Math.random() * 10).toFixed(1)),
+            discount
         })
         numOfProducts -= 1;
         productCounter += 1;
