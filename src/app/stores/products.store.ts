@@ -72,21 +72,5 @@ export const ProductsStore = signalStore(
       }});
     },
   })),
-  withHooks({
-    onInit(store) {
-      const productsService = inject(ProductsService)
-      productsService.getAllSellers().subscribe(res => {
-        patchState(store,res)
-      },)
-      productsService.getAllListedProducts().subscribe(res => {
-        patchState(store,res)
-    },)
-
-    productsService.getProducts().subscribe(res => {
-      patchState(store,res)
-  },)
-
-
-    },
-  }),
+  
 );
