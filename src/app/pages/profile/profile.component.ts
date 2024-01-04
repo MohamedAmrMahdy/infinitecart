@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormControl,FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import {environment} from '../../../environments/environment'
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
+import { AuthStore } from '../../stores/auth.store';
 
 
 
@@ -23,12 +24,15 @@ import { DividerModule } from 'primeng/divider';
   imports: [FormsModule , DropdownModule ,ReactiveFormsModule,
      InputTextModule, RadioButtonModule , CalendarModule,
       FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
+  providers:[AuthStore],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 
 
 export class ProfileComponent {
+  readonly authStore = inject(AuthStore)
+  currentUser = this.authStore.currentUser() as any
   items?:MenuItem[];
   fromSubmitted = false;
   fNameValMsg="min length of first name is 3 litters";
@@ -40,14 +44,12 @@ export class ProfileComponent {
   countries: ICountry[] = [];
 
   visible = false;
-  userEmail = 'johnDoe@gmail';
-
   userPassword = 'Pa$$word122';
 
   profileForm = new FormGroup({
-    fName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
-    lName:new FormControl(null,[Validators.required, Validators.minLength(3)]),
-    email:new FormControl({ value: this.userEmail, disabled: true },  [Validators.required, Validators.email]),
+    fName:new FormControl(this.currentUser.firstName, [Validators.required, Validators.minLength(3)]),
+    lName:new FormControl(this.currentUser.lastName, [Validators.required, Validators.minLength(3)]),
+    email:new FormControl({ value: this.currentUser.email, disabled: true },  [Validators.required, Validators.email]),
     address:new FormControl(null,[Validators.required, Validators.minLength(20)]),
     country:new FormControl(null),
     phone:new FormControl('')
@@ -77,7 +79,7 @@ fetchCountries() {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${apiKey}`
   });
-  
+
   this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
     next:(response: any)=>{
 
@@ -95,9 +97,9 @@ fetchCountries() {
     error:(err)=> console.error('Error fetching countries:', err)
    });
 
-  
+
   console.log(this.countries);
-  
+
 }
 
 
@@ -120,22 +122,22 @@ selectedCountryHandler(event:any) {
 
 // handle form validations
 
-  get isfirstNameValid(){    
+  get isfirstNameValid(){
     return this.profileForm.controls.fName.valid
   }
-  
+
 
   get isLastNameValid(){
-    
+
     return this.profileForm.controls.lName.valid
   }
 
- 
+
   get isEmailValid(){
     return this.profileForm.controls.email.valid
   }
 
-  
+
 
   get isSubmitted(){
     return this.fromSubmitted;
@@ -147,15 +149,15 @@ selectedCountryHandler(event:any) {
   }
 
   get lastNameValChanged() {
-    
+
     return this.profileForm.controls.lName.dirty;
   }
-  
+
   get emailValChanged() {
     return this.profileForm.controls.email.dirty;
 
   }
-  
+
 
   // handle form subimission
   submitProfileData(){
@@ -163,7 +165,7 @@ selectedCountryHandler(event:any) {
     if(this.profileForm.valid){
       console.log(this.profileForm);
       this.profileForm.reset();
-      this.fromSubmitted = false;              
+      this.fromSubmitted = false;
     }
     else {
       console.log('invalid')
@@ -179,7 +181,6 @@ selectedCountryHandler(event:any) {
 
 
 ngOnInit(){
-
   this.items = [
     {
       label: "Profile",
@@ -206,7 +207,7 @@ ngOnInit(){
 
 this.fetchCountries();
 
-} 
+}
 
 }
 

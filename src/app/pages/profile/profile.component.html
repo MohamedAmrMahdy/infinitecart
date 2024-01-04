@@ -14,7 +14,7 @@
                 <p class="text-400 my-0 uppercase">Please provide your correct information</p>
               </div>
 
-          
+
             <div class="field col-12 md:col-6">
                 <label for="firstname6">Firstname</label>
                 <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -38,9 +38,9 @@
                     </ng-template>
                 </p-calendar>
             </div>
-          
 
-            
+
+
 
             <div class="field col-12">
                 <label for="address">Address</label>
@@ -102,18 +102,18 @@
                    <!-- <br><br> <span class = "error" style="color: red;">{{emailValMsg}}</span> -->
                 }
             </div>
-            
+
             <div class="field lg:col-3 sm:12 "  >
 
                 <label for="password">Password</label>
-                <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">           
+                <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
             </div>
-        
+
             <div class="field lg:col-3 sm:12 mb-0 p-0 lg:ml-3 lg:mb-0 w-auto h-min sm:ml-0 sm:mb-3 md:mb-3"  style="align-self:center;">
-            
+
 
                 <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
-                <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">                    
+                <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">
 
                     <div class="field">
                         <!-- <label for="oldPassword">Old Password</label> -->
@@ -125,8 +125,8 @@
 
                         </span>
                     </div>
-                                                        
-                    <div class="field"> 
+
+                    <div class="field">
                         <span class="p-float-label">
 
                         <p-password [toggleMask]="true">
@@ -144,9 +144,9 @@
                     </p-password>
                     <label for="password">New Password</label>
 
-                    </span>                       
+                    </span>
                     </div>
-                
+
                     <div class="field w-full mt-4">
 
                         <span class="p-float-label">
@@ -165,10 +165,10 @@
         </div>
 
 
-       
 
 
-        
+
+
         <p-button
         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 w-10rem h-4rem" label="Submit" size="large"
@@ -176,7 +176,7 @@
     </form>
 </div>
 </div>
-<!-- 
+<!--
 <div class="grid mt-5 mb-5">
 
 <div class="field sm:col-12 md:col-6 lg:col-3">
@@ -189,7 +189,7 @@
 
 <div class="field sm:col-12 md:col-6 lg:col-3">
     <label for="password">Password</label>
-    <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">           
+    <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
 </div>
 
 <div class="field sm:col-12 md:col-6 lg:col-3">
