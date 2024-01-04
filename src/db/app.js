@@ -121,7 +121,7 @@ mySellers.forEach((seller)=>{
             product: myMetaProducts[Math.floor(Math.random() * Math.floor(myMetaProducts.length))],
             stock: Math.floor(Math.random() * 1000) + 1,
             price: Math.floor(Math.random() * 100000) + 1,
-            speed: Number((Math.random() * 10).toFixed(1))
+            rating: Number((Math.random() * 10).toFixed(1))
         })
         numOfProducts -= 1;
         productCounter += 1;
