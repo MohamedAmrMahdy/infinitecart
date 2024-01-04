@@ -42,4 +42,15 @@ export class ProductsService{
     queryParams = queryParams.append("product.id", id);
     return this.products.get(this.DB_URL, {params: queryParams});
   }
+
+  getProductsByPrice(start:number,end:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("price_gte",start);
+    queryParams = queryParams.append("price_lte",end);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
+
+  getCategories(): Observable<any>{
+    return this.products.get('http://localhost:3000/categories');
+  }
 }

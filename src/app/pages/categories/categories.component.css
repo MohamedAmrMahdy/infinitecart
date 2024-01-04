@@ -1,0 +1,21 @@
+.categoryImg {
+    height: 9.25vh;
+}
+
+.categoryList { visibility: hidden; }
+
+.categoryList > * { visibility: visible; }
+
+.categoryList > * { transition: opacity 150ms linear 100ms, transform 150ms ease-in-out 100ms; }
+
+.categoryList:hover > * { opacity: 0.2; transform: scale(0.9); }
+
+.categoryList > *:hover { opacity: 1; transform: scale(1); transition-delay: 0ms, 0ms; }
+
+h3 {
+    /* position: absolute; */
+    /* top: 75%; */
+    margin-top: -30px;
+    /* padding-top: -20px; */
+    white-space: nowrap;
+}

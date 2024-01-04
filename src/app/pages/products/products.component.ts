@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit{
   seller:string[] = ['']; //for select sellers and brands to filter
   brand:string[] = [''];
   products:any;
+  categories:any;
 
   constructor(private productService:ProductsService){}
 
@@ -32,6 +33,15 @@ export class ProductsComponent implements OnInit{
     this.productService.getProducts().subscribe({
       next:(data)=>{this.products = data},
       complete:()=>{console.log(this.products)}
+    })
+    this.productService.getCategories().subscribe({
+      next:(data)=>{this.categories = data},
+    })
+  }
+
+  filterForPrice(){
+    this.productService.getProductsByPrice(this.priceRange1,this.priceRange2).subscribe({
+      next:(data) => {this.products = data},
     })
   }
 }

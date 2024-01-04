@@ -13,7 +13,7 @@
               <input class="w-3 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceRange1" type="text">
               <span class="p-2 text-300">To</span>
               <input class="w-3 border-300 border-solid border-1" [(ngModel)]="priceRange2" type="text">
-              <input class="cursor-pointer bg-white text-300" type="button" value="Go">
+              <input class="cursor-pointer bg-white text-300" type="button" value="Go" (click)="filterForPrice()">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Sellers-->

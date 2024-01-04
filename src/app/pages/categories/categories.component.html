@@ -1,1 +1,21 @@
-<p>categories works!</p>
+<div class="mt-3 flex flex-row flex-wrap gap-4 justify-content-center categoryList">
+    @for (category of categories; track category.id) {
+
+    <div routerLink="/" class="categoryItem relative w-max center-text cursor-pointer">
+        @if (category.image) {
+        <img class="categoryImage" src="{{category.image}}">
+        }
+        @else {
+        <!-- <img class="categoryImage" src="https://i.ibb.co/5L0MjSW/broken.png"> -->
+        <img class="categoryImage" src="https://i.ibb.co/Sr61W61/broken.png">
+        <h3 class="text-center">{{category.name}}</h3>
+        }
+    </div>
+
+    }
+    <div>
+        <div routerLink="/products" class="categoryItem w-max center-text cursor-pointer">
+            <img class="categoryImage" src="https://i.ibb.co/5RQ2KvN/view-all.png">
+        </div>
+    </div>
+</div>
