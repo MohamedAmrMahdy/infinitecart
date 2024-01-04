@@ -41,16 +41,50 @@ let mySellers = [
     })
 ];
 
+let uniqueCategories = [...new Set([
+  ...products.map((product)=>{
+      return product.category
+  })
+])];
+
+let myCategories = [
+    ...uniqueCategories.map((category, id)=>{
+        return {
+            id: id,
+            image: "",
+            name: category,
+            desc: ""
+        }
+    })
+];
+
+let uniqueBrands = [...new Set([
+  ...products.map((product)=>{
+      return product.brand
+  })
+])];
+
+let myBrands = [
+  ...uniqueBrands.map((brand, id)=>{
+      return {
+          id: id,
+          image: "",
+          name: brand,
+          desc: ""
+      }
+  })
+];
+
 let productColors = ['Red', 'Blue', 'Black', 'Gold', 'Silver'];
-let myProducts = [
+let myMetaProducts = [
     ...products.map((product)=>{
         return {
             id: product.id,
             thumbnail: product.thumbnail,
             title: product.title,
             description: product.description,
-            category: product.category,
-            brand: product.brand,
+            category: myCategories.find((category) => category.name == product.category),
+            brand: myBrands.find((brand) => brand.name == product.brand),
             details: [
                 {
                     title: "Weight",
@@ -71,49 +105,16 @@ let myProducts = [
     })
 ];
 
-let uniqueCategories = [...new Set([
-    ...products.map((product)=>{
-        return product.category
-    })
-])];
-
-let myCategories = [
-    ...uniqueCategories.map((category, id)=>{
-        return {
-            id: id,
-            image: "",
-            name: category,
-            desc: ""
-        }
-    })
-];
-
-let uniqueBrands = [...new Set([
-    ...products.map((product)=>{
-        return product.brand
-    })
-])];
-
-let myBrands = [
-    ...uniqueBrands.map((brand, id)=>{
-        return {
-            id: id,
-            image: "",
-            name: brand,
-            desc: ""
-        }
-    })
-];
 
 let myListedProducts = [];
 let productCounter = 1;
 mySellers.forEach((seller)=>{
-    let numOfProducts = Math.floor(Math.random() * Math.floor(myProducts.length*0.1))
+    let numOfProducts = Math.floor(Math.random() * Math.floor(myMetaProducts.length*0.1))
     while (numOfProducts > 0){
         myListedProducts.push({
             id: productCounter,
-            seller_id: seller.id,
-            product_id: myProducts[Math.floor(Math.random() * Math.floor(myProducts.length))].id,
+            seller: seller,
+            product: myMetaProducts[Math.floor(Math.random() * Math.floor(myMetaProducts.length))],
             stock: Math.floor(Math.random() * 1000) + 1,
             price: Math.floor(Math.random() * 100000) + 1,
             speed: Number((Math.random() * 10).toFixed(1))
@@ -127,10 +128,10 @@ mySellers.forEach((seller)=>{
 const db = {
     users: myUsers,
     sellers: mySellers,
-    products: myProducts,
+    meta_products: myMetaProducts,
     categories: myCategories,
     brands: myBrands,
-    listed_products: myListedProducts,
+    products: myListedProducts,
 }
 
 fs.writeFile('./db.json', JSON.stringify(db, null, 2),{encoding:'utf8',flag:'w'}, function writeJSON(err) {
