@@ -7,6 +7,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -25,5 +26,13 @@ import { CardModule } from 'primeng/card';
   styleUrl: './product.component.css'
 })
 export class ProductComponent {
-  value: number = 4;
+  rating: number = 4;
+  productId: number = 1;
+
+  constructor(private myRoute:ActivatedRoute){
+    this.productId = myRoute.snapshot.params['id']
+  }
+  ngOnInit(){
+    console.log(this.productId)
+  }
 }
