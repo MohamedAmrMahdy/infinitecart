@@ -1,12 +1,12 @@
 <div class="mt-2">
-    <p-card class="cursor-pointer" routerLink="/products/{{product.id}}" [style]="{ width: '240px', 'height': '460px'} ">
+    <p-card [style]="{ width: '240px', 'height': '460px'} ">
         <ng-template pTemplate="header">
             <div class="relative">
                 <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images"
                     [numVisible]="1" [numScroll]="1" [circular]="false">
-                    <ng-template let-product pTemplate="images">
-                        <img style="width:240px; height:200px;"
-                            class="border-3 border-round" alt="{{product}}" src="{{product}}" />
+                    <ng-template let-image pTemplate="images">
+                        <img routerLink="/products/{{product.id}}" style="width:240px; height:200px;" class="border-3 border-round cursor-pointer" alt="{{image}}"
+                            src="{{image}}" />
                     </ng-template>
                 </p-carousel>
                 <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
@@ -26,8 +26,8 @@
             </div>
         </ng-template>
         <!-- <ng-template pTemplate="title">{{product.product.title}}</ng-template> -->
-        <ng-template pTemplate="subtitle">{{'$' + product.price}}</ng-template>
+        <ng-template pTemplate="subtitle">{{product.price| currency:'USD'}}</ng-template>
         <!-- <ng-template pTemplate="content">{{product.rating}}/10</ng-template> -->
-        <ng-template pTemplate="content">{{product.product.description}}</ng-template>
+        <ng-template pTemplate="content">{{product.product.description|longText}}</ng-template>
     </p-card>
 </div>

@@ -4,19 +4,22 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { CarouselModule } from 'primeng/carousel';
 import { RouterModule } from '@angular/router';
+import { LongTextPipe } from '../../pipes/long-text.pipe';
+import { CurrencyPipe } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [RouterModule, CardModule, ButtonModule, TagModule, CarouselModule],
+  imports: [RouterModule, CardModule, ButtonModule, TagModule, CarouselModule, LongTextPipe, CurrencyPipe],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
 
 export class ProductCardComponent {
   @Input() product: any;
-  // images = ['https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg'];
-
+  
   getStock(num: number) {
     if (num <= 0)
       return "Out of Stock"
