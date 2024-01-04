@@ -13,7 +13,7 @@ node app.js
 ## Run Server
 
 ```cmd
-json-server db.json -m ./node_modules/json-server-auth
+npm run db
 ```
 
 ## EndPoints
