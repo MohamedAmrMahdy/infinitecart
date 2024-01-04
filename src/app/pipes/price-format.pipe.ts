@@ -6,8 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PriceFormatPipe implements PipeTransform {
 
-  transform(value: number, localeCode: string = 'en-US'): unknown {
-    return value.toLocaleString(localeCode);
+  transform(value: number, localeCode: string = 'en-US', currency: string = '$'): unknown {
+    return currency + ' '+ value.toLocaleString(localeCode);
   }
 
 }
