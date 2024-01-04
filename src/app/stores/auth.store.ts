@@ -9,42 +9,37 @@ import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
 
 export const AuthStore = signalStore(
-  withState({ currentUser: {}, token: "" }),
+  withState({
+    currentUser: {},
+    accessToken: ""
+  }),
   withMethods(({ currentUser, ...store }) => ({
     login(user, token) {
-      let loginUser = {
-        ...user
-      }
-
       patchState(store, {
-        currentUser: loginUser
+        currentUser: {...user},
+        accessToken: token
       });
-
       localStorage.setItem('accessToken', token);
       localStorage.setItem('userData', JSON.stringify({
-        ...loginUser
+        ...user
       }));
     },
     logout() {
       patchState(store, {
         currentUser: {},
-        token: ""
+        accessToken: ""
       });
       localStorage.removeItem('accessToken')
       localStorage.removeItem('userData')
     },
   })),
   withHooks({
-    onInit({ currentUser, token, logout, login }) {
+    onInit({ logout, login }) {
       const authService = inject(AuthService)
-      if (!currentUser || !token){
-        let accessToken = localStorage.getItem('accessToken')
+      if (authService.isAuthenticated()){
+        let savedAccessToken = localStorage.getItem('accessToken')
         let savedCurrentUser = JSON.parse(localStorage.getItem('userData') || "{}")
-        if (!authService.isAuthenticated()){
-          logout()
-        }else{
-          login(savedCurrentUser, accessToken)
-        }
+        login(savedCurrentUser, savedAccessToken)
       }
     },
   }),
