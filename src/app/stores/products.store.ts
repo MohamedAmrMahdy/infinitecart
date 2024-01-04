@@ -1,11 +1,13 @@
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   signalStore,
   withState,
   patchState,
   withComputed,
   withMethods,
+  withHooks,
 } from '@ngrx/signals';
+import { ProductsService } from '../services/products.service';
 
 export const ProductsStore = signalStore(
   withState({
@@ -70,4 +72,21 @@ export const ProductsStore = signalStore(
       }});
     },
   })),
+  withHooks({
+    onInit(store) {
+      const productsService = inject(ProductsService)
+      productsService.getAllSellers().subscribe(res => {
+        patchState(store,res)
+      },)
+      productsService.getAllListedProducts().subscribe(res => {
+        patchState(store,res)
+    },)
+
+    productsService.getProducts().subscribe(res => {
+      patchState(store,res)
+  },)
+
+
+    },
+  }),
 );

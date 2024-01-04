@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
 import { RouterModule } from '@angular/router';
 import { CardsComponent } from '../../components/cards/cards.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -11,7 +12,8 @@ import { CardsComponent } from '../../components/cards/cards.component';
   imports: [RouterModule, FormsModule,
   CheckboxModule,
   AccordionModule,
-CardsComponent],
+CardsComponent,
+HttpClientModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -20,5 +22,6 @@ export class ProductsComponent {
   priceRange2:number=0;
   seller:string[] = ['']; //for select sellers and brands to filter
   brand:string[] = [''];
+
 
 }
