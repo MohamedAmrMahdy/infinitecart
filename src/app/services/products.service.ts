@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
 
@@ -11,90 +11,17 @@ import { map } from 'rxjs/operators'
 export class ProductsService{
 
   constructor(private products:HttpClient) { }
-  private DB_URL = 'http://localhost:3000/';
+  private DB_URL = 'http://localhost:3000/products';
 
+  getProductsByCategory(category:string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("product.category.name", category);
+    queryParams = queryParams.append("_limit", 10);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
   getProducts(): Observable<any> {
-    return new Observable(subscriber => {
-        this.products.get(this.DB_URL+'products')
+    return this.products.get(this.DB_URL)
+  }
 
-          .subscribe(res => {
-              subscriber.next(res)
-              subscriber.complete()
-          }, err =>{
-            subscriber.error(err)
-          })
-    })
-}
-
-getAllListedProducts(): Observable<any> {
-  return new Observable(subscriber => {
-      this.products.get(this.DB_URL+'listed_products')
-
-        .subscribe(res => {
-            subscriber.next(res)
-            subscriber.complete()
-        }, err =>{
-          subscriber.error(err)
-        })
-  })
-}
-
-getAllSellers(): Observable<any> {
-  return new Observable(subscriber => {
-      this.products.get(this.DB_URL+'sellers')
-
-        .subscribe(res => {
-            subscriber.next(res)
-            subscriber.complete()
-        }, err =>{
-          subscriber.error(err)
-        })
-  })
-}
-
-getProductById(id:number): Observable<any> {
-  return new Observable(subscriber => {
-      this.products.get(this.DB_URL+'products/'+ id)
-
-        .subscribe(res => {
-            subscriber.next(res)
-            subscriber.complete()
-        }, err =>{
-          subscriber.error(err)
-        })
-  })
-}
-
-getListedProductById(id:number): Observable<any> {
-  return new Observable(subscriber => {
-      this.products.get(this.DB_URL+'listed_products/'+id)
-
-        .subscribe(res => {
-            subscriber.next(res)
-            subscriber.complete()
-        }, err =>{
-          subscriber.error(err)
-        })
-  })
-}
-
-getSellerById(id:number): Observable<any> {
-  return new Observable(subscriber => {
-      this.products.get(this.DB_URL+'sellers/'+id)
-
-        .subscribe(res => {
-            subscriber.next(res)
-            subscriber.complete()
-        }, err =>{
-          subscriber.error(err)
-        })
-  })
-}
-
-getProductSellers(productId: number): Observable<any[]> {
-  return this.products.get<any[]>(this.DB_URL + 'listed_products').pipe(
-    map(products => products.filter(product => product.product_id === productId))
-  );
-}
 
 }

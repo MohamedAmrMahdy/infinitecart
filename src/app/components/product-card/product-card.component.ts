@@ -17,29 +17,29 @@ export class ProductCardComponent {
   @Input() product: any;
   // images = ['https://primefaces.org/cdn/primeng/images/demo/product/black-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg', 'https://primefaces.org/cdn/primeng/images/demo/product/blue-band.jpg'];
 
-  getStock(text: string) {
-    if (text == "Stock")
-      return "In Stock"
-    else if (text == "lowstock")
+  getStock(num: number) {
+    if (num <= 0)
+      return "Out of Stock"
+    else if (num < 300)
       return "Low Stock"
     else
-      return "Out of Stock"
+      return "In Stock"
   }
 
-  getSeverity(text: string) {
-    if (text == "Stock")
-      return "info"
-    else if (text == "lowstock")
+  getSeverity(num: number) {
+    if(num <= 0)
+      return "danger"
+    else if(num < 300)
       return "warning"
     else
-      return "danger"
+      return "info"
   }
 
-  disableChk(text: string) {
-    if (text == "Stock" || text == "lowstock")
-      return false;
-    else
+  disableChk(num: number) {
+    if(num <= 0)
       return true;
+    else
+      return false;
   }
 
 }
