@@ -2,28 +2,28 @@
     <p-card class="m-3" [style]="{ width: '240px', 'height': '460px'} ">
         <ng-template pTemplate="header">
             <div class="relative">
-                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.images" [numVisible]="1"
+                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images" [numVisible]="1"
                     [numScroll]="1" [circular]="false">
                     <ng-template let-product pTemplate="images">
-                        <img routerLink="/products/1" style="width:240px; height:200px;" class="border-3 border-round cursor-pointer" alt="{{product}}" src="{{product}}" />
+                        <img routerLink="/products/{{product.id}}" style="width:240px; height:200px;" class="border-3 border-round cursor-pointer" alt="{{product}}" src="{{product}}" />
                     </ng-template>
                 </p-carousel>
                 <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
                 <div class="absolute top-100 right-0" style="transform: translate(-1%, 340%);">
-                    <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.inventoryStatus)"
-                        [severity]="getSeverity(product.inventoryStatus)" />
+                    <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.stock)"
+                        [severity]="getSeverity(product.stock)" />
                 </div>
                 <div class="absolute top-0" style="transform: translate(380%, 10%);">
                     <p-button icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
                 </div>
                 <div class="text-center">
-                    <p-tag [value]="getStock(product.inventoryStatus)"
-                        [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                    <p-tag [value]="getStock(product.stock)"
+                        [severity]="getSeverity(product.stock)"></p-tag>
                 </div>
             </div>
         </ng-template>
-        <ng-template pTemplate="title">{{product.name}}</ng-template>
+        <ng-template pTemplate="title">{{product.product.title}}</ng-template>
         <ng-template pTemplate="subtitle">{{'$' + product.price}}</ng-template>
-        <ng-template pTemplate="content">{{product.description}}</ng-template>
+        <ng-template pTemplate="content">{{product.product.description}}</ng-template>
     </p-card>
 </div>
