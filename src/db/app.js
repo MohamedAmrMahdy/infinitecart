@@ -35,7 +35,7 @@ let mySellers = [
     ...users.map((user)=>{
         return {
             id: user.id,
-            user_id: user.id,
+            user: user,
             image: user.image,
             name: user.firstName + ' ' + user.lastName,
             rating:  Number((Math.random() * 10).toFixed(1)),
