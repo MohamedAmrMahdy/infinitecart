@@ -2,3 +2,16 @@
   min-height: 200px;
   max-height: 200px;
 }
+
+.description{
+  min-height: 80px;
+  max-height: 80px;
+  margin-top: 2px;
+}
+
+.cardheader
+{
+  min-height: 80px;
+  max-height: 80px;
+}
+

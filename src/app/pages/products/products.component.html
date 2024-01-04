@@ -75,7 +75,9 @@
   <div class="cards  xl:col-10 lg:col-9 md:col-9 sm:col-12 col-12">
     <div class="flex flex-wrap gap-3 lg:gap-7 md:gap-3  xl:gap-3 xl:justify-content-start lg:justify-content-start md:justify-content-center sm:justify-content-center justify-content-center">
       <!--Select Products Data To Display In Card-->
-      <app-cards></app-cards>
+      @for(product of products; track product.id){
+        <app-cards [productData]="product"></app-cards>
+      }
     </div>
   </div>
  </div>
