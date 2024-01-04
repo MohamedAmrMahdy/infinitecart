@@ -19,8 +19,16 @@ export class ProductsService{
     queryParams = queryParams.append("_limit", 10);
     return this.products.get(this.DB_URL, {params: queryParams});
   }
+
   getProducts(): Observable<any> {
     return this.products.get(this.DB_URL)
+  }
+
+  getProductsByName(name:string) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("product.title_like", name);
+    // queryParams = queryParams.append("_limit", 10); // uncomment if you want to get limited amount of results.
+    return this.products.get(this.DB_URL, {params: queryParams});
   }
 
 
