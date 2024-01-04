@@ -1,6 +1,6 @@
-<div class="mx-3">
-    <span class="mx-2 text-6xl font-bold ">{{cat_title}}</span>
-    <p-carousel [style]="{'transform': skewDir(sign) }" [showNavigators]="true" [value]="products" [numVisible]="6" [numScroll]="1" [circular]="false"
+<div class="">
+    <span class="text-6xl font-bold ">{{cat_title}}</span>
+    <p-carousel [style]="{'transform': skewDir(sign) }" [showNavigators]="true" [value]="products" [numVisible]="5" [numScroll]="1" [circular]="false"
         [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
             <app-product-card [product]="product"/>
