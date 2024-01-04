@@ -32,7 +32,7 @@ let myUsers = [
     })
 ];
 let mySellers = [
-    ...users.map((user)=>{
+    ...myUsers.map((user)=>{
         return {
             id: user.id,
             user: user,
