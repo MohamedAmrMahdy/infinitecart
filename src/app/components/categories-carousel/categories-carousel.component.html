@@ -1,5 +1,5 @@
 <div class="flex flex-row flex-wrap gap-4 justify-content-center categoryList">
-    @for (category of data; track category.id) {
+    @for (category of categories; track category.id) {
 
     <div routerLink="/" class="categoryItem relative w-max center-text cursor-pointer">
         @if (category.image) {
@@ -8,7 +8,7 @@
         @else {
         <!-- <img class="categoryImage" src="https://i.ibb.co/5L0MjSW/broken.png"> -->
         <img class="categoryImage" src="https://i.ibb.co/Sr61W61/broken.png">
-        <h2>{{category.name.toUpperCase()}}</h2>
+        <h3 class="text-center">{{category.name}}</h3>
         }
     </div>
 
