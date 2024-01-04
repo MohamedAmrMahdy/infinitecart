@@ -5,6 +5,10 @@ const users = require('./users.json');
 const bcrypt = require('bcryptjs');
 const SALT_LENGTH = 10
 
+function catToName(category){
+  return category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+}
+
 let myUsers = [
     ...users.map((user)=>{
         return {
@@ -43,7 +47,7 @@ let mySellers = [
 
 let uniqueCategories = [...new Set([
   ...products.map((product)=>{
-      return product.category
+      return catToName(product.category);
   })
 ])];
 
@@ -83,7 +87,7 @@ let myMetaProducts = [
             thumbnail: product.thumbnail,
             title: product.title,
             description: product.description,
-            category: myCategories.find((category) => category.name == product.category),
+            category: myCategories.find((category) => category.name == catToName(product.category)),
             brand: myBrands.find((brand) => brand.name == product.brand),
             details: [
                 {
