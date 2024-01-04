@@ -20,6 +20,8 @@ export class ProductsService{
           .subscribe(res => {
               subscriber.next(res)
               subscriber.complete()
+          }, err =>{
+            subscriber.error(err)
           })
     })
 }
@@ -31,6 +33,8 @@ getAllListedProducts(): Observable<any> {
         .subscribe(res => {
             subscriber.next(res)
             subscriber.complete()
+        }, err =>{
+          subscriber.error(err)
         })
   })
 }
@@ -42,6 +46,8 @@ getAllSellers(): Observable<any> {
         .subscribe(res => {
             subscriber.next(res)
             subscriber.complete()
+        }, err =>{
+          subscriber.error(err)
         })
   })
 }
@@ -53,6 +59,8 @@ getProductById(id:number): Observable<any> {
         .subscribe(res => {
             subscriber.next(res)
             subscriber.complete()
+        }, err =>{
+          subscriber.error(err)
         })
   })
 }
@@ -64,6 +72,8 @@ getListedProductById(id:number): Observable<any> {
         .subscribe(res => {
             subscriber.next(res)
             subscriber.complete()
+        }, err =>{
+          subscriber.error(err)
         })
   })
 }
@@ -75,6 +85,8 @@ getSellerById(id:number): Observable<any> {
         .subscribe(res => {
             subscriber.next(res)
             subscriber.complete()
+        }, err =>{
+          subscriber.error(err)
         })
   })
 }
