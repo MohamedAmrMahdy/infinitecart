@@ -1,11 +1,12 @@
-<div class="m-2">
-    <p-card class="m-3" [style]="{ width: '240px', 'height': '460px'} ">
+<div class="mt-2">
+    <p-card class="cursor-pointer" routerLink="/products/{{product.id}}" [style]="{ width: '240px', 'height': '460px'} ">
         <ng-template pTemplate="header">
             <div class="relative">
-                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images" [numVisible]="1"
-                    [numScroll]="1" [circular]="false">
+                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images"
+                    [numVisible]="1" [numScroll]="1" [circular]="false">
                     <ng-template let-product pTemplate="images">
-                        <img routerLink="/products/{{product.id}}" style="width:240px; height:200px;" class="border-3 border-round cursor-pointer" alt="{{product}}" src="{{product}}" />
+                        <img style="width:240px; height:200px;"
+                            class="border-3 border-round" alt="{{product}}" src="{{product}}" />
                     </ng-template>
                 </p-carousel>
                 <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
@@ -16,14 +17,17 @@
                 <div class="absolute top-0" style="transform: translate(380%, 10%);">
                     <p-button icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
                 </div>
-                <div class="text-center">
-                    <p-tag [value]="getStock(product.stock)"
-                        [severity]="getSeverity(product.stock)"></p-tag>
+                <div class="text-center relative">
+                    <p-tag [value]="getStock(product.stock)" [severity]="getSeverity(product.stock)"></p-tag>
+                    <h4>{{product.product.title}}</h4>
+                    <!-- <h5 class="absolute left-0">{{'$' + product.price}}</h5>
+                    <h5 class="absolute right-0">{{product.rating}}/10</h5> -->
                 </div>
             </div>
         </ng-template>
-        <ng-template pTemplate="title">{{product.product.title}}</ng-template>
+        <!-- <ng-template pTemplate="title">{{product.product.title}}</ng-template> -->
         <ng-template pTemplate="subtitle">{{'$' + product.price}}</ng-template>
+        <!-- <ng-template pTemplate="content">{{product.rating}}/10</ng-template> -->
         <ng-template pTemplate="content">{{product.product.description}}</ng-template>
     </p-card>
 </div>
