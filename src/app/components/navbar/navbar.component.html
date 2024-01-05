@@ -7,16 +7,50 @@
       </div>
 
       <div class="move_icon col-6 lg:col-4 grid mx-auto ">
-        <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="value" />
-        <i style="color: var(--primary-color);" class="icon fa-solid fa-magnifying-glass"></i>
+        <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="searchValue" />
+        <i style="color: var(--primary-color);" (click)="product_search();search.toggle($event)" class="icon fa-solid fa-magnifying-glass"></i>
+        <p-overlayPanel #search class="m-auto ">
+          <ng-template pTemplate >
+            <div class="flex flex-column gap-6 " style="width: 450px;overflow:hidden;">
+              <div>
+                <div class="px-2 flex flex-column gap-2">
+                  @if (searchProduct.length>0) {
+                    @for (product of searchProduct; track product.id; let i = $count) {
+                      @if (i < 5) {
+                        <a routerLink= "products/{{product.id}}" class="flex gap-1 my-0 p-2"  style="height: 85px;background-color: gainsboro !important;">
+                          <div class="w-4 border-round-bottom">
+                            <img [src]="product.product.thumbnail" alt="">
+                          </div>
+                          <div class=" m-0" style="width: 100%;">
+                            <p class="font-bold m-1 mx-3" >{{product.product.title}}</p>
+                            <p class="m-0 mx-2 text-left" >Sell by <span style="color: green;">{{product.seller.name}}</span></p>
+                            <div class="flex m-0 mx-2 mb-2 justify-content-between ">
+                              <p class="m-0 p-0" *ngIf="product.discount > 0" style="color: red;"> Discount {{product.discount}}%</p>
+                              <p class="m-0 p-0" *ngIf="product.discount== 0"></p>
+                              <p class="font-bold m-0 p-0"><span>{{product.price}}</span> $</p>
+                            </div>
+                          </div>
+                        </a>
+                      }
+                    }
+                  }@else {
+                    <div>
+                      <p>Not Found results</p>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-overlayPanel>
       </div>
 
       <div class="col-2 lg:col-3">
         <a routerLink="/profile" class="grid lg:justify-content-end align-items-center">
-          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{currentUser.firstName || 'Guest'}}</p>
+          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{user.firstName || 'Guest'}}</p>
           <p-avatar size="large" shape="circle" class="hidden lg:block">
-            @if(currentUser.image){
-              <img [src]="currentUser.image" alt="">
+            @if(user.image){
+              <img [src]="user.image" alt="">
             }@else {
               <i class="pi pi-user" style="font-size: 1.8rem"></i>
             }
@@ -36,21 +70,13 @@
         <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/products">Products</a>
         <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/categories">Categories</a>
         <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/Brands">Brands</a>
-        <div class="col-12 text-center xl:col-3 grid align-items-center" style="margin-top: 8px;">
-          <a class="lg:hidden xl:hidden col grid flex-row flex-nowrap align-items-center mx-0"><span>All_Categories</span>
-            <div class="col-12 w-6 sm:w-8 lg:w-7 mx-0">
-              <p-dropdown class="text-center" [options]="Categories" placeholder="See All" [editable]="true"
-                optionLabel="name"></p-dropdown>
-            </div>
-          </a>
-        </div>
       </div>
       <div class="flex grid align-items-center justify-content-center lg:justify-content-end col-12 lg:col-6 grid">
         <p-button type="text" routerLink="/cart" class="mr-2" [rounded]="true" [text]="true" icon="pi pi-shopping-cart" severity="secondary">
         </p-button>
         <i class="move-dropdown pi pi-chevron-down text-color-secondary  text-xs" (click)="op.toggle($event)" ></i>
         <p-overlayPanel #op>
-          <ng-template pTemplate [dismissable]="true" [showCloseIcon]="true">
+          <ng-template pTemplate>
             <div class="flex flex-column gap-4 " style="width: 350px;">
               <div>
                 <h3 class="mb-0 font-bold" style="color: black !important;">Cart Items</h3>

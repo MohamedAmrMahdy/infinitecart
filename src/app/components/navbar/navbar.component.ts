@@ -12,6 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { AuthStore } from '../../stores/auth.store';
+import { ProductsService } from '../../services/products.service';
+import { IProduct } from '../../interfaces/product';
 
 @Component({
   selector: 'app-navbar',
@@ -33,13 +35,29 @@ import { AuthStore } from '../../stores/auth.store';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  readonly authStore = inject(AuthStore)
-  currentUser = this.authStore.currentUser() as any
-  Categories:any = [{name:'Men'},{name:'Wowen'},{name:'baby'}];
-  selectedCategory:any;
-  items_count:number = 10;
+  readonly store = inject(AuthStore)
+  constructor(private productService:ProductsService){}
+  guest:any;
+  user=this.store.currentUser() as any;
+  searchValue:any;
   value:any;
-  user:any="Guest";
+  products:IProduct[]=[];
+  searchProduct:IProduct[]=[];
+  product_search(){
+    this.productService.getProducts1().subscribe(
+      (data)=>{
+        this.products=data
+        console.log(this.products)
+        for (let i = 0; i < this.products?.length; i++) {
+          if(this.products[i]["product"].title.toLowerCase().includes(this.searchValue.toLowerCase())){
+            console.log(true)
+            this.searchProduct.push(this.products[i]),
+            console.log(this.searchProduct)
+          }
+        }
+      }
+    )
+  }
   profile_img:any="";
   Mode:string="Dark";
   classIcon:string ="fa-moon";

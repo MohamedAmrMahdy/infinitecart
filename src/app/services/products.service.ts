@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
+import { IProduct } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +73,8 @@ export class ProductsService{
     queryParams = queryParams.append("product.brand.name_like",brand);
     return this.products.get(this.DB_URL, {params: queryParams});
   }
+  getProducts1(): Observable<IProduct[]> {
+    return this.products.get<IProduct[]>(this.DB_URL)
+  }
+
 }
