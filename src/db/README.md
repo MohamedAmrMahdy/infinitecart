@@ -10,10 +10,16 @@ npm install
 npm run seed
 ```
 
-## 2) Run Server
+## 2) Run Dev RestApi DB
 
 ```cmd
 npm run db
+```
+
+## 2) Run Production RestApi DB
+
+```cmd
+npm run server
 ```
 
 ## EndPoints
