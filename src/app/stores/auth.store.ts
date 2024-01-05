@@ -32,6 +32,19 @@ export const AuthStore = signalStore(
       localStorage.removeItem('accessToken')
       localStorage.removeItem('userData')
     },
+    updateCurrentUser(updatedUser) {
+      console.log('updatedUser')
+      console.log(updatedUser);
+      console.log('currentUser');
+      console.log((currentUser()));
+      patchState(store, {
+       currentUser: {
+        firstName: updatedUser.firstName
+       }
+        // currentUser: {...updatedUser}
+
+      })
+    }
   })),
   withHooks({
     onInit({ logout, login }) {
