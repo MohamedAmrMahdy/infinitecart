@@ -6,7 +6,7 @@
       <p-card [style]="{ width: '270px'}">
          <!--Card Header Image-->
           <ng-template pTemplate="header">
-              <img class="img-card" alt="Card" src="{{productData.product.images[0]}}" routerLink="/products/1" />
+              <img class="img-card" alt="Card" src="{{productData.product.images[0]}}" routerLink="/products/{{productData.id}}" />
           </ng-template>
           <!--Display Details like price, Seller Data and Rating-->
           <div class="details-card">
