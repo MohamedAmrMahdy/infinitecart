@@ -34,6 +34,7 @@ export const AuthStore = signalStore(
     },
     updateCurrentUser(updatedUser) {
       console.log('updatedUser')
+      console.log('updatedUser')
       console.log(updatedUser);
       console.log('currentUser');
       console.log((currentUser()));

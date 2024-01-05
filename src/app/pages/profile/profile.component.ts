@@ -185,7 +185,7 @@ get isSubmitted(){
       })
 
 
-      // this.router.navigate(["/"]);
+      this.router.navigate(["/"]);
 
 
       // this.profileForm.reset();
