@@ -35,24 +35,35 @@ export class ProfileComponent {
   currentUser = this.authStore.currentUser() as any
   items?:MenuItem[];
   fromSubmitted = false;
-  fNameValMsg="min length of first name is 3 litters";
-  lNameValMsg="min length of last name is 3 litters";
-  emailValMsg = "email invalid";
+  validtionMsg = {
+    fNameValMsg:"min length of first name is 3 litters",
+    lNameValMsg:"min length of last name is 3 litters",
+    birthDateValMsg: 'BirthDate is invalid',
+    addressValMsg: 'too short address',
+    countryValMsg: 'Must select a country',
+    stateValMsg: 'state is required',
+    cityValMsg: 'city is required',
+    zipCodeValMsg: 'zip code is invalid',
+    phoneValMsg: 'phone is invalid',
+  };
+
   flagSrc:any;
   imgSrc:string = '';
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
-
   visible = false;
-  userPassword = 'Pa$$word122';
 
   profileForm = new FormGroup({
     fName:new FormControl(this.currentUser.firstName, [Validators.required, Validators.minLength(3)]),
     lName:new FormControl(this.currentUser.lastName, [Validators.required, Validators.minLength(3)]),
-    email:new FormControl({ value: this.currentUser.email, disabled: true },  [Validators.required, Validators.email]),
-    address:new FormControl(null,[Validators.required, Validators.minLength(20)]),
-    country:new FormControl(null),
-    phone:new FormControl('')
+    email:new FormControl({ value: this.currentUser.email, disabled: true}, { updateOn: 'change' }),
+    birthDate: new FormControl(this.currentUser.birthDate,[Validators.required]),
+    address:new FormControl(this.currentUser.address.address,[Validators.required, Validators.minLength(5)]),
+    country:new FormControl(this.currentUser.address.country,[Validators.required] ),
+    state:new FormControl(this.currentUser.address.state, [Validators.required]),
+    city:new FormControl(this.currentUser.address.city, [Validators.required]),
+    zipCode: new FormControl(this.currentUser.address.postalCode, [Validators.required, Validators.pattern(/^\d{5}$/)]),
+    phone:new FormControl(this.currentUser.phone, [Validators.required])    
   })
 
   constructor (private http: HttpClient){
@@ -61,6 +72,135 @@ export class ProfileComponent {
   showDialog() {
     this.visible = true;
   }
+
+
+
+  
+// handle form validations
+
+get isfirstNameValid(){
+  return this.profileForm.controls.fName.valid
+}
+
+get isLastNameValid(){
+  return this.profileForm.controls.lName.valid
+}
+
+get isBirthDateValid(){
+  return this.profileForm.controls.birthDate.valid
+}
+
+get isAddressValid(){
+  return this.profileForm.controls.address.valid
+}
+
+get isCountryValid(){
+  return this.profileForm.controls.country.valid
+}
+
+get isStateValid(){
+  return this.profileForm.controls.state.valid
+}
+
+get isCityValid(){
+  return this.profileForm.controls.city.valid
+}
+
+get isZipCodeValid(){
+  return this.profileForm.controls.zipCode.valid
+}
+
+get isPhoneValid(){
+  return this.profileForm.controls.phone.valid
+}
+
+
+////////////////////////////////
+
+get firstNameValChanged() {
+  return this.profileForm.controls.fName.dirty;
+}
+
+get lastNameValChanged() {
+  return this.profileForm.controls.lName.dirty;
+}
+
+get birthDateValChanged(){
+  return this.profileForm.controls.birthDate.dirty
+}
+
+get addressValChanged(){
+  return this.profileForm.controls.address.dirty
+}
+
+get CountryValChanged(){
+  return this.profileForm.controls.country.dirty
+}
+
+get stateValChanged(){
+  return this.profileForm.controls.state.dirty
+}
+
+get cityValChanged(){
+  return this.profileForm.controls.city.dirty
+}
+
+get zipCodeValChanged(){
+  return this.profileForm.controls.zipCode.dirty
+}
+
+get phoneValChanged(){
+  return this.profileForm.controls.phone.dirty
+}
+
+
+//////////////////
+get isSubmitted(){
+  return this.fromSubmitted;
+}
+
+
+  // handle form subimission
+  submitProfileData(){
+    this.fromSubmitted = true;
+    this.profileForm.controls.email.enable();
+
+    if(this.profileForm.valid){
+      console.log('valid');
+
+      console.log(this.profileForm);
+      this.profileForm.reset();
+      this.fromSubmitted = false;
+    }
+    else {
+      console.log('invalid')
+      console.log(this.profileForm);
+
+      // if(!this.profileForm.controls.fName.valid) console.log(this.fNameValMsg)
+      // if(!this.profileForm.controls.lName.valid) console.log(this.lNameValMsg)    
+      // if(!this.profileForm.controls.email.valid) console.log(this.emailValMsg)
+
+      console.log(this.profileForm.controls.fName.valid) 
+      console.log(this.profileForm.controls.lName.valid)     
+      console.log(this.profileForm.controls.email.valid)
+
+
+      console.log(this.profileForm.controls.address.valid)
+      console.log(this.profileForm.controls.country.valid)
+      console.log(this.profileForm.controls.phone.valid)
+
+      
+
+
+      // console.log(this.profileForm.controls.email)
+      // console.log(this.profileForm.controls.email.value)
+      // console.log(this.profileForm.controls.email.valid)
+    }
+
+}
+
+
+
 
 // handle uploading image
 onUpload(event:any) {
@@ -84,7 +224,6 @@ fetchCountries() {
     next:(response: any)=>{
 
       const countryList: any[] = response.data;
-      console.log(countryList);
       countryList.forEach(countryData => {
         const country: ICountry = {
           name: countryData.name,
@@ -98,7 +237,6 @@ fetchCountries() {
    });
 
 
-  console.log(this.countries);
 
 }
 
@@ -120,67 +258,16 @@ selectedCountryHandler(event:any) {
 }
 
 
-// handle form validations
 
-  get isfirstNameValid(){
-    return this.profileForm.controls.fName.valid
-  }
-
-
-  get isLastNameValid(){
-
-    return this.profileForm.controls.lName.valid
-  }
-
-
-  get isEmailValid(){
-    return this.profileForm.controls.email.valid
-  }
-
-
-
-  get isSubmitted(){
-    return this.fromSubmitted;
-  }
-
-
-  get firstNameValChanged() {
-    return this.profileForm.controls.fName.dirty;
-  }
-
-  get lastNameValChanged() {
-
-    return this.profileForm.controls.lName.dirty;
-  }
-
-  get emailValChanged() {
-    return this.profileForm.controls.email.dirty;
-
-  }
-
-
-  // handle form subimission
-  submitProfileData(){
-    this.fromSubmitted = true;
-    if(this.profileForm.valid){
-      console.log(this.profileForm);
-      this.profileForm.reset();
-      this.fromSubmitted = false;
-    }
-    else {
-      console.log('invalid')
-      if(!this.profileForm.controls.fName.valid) console.log(this.fNameValMsg)
-      if(!this.profileForm.controls.lName.valid) console.log(this.lNameValMsg)
-      if(!this.profileForm.controls.email.valid) console.log(this.emailValMsg)
-    }
-
-}
-
-
+  
 
 
 
 ngOnInit(){
+  console.log(this.currentUser.address.country);
+  console.log(this.currentUser.address.postalCode);
+  console.log(this.currentUser.birthDate)
+  console.log(this.currentUser);
   this.items = [
     {
       label: "Profile",
@@ -206,6 +293,18 @@ ngOnInit(){
 ];
 
 this.fetchCountries();
+
+
+// this.selectedCountry = this.countries.filter((country: any) => country.name === this.currentUser.address.country)
+// .map((country: any) => ({
+//   name: country.name,
+//   phoneCode: country.phoneCode,
+//   flag: country.flag
+// }))[0];
+// console.log(this.selectedCountry);
+
+// this.flagSrc = this.selectedCountry.flag;
+
 
 }
 

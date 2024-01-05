@@ -1,233 +1,256 @@
 <!-- <input type="text" pInputText [(ngModel)]="value" /> -->
 <div class="w-11 m-auto">
-<div class="grid mt-5 mb-5">
-    <div class="md:col-6 lg:col-2 my-auto mr-3 w-auto" >
-        <p-menu [model]="items" ></p-menu>
-        <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->
-    </div>
-<div class="lg:col-10">
-    <form autocomplete="off" (ngSubmit)="submitProfileData()" [formGroup]="profileForm" class="form">
-        <div class="formgrid grid">
-
-            <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
-                <p class="text-3xl my-0 uppercase">Personal Info</p>
-                <p class="text-400 my-0 uppercase">Please provide your correct information</p>
-              </div>
-
-
-            <div class="field col-12 md:col-6">
-                <label for="firstname6">Firstname</label>
-                <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                @if ((!isfirstNameValid && firstNameValChanged)  || (!isfirstNameValid && isSubmitted)) {
-                    <p class = "error" style="color: red;">{{fNameValMsg}}</p>
-                }
-
-            </div>
-            <div class="field col-12 md:col-6">
-                <label for="lastname6">Lastname</label>
-                <input id="lastname6" formControlName="lName"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                @if ((!isLastNameValid && lastNameValChanged)  || (!isLastNameValid && isSubmitted)) {
-                    <p class = "error" style="color: red;">{{lNameValMsg}}</p>
-                }
-            </div>
-            <div class="field col-12">
-                <label for="birthDate">BirthDate</label>
-                <p-calendar [showIcon]="true" inputId="templatedisplay" class="calender" >
-                    <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
-                        <i class="pi pi-user" (click)="clickCallBack($event)" ></i>
-                    </ng-template>
-                </p-calendar>
-            </div>
-
-
-
-
-            <div class="field col-12">
-                <label for="address">Address</label>
-                <textarea id="address" type="text" rows="3" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
-
-            </div>
-            <div class="field col-12 md:col-6">
-                <label for="country">Country</label>
-                <select id="country" formControlName="country" (change) = "selectedCountryHandler($event)" class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" style="appearance: auto">
-                    @for (country of countries; track country.phoneCode){
-                        <option [value]="country.name">{{ country.name }}</option>
+    <div class="grid mt-5 mb-5">
+        <div class="md:col-6 lg:col-2 my-auto mr-3 w-auto" >
+            <p-menu [model]="items" ></p-menu>
+            <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->
+        </div>
+    <div class="lg:col-10">
+        <form autocomplete="off" (ngSubmit)="submitProfileData()" [formGroup]="profileForm" class="form">
+            <div class="formgrid grid">
+    
+                <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
+                    <p class="text-3xl my-0 uppercase">Personal Info</p>
+                    <p class="text-400 my-0 uppercase">Please provide your correct information</p>
+                  </div>
+    
+    
+                <div class="field col-12 md:col-6">
+                    <label for="firstname6">Firstname</label>
+                    <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    @if ((!isfirstNameValid && firstNameValChanged)  || (!isfirstNameValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.fNameValMsg}}</p>
                     }
-                </select>
+    
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="lastname6">Lastname</label>
+                    <input id="lastname6" formControlName="lName"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    @if ((!isLastNameValid && lastNameValChanged)  || (!isLastNameValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.lNameValMsg}}</p>
+                    }
+                </div>
+                <div class="field col-12">
+                    <label for="birthDate">BirthDate</label>
+                    <p-calendar id="birthDate" formControlName="birthDate" [showIcon]="true" inputId="templatedisplay" class="calender" >
+                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
+                            <i class="pi pi-user" (click)="clickCallBack($event)" ></i>
+                        </ng-template>
+                    </p-calendar>
+                    @if ((!isBirthDateValid && birthDateValChanged)  || (!isBirthDateValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.birthDateValMsg}}</p>
+                    }
+                </div>
+    
+    
+    
+    
+                <div class="field col-12">
+                    <label for="address">Address</label>
+                    <textarea id="address" formControlName="address" type="text" rows="3" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
+                    @if ((!isAddressValid && addressValChanged)  || (!isAddressValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.addressValMsg}}</p>
+                    }
+    
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label for="country">Country</label>
+                    <select id="country" formControlName="country" (change) = "selectedCountryHandler($event)" class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary" style="appearance: auto">
+                        @for (country of countries; track country.phoneCode){
+                            <option [value]="country.name">{{ country.name }}</option>
+                        }
+                    </select>
+                    @if ((!isCountryValid && CountryValChanged)  || (!isCountryValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.countryValMsg}}</p>
+                    }
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label for="state">State</label>
+                    <input id="state" formControlName="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">                    
+                    @if ((!isStateValid && stateValChanged)  || (!isStateValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.stateValMsg}}</p>
+                    }
+                    
+                </div>
+                <div class="field col-12 md:col-2">
+                    <label for="city">City</label>
+                    <input id="city" formControlName="city" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    @if ((!isCityValid && cityValChanged)  || (!isCityValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.cityValMsg}}</p>
+                    }
+                </div>
+                <div class="field col-12 md:col-1">
+                    <label for="zip">Zip</label>
+                    <input id="zip" formControlName="zipCode"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">                 
+                    @if ((!isZipCodeValid && zipCodeValChanged)  || (!isZipCodeValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{validtionMsg.zipCodeValMsg}}</p>
+                    }
+                  
+                </div>
             </div>
-            <div class="field col-12 md:col-3">
-                <label for="state">State</label>
-                <input id="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-            <div class="field col-12 md:col-2">
-                <label for="city">City</label>
-                <input id="city" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-            <div class="field col-12 md:col-1">
-                <label for="zip">Zip</label>
-                <input id="zip" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-            </div>
-        </div>
-        <div class="field lg:col-2 md:col-6 sm:col-6 pl-0">
-            <label for="phone">Phone</label>
-            <div class="phone-container">
-              <input style="display: inline;" id="phone" formControlName="phone" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-              @if(flagSrc){
-                  <img [src]="flagSrc" height="20px" width="30px" alt="" class="flag-icon">
-              }
-            </div>
-        </div>
-
-        <div class="field col-12 md:col-3 pl-0">
-            <label for="pic" class="">Profile Picture</label>
-        <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
-         (onUpload)="onUpload($event)" [auto] = "true"></p-fileUpload>
-        @if (imgSrc){
-            <img width="250" height="250" [src]="imgSrc" class="mt-2" alt="pic"/>
-        }
-        </div>
-
-        <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
-            <p class="text-3xl my-0 uppercase">Security details</p>
-            <p class="text-400 my-0 uppercase">Don't share your account data</p>
-          </div>
-
-
-        <div class="lg:flex items-center" >
-            <div class="field lg:col-3 sm:12 pl-0 ">
-                <label for="email">Email</label>
-                <input id="email"  formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
-                    <p class = "error" style="color: red;">{{emailValMsg}}</p>
-                   <!-- <br><br> <span class = "error" style="color: red;">{{emailValMsg}}</span> -->
+            <div class="field lg:col-2 md:col-6 sm:col-6 pl-0">
+                <label for="phone">Phone</label>
+                <div class="phone-container">
+                  <input style="display: inline;" id="phone" formControlName="phone" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                  @if(flagSrc){
+                      <img [src]="flagSrc" height="20px" width="30px" alt="" class="flag-icon">
+                  }
+                  @if ((!isPhoneValid && phoneValChanged)  || (!isPhoneValid && isSubmitted)) {
+                    <p class = "error" style="color: red;">{{validtionMsg.phoneValMsg}}</p>
                 }
+                </div>
             </div>
-
-            <div class="field lg:col-3 sm:12 "  >
-
-                <label for="password">Password</label>
-                <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    
+            <div class="field col-12 md:col-3 pl-0">
+                <label for="pic" class="">Profile Picture</label>
+            <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
+             (onUpload)="onUpload($event)" [auto] = "true"></p-fileUpload>
+            @if (imgSrc){
+                <img width="250" height="250" [src]="imgSrc" class="mt-2" alt="pic"/>
+            }
             </div>
-
-            <div class="field lg:col-3 sm:12 mb-0 p-0 lg:ml-3 lg:mb-0 w-auto h-min sm:ml-0 sm:mb-3 md:mb-3"  style="align-self:center;">
-
-
-                <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
-                <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">
-
-                    <div class="field">
-                        <!-- <label for="oldPassword">Old Password</label> -->
-                        <!-- <input id="oldPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
-
-                        <span class="p-float-label">
-                            <p-password [feedback]="false" [toggleMask]="true"></p-password>
-                            <label for="password">Old Password</label>
-
+    
+            <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
+                <p class="text-3xl my-0 uppercase">Security details</p>
+                <p class="text-400 my-0 uppercase">Don't share your account data</p>
+              </div>
+    
+    
+            <div class="lg:flex items-center" >
+                <div class="field lg:col-3 sm:12 pl-0 ">
+                    <label for="email">Email</label>
+                    <input id="email"  formControlName="email"  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <!-- @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
+                        <p class = "error" style="color: red;">{{emailValMsg}}</p>
+                    } -->
+                </div>
+    
+                <div class="field lg:col-3 sm:12 "  >
+    
+                    <label for="password">Password</label>
+                    <input id="password" disabled [value]="this.currentUser.password" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                </div>
+    
+                <div class="field lg:col-3 sm:12 mb-0 p-0 lg:ml-3 lg:mb-0 w-auto h-min sm:ml-0 sm:mb-3 md:mb-3"  style="align-self:center;">
+    
+    
+                    <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
+                    <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">
+    
+                        <div class="field">
+                            <!-- <label for="oldPassword">Old Password</label> -->
+                            <!-- <input id="oldPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
+    
+                            <span class="p-float-label">
+                                <p-password [feedback]="false" [toggleMask]="true"></p-password>
+                                <label for="password">Old Password</label>
+    
+                            </span>
+                        </div>
+    
+                        <div class="field">
+                            <span class="p-float-label">
+    
+                            <p-password [toggleMask]="true">
+                                <ng-template pTemplate="header">
+                                    <h6>New password</h6>
+                                </ng-template>
+                                <ng-template pTemplate="footer">
+                                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                        <li>At least one lowercase</li>
+                                        <li>At least one uppercase</li>
+                                        <li>At least one numeric</li>
+                                        <li>Minimum 8 characters</li>
+                                    </ul>
+                                </ng-template>
+                        </p-password>
+                        <label for="password">New Password</label>
+    
                         </span>
-                    </div>
-
-                    <div class="field">
-                        <span class="p-float-label">
-
-                        <p-password [toggleMask]="true">
-                            <ng-template pTemplate="header">
-                                <h6>New password</h6>
-                            </ng-template>
-                            <ng-template pTemplate="footer">
-                                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                    <li>At least one lowercase</li>
-                                    <li>At least one uppercase</li>
-                                    <li>At least one numeric</li>
-                                    <li>Minimum 8 characters</li>
-                                </ul>
-                            </ng-template>
-                    </p-password>
-                    <label for="password">New Password</label>
-
-                    </span>
-                    </div>
-
-                    <div class="field w-full mt-4">
-
-                        <span class="p-float-label">
-                            <p-password [toggleMask]="true" [feedback]="false"></p-password>
-                            <label for="password">Confirm Password</label>
-                        </span>
-                    </div>
-
-                    <p-button
-                    styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
-                    transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700" label="Submit"
-                    type="submit"></p-button>
-
-                </p-dialog>
+                        </div>
+    
+                        <div class="field w-full mt-4">
+    
+                            <span class="p-float-label">
+                                <p-password [toggleMask]="true" [feedback]="false"></p-password>
+                                <label for="password">Confirm Password</label>
+                            </span>
+                        </div>
+    
+                        <p-button
+                        styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
+                        transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700" label="Submit"
+                        type="submit"></p-button>
+    
+                    </p-dialog>
+                </div>
             </div>
-        </div>
-
-
-
-
-
-
-        <p-button
-        styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
-        transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 w-10rem h-4rem" label="Submit" size="large"
-        type="submit"></p-button>
-    </form>
-</div>
-</div>
-<!--
-<div class="grid mt-5 mb-5">
-
-<div class="field sm:col-12 md:col-6 lg:col-3">
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-    @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
-        <p class = "error" style="color: red;">{{emailValMsg}}</p>
-    }
-</div>
-
-<div class="field sm:col-12 md:col-6 lg:col-3">
-    <label for="password">Password</label>
-    <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-</div>
-
-<div class="field sm:col-12 md:col-6 lg:col-3">
-    <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
-    <p-dialog header="Header" appendTo="body" [(visible)]="visible" [style]="{width: '50vw'}">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </p-dialog>
-</div>
-</div> -->
-
-
-<!-- </div> -->
-
-<!-- <img src="https://flagcdn.com/al.svg" alt="Albania Flag" style="width: 50px; height: 50px;"> -->
-
-
-
-<!-- <button type="button" class="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
-     transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700">Submit</button> -->
-
-
-
-
-<!--
-     <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
-                <div>{{ selectedCountry.name }}</div>
-            </div>
-        </ng-template>
-        <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
-                <div>{{ country.name }}</div>
-            </div>
-        </ng-template>
-    </p-dropdown> -->
+    
+    
+    
+    
+    
+    
+            <p-button
+            styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
+            transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 w-10rem h-4rem" label="Submit" size="large"
+            type="submit"></p-button>
+        </form>
+    </div>
+    </div>
+    <!--
+    <div class="grid mt-5 mb-5">
+    
+    <div class="field sm:col-12 md:col-6 lg:col-3">
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        @if ((!isEmailValid && emailValChanged)  || (!isEmailValid && isSubmitted)) {
+            <p class = "error" style="color: red;">{{emailValMsg}}</p>
+        }
+    </div>
+    
+    <div class="field sm:col-12 md:col-6 lg:col-3">
+        <label for="password">Password</label>
+        <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    </div>
+    
+    <div class="field sm:col-12 md:col-6 lg:col-3">
+        <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
+        <p-dialog header="Header" appendTo="body" [(visible)]="visible" [style]="{width: '50vw'}">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </p-dialog>
+    </div>
+    </div> -->
+    
+    
+    <!-- </div> -->
+    
+    <!-- <img src="https://flagcdn.com/al.svg" alt="Albania Flag" style="width: 50px; height: 50px;"> -->
+    
+    
+    
+    <!-- <button type="button" class="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
+         transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700">Submit</button> -->
+    
+    
+    
+    
+    <!--
+         <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
+                    <div>{{ selectedCountry.name }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                    <div>{{ country.name }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown> -->
+    
