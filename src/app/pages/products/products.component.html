@@ -19,52 +19,22 @@
           <!--Filter For Sellers-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Sellers">
-              <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Egy Gamers" name="seller" value="EgyGamers" [(ngModel)]="seller"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="B-Tech" name="seller" value="B-Tech" [(ngModel)]="seller"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Original Stores" name="seller" value="OriginalStores" [(ngModel)]="seller"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Compu Touch" name="seller" value="CompuTouch" [(ngModel)]="seller"></p-checkbox>
-           </div>
+              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a seller" [(ngModel)]="seller" type="text">
+              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForSeller()">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Brands-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Brands">
-              <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Samsung" name="brand" value="Samsung" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Apple" name="brand" value="Apple" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="HP" name="brand" value="HP" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Lenovo" name="brand" value="Lenovo" [(ngModel)]="brand"></p-checkbox>
-           </div>
+              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Brand" [(ngModel)]="brand" type="text">
+              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForBrand()">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Categories-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Categories">
-              <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Electronics" name="Category" value="Electronics" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Clothing" name="Category" value="Clothing" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Home" name="Category" value="Home" [(ngModel)]="brand"></p-checkbox>
-            </div>
-            <div class="flex align-items-center mt-2 mb-2">
-                <p-checkbox label="Toys" name="Category" value="Toys" [(ngModel)]="brand"></p-checkbox>
-           </div>
+              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Category" [(ngModel)]="category" type="text">
+              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForCategory()">
             </p-accordionTab>
           </p-accordion>
       </p-accordionTab>

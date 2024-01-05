@@ -50,7 +50,24 @@ export class ProductsService{
     return this.products.get(this.DB_URL, {params: queryParams});
   }
 
-  getCategories(): Observable<any>{
-    return this.products.get('http://localhost:3000/categories');
+  getAllProductsByCategory(category:string){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("product.category.name", category);
+    queryParams = queryParams.append("product.category.name_like",category);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
+
+  getProductsBySeller(seller:string){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("seller.name",seller);
+    queryParams = queryParams.append("seller.name_like",seller);
+    return this.products.get(this.DB_URL, {params: queryParams});
+  }
+
+  getProductsByBrand(brand:string){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("product.brand.name",brand);
+    queryParams = queryParams.append("product.brand.name_like",brand);
+    return this.products.get(this.DB_URL, {params: queryParams});
   }
 }

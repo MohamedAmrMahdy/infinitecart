@@ -22,26 +22,45 @@ HttpClientModule],
 export class ProductsComponent implements OnInit{
   priceRange1:number=0; //price ranges to select ranges from user to filter
   priceRange2:number=0;
-  seller:string[] = ['']; //for select sellers and brands to filter
-  brand:string[] = [''];
+  seller:string = ''; //for select sellers and brands to filter
+  brand:string = '';
   products:any;
-  categories:any;
+  category:string = '';
 
   constructor(private productService:ProductsService){}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next:(data)=>{this.products = data},
-      complete:()=>{console.log(this.products)}
-    })
-    this.productService.getCategories().subscribe({
-      next:(data)=>{this.categories = data},
+      error:(e) => {console.log(e)}
     })
   }
 
   filterForPrice(){
     this.productService.getProductsByPrice(this.priceRange1,this.priceRange2).subscribe({
       next:(data) => {this.products = data},
+      error:(e) => {console.log(e)}
+    })
+  }
+
+  filterForCategory(){
+    this.productService.getAllProductsByCategory(this.category).subscribe({
+      next:(data) => {this.products = data},
+      error:(e) => {console.log(e)}
+    })
+  }
+
+  filterForBrand(){
+    this.productService.getProductsByBrand(this.brand).subscribe({
+      next:(data) => {this.products = data},
+      error:(e) => {console.log(e)}
+    })
+  }
+
+  filterForSeller(){
+    this.productService.getProductsBySeller(this.seller).subscribe({
+      next:(data) => {this.products = data},
+      error:(e) => {console.log(e)}
     })
   }
 }
