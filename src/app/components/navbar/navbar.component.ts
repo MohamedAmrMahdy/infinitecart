@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { AuthStore } from '../../stores/auth.store';
 
 @Component({
   selector: 'app-navbar',
@@ -27,10 +28,13 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
             AvatarModule,
             OverlayPanelModule
           ],
+  providers:[AuthStore],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  readonly authStore = inject(AuthStore)
+  currentUser = this.authStore.currentUser() as any
   Categories:any = [{name:'Men'},{name:'Wowen'},{name:'baby'}];
   selectedCategory:any;
   items_count:number = 10;

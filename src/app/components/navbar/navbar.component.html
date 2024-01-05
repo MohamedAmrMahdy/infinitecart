@@ -13,10 +13,10 @@
 
       <div class="col-2 lg:col-3">
         <a routerLink="/profile" class="grid lg:justify-content-end align-items-center">
-          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{user}}</p>
+          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{currentUser.firstName || 'Guest'}}</p>
           <p-avatar size="large" shape="circle" class="hidden lg:block">
-            @if(profile_img){
-              <img [src]="profile_img" alt="">
+            @if(currentUser.image){
+              <img [src]="currentUser.image" alt="">
             }@else {
               <i class="pi pi-user" style="font-size: 1.8rem"></i>
             }
