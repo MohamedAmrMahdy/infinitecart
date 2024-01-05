@@ -18,8 +18,8 @@ export const routes: Routes = [
     component: MainComponent,
     children: [
       { path: "", title: 'InfinitCart - Home', component: HomeComponent },
-      { path: "products", title: 'InfinitCart - Products', component: ProductsComponent, canActivate:[authGuard] },
-      { path: "products/:id", title: 'InfinitCart - Products', component: ProductComponent, canActivate:[authGuard] },
+      { path: "products", title: 'InfinitCart - Products', component: ProductsComponent },
+      { path: "products/:id", title: 'InfinitCart - Products', component: ProductComponent },
       { path: "cart", title: 'InfinitCart - Cart', component: CartComponent, canActivate:[authGuard] },
       { path: "profile", title: 'InfinitCart - Profile', component: ProfileComponent, canActivate:[authGuard] },
       { path: "wishlist", title: 'InfinitCart - Wishlist',component:WishlistComponent, canActivate:[authGuard]},
