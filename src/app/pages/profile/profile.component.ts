@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,6 +14,8 @@ import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
 import { AuthStore } from '../../stores/auth.store';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 
 
@@ -24,7 +25,8 @@ import { AuthStore } from '../../stores/auth.store';
   imports: [FormsModule , DropdownModule ,ReactiveFormsModule,
      InputTextModule, RadioButtonModule , CalendarModule,
       FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
-  providers:[AuthStore],
+  providers: [AuthStore, UserService],
+
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -66,8 +68,7 @@ export class ProfileComponent {
     phone:new FormControl(this.currentUser.phone, [Validators.required])    
   })
 
-  constructor (private http: HttpClient){
-  }
+constructor (private http: HttpClient,private router: Router,private userService: UserService){}
 
   showDialog() {
     this.visible = true;
@@ -164,12 +165,30 @@ get isSubmitted(){
   submitProfileData(){
     this.fromSubmitted = true;
     this.profileForm.controls.email.enable();
-
+    
+    // post data
     if(this.profileForm.valid){
       console.log('valid');
+      const formData = { ...this.profileForm.value, email: this.currentUser.email, password: 'password' };  
+      console.log(formData);
+      this.userService.updateUserData(this.currentUser.id, formData).subscribe({
+        next: (response:any) => {
+          console.log('return from service')
+          console.log(response);
+         this.authStore.updateCurrentUser(response)
 
-      console.log(this.profileForm);
-      this.profileForm.reset();
+          
+        },
+        error: (err:any) => {
+          console.log(err);
+        }
+      })
+
+
+      this.router.navigate(["/"]);
+
+
+      // this.profileForm.reset();
       this.fromSubmitted = false;
     }
     else {
