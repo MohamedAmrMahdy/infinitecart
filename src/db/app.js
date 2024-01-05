@@ -1,8 +1,8 @@
 const fs = require('fs');
 const products = require('./products.json');
 const users = require('./users.json');
-
 const bcrypt = require('bcryptjs');
+const { faker } = require('@faker-js/faker');
 const SALT_LENGTH = 10
 
 function catToName(category) {
@@ -23,7 +23,7 @@ let myUsers = [
       password: bcrypt.hashSync(user.password, SALT_LENGTH),
       address: {
         address: user.address.address,
-        country: 'USA',
+        country: faker.location.country(),
         city: user.address.city,
         state: user.address.state,
         postalCode: user.address.postalCode
@@ -36,8 +36,8 @@ let mySellers = [
     return {
       id: user.id,
       user: user,
-      image: user.image,
-      name: user.firstName + ' ' + user.lastName,
+      image: faker.image.avatar(),
+      name: faker.company.name().split(' ').slice(0,1).join(' '),
       rating: Number((Math.random() * 10).toFixed(1)),
       speed: Number((Math.random() * 10).toFixed(1)),
       sales: Math.floor(Math.random() * 100000) + 1

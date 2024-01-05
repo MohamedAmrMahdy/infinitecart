@@ -4,11 +4,13 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "seed": "node app.js",
     "db": "json-server db.json -m ./node_modules/json-server-auth"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
     "json-server-auth": "^2.1.0"
   },
   "dependencies": {
