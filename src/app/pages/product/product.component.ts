@@ -45,14 +45,19 @@ export class ProductComponent {
     this.productsService.getProductById(this.productId).subscribe({
       next: response => {
         this.product = response;
-        this.productsService.getProductsById(this.product[0].product.id).subscribe({
-          next: response => {
-            this.otherSellers = response;
-          },
-          error: err => {
-            console.log(err);
-          }
-        });
+        if (this.product.length > 0){
+          this.productsService.getProductsById(this.product[0].product.id).subscribe({
+            next: response => {
+              this.otherSellers = response;
+            },
+            error: err => {
+              this.router.navigate(["/products"]);
+              console.log(err);
+            }
+          });
+        }else{
+          this.router.navigate(["/products"]);
+        }
       },
       error: err => {
         this.router.navigate(["/products"]);
