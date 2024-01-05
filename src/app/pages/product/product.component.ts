@@ -7,6 +7,9 @@ import { AvatarModule } from 'primeng/avatar';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { PanelModule } from 'primeng/panel';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
@@ -23,6 +26,8 @@ import { PriceFormatPipe } from '../../pipes/price-format.pipe';
     TagModule,
     ButtonModule,
     CardModule,
+    PanelModule,
+    BreadcrumbModule,
     PriceFormatPipe
   ],
   templateUrl: './product.component.html',

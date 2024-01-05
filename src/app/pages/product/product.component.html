@@ -11,15 +11,21 @@
       <span class="flex flex-row justify-content-between flex-wrap">
         <span class="flex flex-row mt-2">
           <img class="productBrandImg" title="Brand"
-            src="https://1000logos.net/wp-content/uploads/2018/08/Huawei-Logo.png" />
-          <p class="text-sm text-blue-500 m-2">{{ this.product[0].product.brand.name }}</p>
+            src="{{ this.product[0].seller.image }}" />
+            <p class="text-sm text-blue-500 my-2">{{ this.product[0].seller.name }}</p>
+            <p class="text-sm text-blue-500 m-2">|</p>
+            <p class="text-sm text-blue-500 my-2">{{ this.product[0].product.brand.name }}</p>
         </span>
         <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3"></p-rating>
       </span>
-      <p class="text-4xl m-0">{{ this.product[0].product.title }}</p>
-      <p-fieldset legend="Description" [toggleable]="true" class="mt-3">
+      <p class="text-4xl m-0 mt-2">{{ this.product[0].product.title }}</p>
+      <p-breadcrumb class="max-w-full mt-3" [model]="[{ label: 'Products' },{ label: this.product[0].product.category.name }]" [home]="{ icon: 'pi pi-home', routerLink: '/' }"></p-breadcrumb>
+      <p-panel header="Description" [toggleable]="true" class="mt-3">
+        @for (detail of this.product[0].product.details; track detail) {
+          <p><b>{{ detail.title }}: </b> {{ detail.info }}</p>
+        }
         <p class="text-base text-400">{{ this.product[0].product.description }}</p>
-      </p-fieldset>
+      </p-panel>
       <span class="flex flex-row mt-3">
         <p class="text-6xl my-0 mr-3">{{ this.product[0].price | priceFormat }}</p>
         @if (this.product[0].discount > 0){
@@ -60,7 +66,7 @@
                 <span class="flex-grow-1 flex align-items-center justify-content-end">
                   @if (sellerProduct.discount > 0){
                     <span class="mt-1 mr-3">
-                      <p-tag icon="pi pi-info-circle" severity="info" value="{{sellerProduct.discount*100}}% OFF" [rounded]="true"></p-tag>
+                      <p-tag icon="pi pi-info-circle" severity="info" value="{{(sellerProduct.discount*100).toFixed(0)}}% OFF" [rounded]="true"></p-tag>
                       <p class="text-sm text-red-500 line-through my-1 text-right justify-content-end">{{ (sellerProduct.price / (1 - sellerProduct.discount)) | priceFormat }}</p>
                     </span>
                   }
