@@ -121,19 +121,7 @@ mySellers.forEach((seller) => {
     if (Math.random() > 0.5) {
       discount = Number(Math.random().toFixed(2));
     }
-    let reviews = []
-    let reviewsCount = Math.floor(Math.random() * 3) + 1
-    while (reviewsCount > 0) {
-      reviewsCount--;
-      let review = {
-        id: myReviews.length + 1,
-        product_id: myListedProducts.length + 1,
-        user: myUsers[Math.floor(Math.random() * myUsers.length)],
-        review: faker.lorem.paragraph()
-      }
-      reviews.push(review)
-      myReviews.push(review)
-    }
+
     myListedProducts.push({
       id: productCounter,
       seller: seller,
@@ -142,20 +130,37 @@ mySellers.forEach((seller) => {
       price: Math.floor(Math.random() * 100000) + 1,
       rating: Number((Math.random() * 10).toFixed(1)),
       discount,
-      reviews: reviews
+      reviews: []
     })
-    myOrders.push({
-      id: myOrders.length + 1,
-      timeline: {
-        placed: Date.now(),
-        inTransit: Date.now(),
-        outForDelivery: Date.now(),
-        delivered: Date.now(),
-      },
-      items: [
-        myListedProducts[myListedProducts.length-1]
-      ]
-    })
+
+    let reviews = []
+    let reviewsCount = Math.floor(Math.random() * 3) + 1
+    while (reviewsCount > 0) {
+      reviewsCount--;
+      let user = myUsers[Math.floor(Math.random() * myUsers.length)]
+      let review = {
+        id: myReviews.length + 1,
+        product_id: myListedProducts.length,
+        user: user,
+        review: faker.lorem.paragraph()
+      }
+      reviews.push(review)
+      myReviews.push(review)
+      myOrders.push({
+        id: myOrders.length + 1,
+        user: myUsers[Math.floor(Math.random() * myUsers.length)],
+        timeline: {
+          placed: Date.now(),
+          inTransit: Date.now(),
+          outForDelivery: Date.now(),
+          delivered: Date.now(),
+        },
+        items: [
+          myListedProducts[myListedProducts.length-1]
+        ]
+      })
+    }
+    myListedProducts[myListedProducts.length-1].reviews = reviews
     numOfProducts -= 1;
     productCounter += 1;
   }
