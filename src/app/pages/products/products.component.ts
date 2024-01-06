@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CardsComponent } from '../../components/cards/cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsService } from '../../services/products.service';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +15,8 @@ import { ProductsService } from '../../services/products.service';
   CheckboxModule,
   AccordionModule,
 CardsComponent,
-HttpClientModule],
+HttpClientModule,
+DropdownModule],
   providers:[ProductsService],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
@@ -26,6 +28,8 @@ export class ProductsComponent implements OnInit{
   brand:string = '';
   products:any;
   category:string = '';
+  sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'}];
+  selectedSort:{SORT:String} = {SORT:''};
 
   constructor(private productService:ProductsService){}
 
@@ -62,5 +66,15 @@ export class ProductsComponent implements OnInit{
       next:(data) => {this.products = data},
       error:(e) => {console.log(e)}
     })
+  }
+
+  onSortChange() {
+    if (this.selectedSort.SORT === 'PRICE: LOW TO HIGH') {
+      this.products.sort((a:any, b:any) => a.price - b.price);
+    } else if (this.selectedSort.SORT === 'PRICE: HIGH TO LOW') {
+      this.products.sort((a:any, b:any) => b.price - a.price);
+    }else if (this.selectedSort.SORT === 'BEST RATED'){
+      this.products.sort((a:any, b:any) => b.rating - a.rating);
+    }
   }
 }
