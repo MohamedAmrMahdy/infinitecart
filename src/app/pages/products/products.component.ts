@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AccordionModule } from 'primeng/accordion';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CardsComponent } from '../../components/cards/cards.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsService } from '../../services/products.service';
@@ -31,12 +31,27 @@ export class ProductsComponent implements OnInit{
   sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'},{SORT:'RECOMMENDED'}];
   selectedSort:{SORT:String} = {SORT:''};
 
-  constructor(private productService:ProductsService){}
+  constructor(private productService:ProductsService, private route:ActivatedRoute){}
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe({
       next:(data)=>{this.products = data},
       error:(e) => {console.log(e)}
+    })
+    this.route.queryParams
+    // .filter(params=>params.category)
+    .subscribe(params=>{
+      // console.log(params);
+      if(params['category'])
+      {
+        this.category = params['category'];
+        this.filterForCategory();
+      }
+      if(params['brand'])
+      {
+        this.brand = params['brand'];
+        this.filterForBrand();
+      }
     })
   }
 
