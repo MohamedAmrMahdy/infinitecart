@@ -1,7 +1,7 @@
 <div class="mt-3 flex flex-row flex-wrap gap-4 justify-content-center categoryList">
     @for (category of categories; track category.id) {
 
-    <div routerLink="/" class="categoryItem relative w-max center-text cursor-pointer">
+    <div routerLink="/products" [queryParams]="{ category: category.name}" class="categoryItem relative w-max center-text cursor-pointer">
         @if (category.image) {
         <img class="categoryImage" src="{{category.image}}">
         }
