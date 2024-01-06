@@ -1,1 +1,21 @@
-<p>brands works!</p>
+<div class="mt-3 flex flex-row flex-wrap gap-4 justify-content-center brandList">
+    @for (brand of brands; track brand.id) {
+
+    <div routerLink="/products" [queryParams]="{ brand: brand.name}" class="brandItem relative w-max center-text cursor-pointer">
+        @if (brand.image) {
+        <img class="brandImage" src="{{brand.image}}">
+        }
+        @else {
+        <!-- <img class="brandImage" src="https://i.ibb.co/5L0MjSW/broken.png"> -->
+        <img class="brandImage" src="https://i.ibb.co/Sr61W61/broken.png">
+        <h3 class="text-center">{{brand.name}}</h3>
+        }
+    </div>
+
+    }
+    <div>
+        <div routerLink="/products" class="brandItem w-max center-text cursor-pointer">
+            <img class="brandImage" src="https://i.ibb.co/5RQ2KvN/view-all.png">
+        </div>
+    </div>
+</div>
