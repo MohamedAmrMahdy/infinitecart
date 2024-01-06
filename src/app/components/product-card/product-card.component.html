@@ -10,22 +10,22 @@
                     </ng-template>
                 </p-carousel>
                 <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
-                <div class="absolute top-100 right-0" style="transform: translate(-1%, 340%);">
+                <div class="absolute top-100 right-0" style="transform: translate(-1%, 300%);">
                     <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.stock)"
-                        [severity]="getSeverity(product.stock)" />
+                    (onClick)="addToCart(product)" [severity]="getSeverity(product.stock)" />
                 </div>
                 <div class="absolute top-0" style="transform: translate(380%, 10%);">
                     <p-button icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
                 </div>
                 <div class="text-center relative">
                     <p-tag [value]="getStock(product.stock)" [severity]="getSeverity(product.stock)"></p-tag>
-                    <h4>{{product.product.title}}</h4>
+                    <!-- <h4>{{product.product.title}}</h4> -->
                     <!-- <h5 class="absolute left-0">{{'$' + product.price}}</h5>
                     <h5 class="absolute right-0">{{product.rating}}/10</h5> -->
                 </div>
             </div>
         </ng-template>
-        <!-- <ng-template pTemplate="title">{{product.product.title}}</ng-template> -->
+        <ng-template pTemplate="title">{{product.product.title}}</ng-template>
         <ng-template pTemplate="subtitle">{{product.price| currency:'USD'}}</ng-template>
         <!-- <ng-template pTemplate="content">{{product.rating}}/10</ng-template> -->
         <ng-template pTemplate="content">{{product.product.description|longText}}</ng-template>
