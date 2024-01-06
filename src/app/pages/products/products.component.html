@@ -42,9 +42,10 @@
 </div>
   </div>
   <!--Cards Container-->
-  <div class="cards  xl:col-10 lg:col-9 md:col-9 sm:col-12 col-12">
-    <div class="card flex justify-content-center">
-      <p-dropdown [options]="sorted" [(ngModel)]="selectedSort" optionLabel="SORT" [showClear]="true" placeholder="SORT BY"  (ngModelChange)="onSortChange()"></p-dropdown>
+  <div class="cards xl:col-10 lg:col-9 md:col-9 sm:col-12 col-12">
+    <!--Drop down List help to Sort Products-->
+    <div class="card flex Xl:justify-content-end lg:justify-content-end md:justify-content-end sm:justify-content-center justify-content-center">
+      <p-dropdown [options]="sorted" [(ngModel)]="selectedSort" placeholder="SORT BY" [editable]="true" optionLabel="SORT" (ngModelChange)="onSortChange()"></p-dropdown>
     </div>
     <div class="flex flex-wrap gap-3 lg:gap-7 md:gap-3  xl:gap-3 xl:justify-content-start lg:justify-content-start md:justify-content-center sm:justify-content-center justify-content-center">
       <!--Select Products Data To Display In Card-->

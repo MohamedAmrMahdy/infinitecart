@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit{
   brand:string = '';
   products:any;
   category:string = '';
-  sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'}];
+  sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'},{SORT:'RECOMMENDED'}];
   selectedSort:{SORT:String} = {SORT:''};
 
   constructor(private productService:ProductsService){}
@@ -71,10 +71,12 @@ export class ProductsComponent implements OnInit{
   onSortChange() {
     if (this.selectedSort.SORT === 'PRICE: LOW TO HIGH') {
       this.products.sort((a:any, b:any) => a.price - b.price);
-    } else if (this.selectedSort.SORT === 'PRICE: HIGH TO LOW') {
+    }else if (this.selectedSort.SORT === 'PRICE: HIGH TO LOW') {
       this.products.sort((a:any, b:any) => b.price - a.price);
     }else if (this.selectedSort.SORT === 'BEST RATED'){
       this.products.sort((a:any, b:any) => b.rating - a.rating);
+    }else if(this.selectedSort.SORT === 'RECOMMENDED'){
+      this.products.sort((a:any, b:any) => b.seller.sales - a.seller.sales);
     }
   }
 }
