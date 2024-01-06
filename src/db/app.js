@@ -110,6 +110,8 @@ let myMetaProducts = [
 ];
 
 
+let myOrders = [];
+let myReviews = [];
 let myListedProducts = [];
 let productCounter = 1;
 mySellers.forEach((seller) => {
@@ -119,6 +121,19 @@ mySellers.forEach((seller) => {
     if (Math.random() > 0.5) {
       discount = Number(Math.random().toFixed(2));
     }
+    let reviews = []
+    let reviewsCount = Math.floor(Math.random() * 3) + 1
+    while (reviewsCount > 0) {
+      reviewsCount--;
+      let review = {
+        id: myReviews.length + 1,
+        product_id: myListedProducts.length + 1,
+        user: myUsers[Math.floor(Math.random() * myUsers.length)],
+        review: faker.lorem.paragraph()
+      }
+      reviews.push(review)
+      myReviews.push(review)
+    }
     myListedProducts.push({
       id: productCounter,
       seller: seller,
@@ -126,7 +141,20 @@ mySellers.forEach((seller) => {
       stock: Math.floor(Math.random() * 1000) + 1,
       price: Math.floor(Math.random() * 100000) + 1,
       rating: Number((Math.random() * 10).toFixed(1)),
-      discount
+      discount,
+      reviews: reviews
+    })
+    myOrders.push({
+      id: myOrders.length + 1,
+      timeline: {
+        placed: Date.now(),
+        inTransit: Date.now(),
+        outForDelivery: Date.now(),
+        delivered: Date.now(),
+      },
+      items: [
+        myListedProducts[myListedProducts.length-1]
+      ]
     })
     numOfProducts -= 1;
     productCounter += 1;
@@ -141,6 +169,8 @@ const db = {
   categories: myCategories,
   brands: myBrands,
   products: myListedProducts,
+  reviews: myReviews,
+  orders: myOrders
 }
 
 fs.writeFile('./db.json', JSON.stringify(db, null, 2), { encoding: 'utf8', flag: 'w' }, function writeJSON(err) {
