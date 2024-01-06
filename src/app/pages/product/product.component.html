@@ -12,7 +12,7 @@
         <span class="flex flex-row mt-2">
           <img class="productBrandImg" title="Brand"
             src="{{ this.product[0].seller.image }}" />
-            <p class="text-sm text-blue-500 my-2">{{ this.product[0].seller.name }}</p>
+            <p class="text-sm text-blue-500 my-2 ml-2">{{ this.product[0].seller.name }}</p>
             <p class="text-sm text-blue-500 m-2">|</p>
             <p class="text-sm text-blue-500 my-2">{{ this.product[0].product.brand.name }}</p>
         </span>
@@ -76,6 +76,30 @@
               </span>
             </p>
           </p-card>
+        } @empty {
+          NO SELLERS
+        }
+      </div>
+    </div>
+    <div class="flex flex-column justify-content-center font-bold border-round mt-5">
+      <p class="text-3xl my-0 uppercase text-center">Reviews</p>
+      <p class="text-400 my-0 uppercase text-center">Know More from others</p>
+      <div class="flex flex-column mt-5 mb-5">
+        @for (review of this.product[0].reviews; track review) {
+          <p-panel [toggleable]="true" class="mb-3">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    <p-avatar image="{{ review.user.image }}" size="large" shape="circle" />
+                    <span class="font-bold">{{ review.user.firstName }} {{ review.user.lastName }}</span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="icons">
+              <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3 mr-3"></p-rating>
+            </ng-template>
+            <p class="m-0">
+              {{ review.review }}
+            </p>
+          </p-panel>
         } @empty {
           NO SELLERS
         }
