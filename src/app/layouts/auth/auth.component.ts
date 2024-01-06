@@ -6,12 +6,14 @@ import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { Router } from "@angular/router";
 import { AuthStore } from "../../stores/auth.store";
+import { MessageService } from "primeng/api";
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: "app-auth",
   standalone: true,
-  imports: [ ReactiveFormsModule, CardModule, InputTextModule, ButtonModule],
-  providers: [AuthStore, AuthService],
+  imports: [ ReactiveFormsModule, CardModule, InputTextModule, ButtonModule, ToastModule],
+  providers: [AuthStore, AuthService, MessageService],
   templateUrl: "./auth.component.html",
   styleUrl: "./auth.component.css",
 })
@@ -19,7 +21,8 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
   readonly authStore = inject(AuthStore);
   isLogin:boolean = true;
@@ -78,6 +81,7 @@ export class AuthComponent {
         this.router.navigate(["/"]);
       },
       error: err => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Email Already Registerd' });
         console.log(err);
       }
     });
