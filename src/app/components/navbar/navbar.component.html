@@ -82,16 +82,16 @@
                 <h3 class="mb-0 font-bold" style="color: black !important;">Cart Items</h3>
                 <div class="px-2 flex flex-column gap-1">
                   <hr class="w-12">
-                  @for (cartItem of cartItems; track $index) {
-                    @if (cartItem.id <= 4) {
+                  @for (cartItem of cartItems.product; track $index ; let i = $count) {
+                    @if ($index <= 3) {
                       <div class="flex gap-5 my-0" style="height: 65px;">
                         <div class="w-3">
-                          <img [src]="cartItem.img" alt="">
+                          <img [src]="cartItem.product.thumbnail" alt="">
                         </div>
                         <div class="flex flex-column justify-content-between m-0" style="width: 100%;">
-                          <p class="font-bold m-0" style="color: black !important;">{{cartItem.name}}</p>
+                          <p class="font-bold m-0" style="color: black !important;">{{cartItem.product.title}}</p>
                           <div class="flex m-0 justify-content-between">
-                            <p>{{cartItem.quantity}} Items</p>
+                            <p>{{cartItem.quentity}} Items</p>
                             <p>{{cartItem.price}} $</p>
                           </div>
                         </div>
@@ -105,7 +105,7 @@
                 <div>
                   <div class="flex justify-content-between mx-2 my-2">
                     <p class="font-2xl">SubTotal</p>
-                    <p class="font-bold font-2xl text-color">{{subtotal}} $</p>
+                    <p class="font-bold font-2xl text-color">{{getTotal()}} $</p>
                   </div>
                   <div class="flex gap-2 justify-content-evenly mt-2">
                     <button pButton routerLink="/cart" type="button" class="p-button-rounded px-5 font-bold">View Cart</button>

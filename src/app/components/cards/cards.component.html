@@ -23,7 +23,7 @@
           </div>
           <!--Footer For The Card-->
           <ng-template pTemplate="footer">
-              <p-button label="Add To Cart" icon="pi pi-cart-plus"></p-button>
+              <p-button (onClick)="addToCart(productData)" label="Add To Cart" icon="pi pi-cart-plus"></p-button>
           </ng-template>
       </p-card>
     </div>

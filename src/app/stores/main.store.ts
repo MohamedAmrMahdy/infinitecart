@@ -1,6 +1,3 @@
-import { computed } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
 import {
   signalStore,
   withState,
@@ -13,7 +10,7 @@ import {
 export const MainStore = signalStore(
   withState({
     cart: {
-
+      product:[] as any
     }
   }),
   withMethods(({ cart, ...store }) => ({
@@ -21,17 +18,35 @@ export const MainStore = signalStore(
       patchState(store, { cart: newCart });
     },
     resetCart() {
-      patchState(store, { cart: {} });
+      patchState(store, { cart: {product:[]}
+        }
+      );
       localStorage.removeItem('cart');
     },
-    addToCart() {
-      // TODO
-      //patchState(store, { cart: {// TODO} });
-    },
-    removeFromCart(){
-      // TODO
-      //patchState(store, { cart: {// TODO} });
-    }
+    // addToCart(cart_item,quentity) {
+    //   patchState(store, { cart:
+    //       {
+    //         product:{
+    //           ...cart_item,
+    //           quentity
+    //         }
+    //       }
+    //   }
+    //   );
+    //   localStorage.setItem('cart',JSON.stringify({
+    //     ...cart.product
+    //   }));
+
+    // },
+    // removeFromCart(){
+    //     patchState(store, { cart:
+    //       {
+    //         product: [{...cart.product}]
+    //       }
+
+
+    //     });
+    //   }
   })),
   withHooks({
     onInit({ cart, refreshCart }) {

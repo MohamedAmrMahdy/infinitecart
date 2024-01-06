@@ -31,8 +31,9 @@ export interface IProduct{
     thumbnail: string
     title: string,
     description: string,
-    images: string[]
-      "category": {
+    images: string[],
+
+    "category": {
         "id": number,
         "image": string,
         "name": string,

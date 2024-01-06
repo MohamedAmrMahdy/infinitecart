@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { RatingModule } from 'primeng/rating';
@@ -13,6 +13,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
+import { MainStore } from '../../stores/main.store';
 
 @Component({
   selector: 'app-product',
@@ -30,6 +31,7 @@ import { PriceFormatPipe } from '../../pipes/price-format.pipe';
     BreadcrumbModule,
     PriceFormatPipe
   ],
+  providers:[MainStore],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -68,5 +70,11 @@ export class ProductComponent {
   goToProduct(id:number){
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate(["/products/"+id])});
+  }
+  readonly store = inject(MainStore);
+
+  addToCart(item:any){
+    this.store.cart().product.push({...item,quentity:1} as any);
+    localStorage.setItem('cart',this.store.cart().product)
   }
 }

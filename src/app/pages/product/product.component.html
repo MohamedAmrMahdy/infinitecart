@@ -34,7 +34,7 @@
             <p class="text-red-500 line-through my-1 text-right justify-content-end">{{ (this.product[0].price / (1 - this.product[0].discount)) | priceFormat }}</p>
           </span>
         }
-        <p-button label="ADD TO CART" icon="pi pi-cart-plus" size="large"
+        <p-button (click)="addToCart(this.product[0])" label="ADD TO CART" icon="pi pi-cart-plus" size="large"
           class="flex-grow-1 flex align-items-center justify-content-end"></p-button>
       </span>
     </div>
@@ -79,7 +79,6 @@
         } @empty {
           NO SELLERS
         }
-
       </div>
     </div>
   </div>
