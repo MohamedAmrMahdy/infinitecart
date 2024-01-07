@@ -20,7 +20,6 @@ export class UserService {
     console.log(userData)
     return this.http.patch(API + 'users' + '/' + id, {
       email:userData.email ,
-      password: userData.password,
       image: "",
       firstName: userData.fName,
       lastName:userData.lName ,
