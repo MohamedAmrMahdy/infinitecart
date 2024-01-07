@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-const AUTH_API = 'https://rstnml-3000.csb.app/';
+const AUTH_API = 'http://localhost:3000/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
