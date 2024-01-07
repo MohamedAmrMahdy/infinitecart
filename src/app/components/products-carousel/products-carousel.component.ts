@@ -23,14 +23,13 @@ export class ProductsCarouselComponent implements OnInit {
     // set-timeout is needed to make sure the request includes the right category.
     // Can it be solved in a better way? 
     setTimeout(()=> {
-
       this.productService.getAllProducts({
         limit: 10,
       category: this.cat_title
     }).subscribe({
       next:(data)=>{
         this.products = data;
-        console.log(this.products);
+        // console.log(this.products);
       },
       error:(e) => {console.log(e)}
     })

@@ -19,7 +19,9 @@
     <app-categories-carousel/>
   </div>
 
-<div class="flex flex-column justify-content-center m-auto w-11">
+  <hr>
+
+<div class="flex flex-column justify-content-center m-auto w-11 mt-5">
   @if (randomCats) {
     <app-products-carousel cat_title="{{randomCats[0]?.name}}" sign="1" />
     <app-products-carousel cat_title="{{randomCats[1]?.name}}" sign="-1" />

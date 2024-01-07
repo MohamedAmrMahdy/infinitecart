@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       next: (data) => {
         this.allCategories = data;
         this.randomCats = this.getRandomCategories(this.allCategories, 3)
-        console.log(this.randomCats)
+        // console.log(this.randomCats)
       },
       error: (e) => { console.log(e) }
     })
