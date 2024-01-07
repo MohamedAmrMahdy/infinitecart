@@ -16,3 +16,7 @@ body {
 .p-card .p-card-content {
   padding: 0rem !important;
 }
+dark-theme{
+  background-color: black;
+  color: white;
+}

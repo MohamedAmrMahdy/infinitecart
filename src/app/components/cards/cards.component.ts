@@ -46,7 +46,7 @@ export class CardsComponent {
     })
     return flag;
   }
-  addWishlist(item:any){
+  addOrRemoveWishlist(item:any){
     if(!this.isExist(item)){
       this.wishlist.wishlist().product.push({...item} as any);
       localStorage.setItem('wishlist',JSON.stringify(this.wishlist.wishlist().product))
