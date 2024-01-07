@@ -17,7 +17,6 @@ export class UserService {
 
   updateUserData(id:number, userData:any): Observable<any> {
     console.log('inside updateUserData()')
-    console.log('inside updateUserData()')
     console.log(userData)
     return this.http.patch(API + 'users' + '/' + id, {
       email:userData.email ,

@@ -33,11 +33,11 @@
                 <div class="field col-12">
                     <label for="birthDate">BirthDate</label>
                     <p-calendar id="birthDate" formControlName="birthDate" [showIcon]="true" inputId="templatedisplay" class="calender" >
-                        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
+                        <!-- <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack"  >
                             <i class="pi pi-user" (click)="clickCallBack($event)" ></i>
-                        </ng-template>
+                        </ng-template> -->
                     </p-calendar>
-                    @if ((!isBirthDateValid && birthDateValChanged)  || (!isBirthDateValid && isSubmitted)) {
+                    @if ( (!isBirthDateValid && isSubmitted)) {
                         <p class = "error" style="color: red;">{{validtionMsg.birthDateValMsg}}</p>
                     }
                 </div>
