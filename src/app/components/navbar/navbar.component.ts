@@ -32,19 +32,22 @@ import { IProduct } from '../../interfaces/product';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent{
+export class NavbarComponent implements OnInit{
   readonly store = inject(AuthStore)
   readonly cart = inject(MainStore)
   constructor(private productService:ProductsService){}
+  ngOnInit(): void {
+    this.getcartItems();
+  }
   guest:any;
   user=this.store.currentUser() as any;
   searchValue:any;
   value:any;
   searchProduct:any;
   cartItems:any;
-
   getcartItems(){
-    this.cartItems=JSON.parse(localStorage.getItem('cart') || "");
+    this.cartItems=JSON.parse(localStorage.getItem('cart') || "[]");
+    this.cart.cart().product = this.cartItems;
     return this.cartItems;
   }
   product_search(){
@@ -76,8 +79,6 @@ export class NavbarComponent{
   getTotal(){
     let sum = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
-      // if(i >= 3)
-      //   break;
       sum += +this.cartItems[i].price * +this.cartItems[i].quentity
     }
     return sum;

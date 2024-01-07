@@ -25,8 +25,16 @@ export class CardsComponent {
   @Input() productData:any;
   readonly store = inject(MainStore);
 
+
   addToCart(item:any){
-    this.store.cart().product.push({...item,quentity:1} as any);
+    let flag=true;
+    this.store.cart().product.map((cartItem:any)=>{
+      if(cartItem.id == item.id)
+        flag = false;
+    })
+    if(flag){
+      this.store.cart().product.push({...item,quentity:1} as any);
+    }
     localStorage.setItem('cart',JSON.stringify(this.store.cart().product))
   }
 }
