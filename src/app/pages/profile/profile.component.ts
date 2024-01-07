@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormControl,FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl,FormsModule, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MenuModule } from 'primeng/menu';
@@ -40,7 +40,7 @@ export class ProfileComponent {
   validtionMsg = {
     fNameValMsg:"min length of first name is 3 litters",
     lNameValMsg:"min length of last name is 3 litters",
-    birthDateValMsg: 'BirthDate is invalid',
+    birthDateValMsg: 'Age must be above 18',
     addressValMsg: 'too short address',
     countryValMsg: 'Must select a country',
     stateValMsg: 'state is required',
@@ -54,12 +54,11 @@ export class ProfileComponent {
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
   visible = false;
-
   profileForm = new FormGroup({
     fName:new FormControl(this.currentUser.firstName, [Validators.required, Validators.minLength(3)]),
     lName:new FormControl(this.currentUser.lastName, [Validators.required, Validators.minLength(3)]),
     email:new FormControl({ value: this.currentUser.email, disabled: true}, { updateOn: 'change' }),
-    birthDate: new FormControl(this.currentUser.birthDate,[Validators.required]),
+    birthDate: new FormControl(new Date(this.currentUser.birthDate).toLocaleDateString('en-US'),[Validators.required,this.ageValidator] ),
     address:new FormControl(this.currentUser.address.address,[Validators.required, Validators.minLength(5)]),
     country:new FormControl(this.currentUser.address.country,[Validators.required] ),
     state:new FormControl(this.currentUser.address.state, [Validators.required]),
@@ -74,9 +73,92 @@ constructor (private http: HttpClient,private router: Router,private userService
     this.visible = true;
   }
 
-
-
+  clickCallBack(event:any) {
+    console.log(event);
+  }
+    // handle form subimission
+    submitProfileData(){      
+      console.log(this.profileForm.controls.birthDate.value);
+      console.log(this.profileForm.controls.birthDate.valid);
+      // console.log(this.profileForm.controls.country.value);
+      // console.log(this.profileForm.controls.country.valid);
+      
+      this.fromSubmitted = true;
+      this.profileForm.controls.email.enable();
+      
+      // post data
+      if(this.profileForm.valid){
+        console.log('valid');
+        const formData = { ...this.profileForm.value, email: this.currentUser.email};  
+        console.log('this.currentUser', this.currentUser);        
+        console.log('local storage', JSON.parse(localStorage.getItem('userData') || '{}'));
+        console.log('formData', formData);
+        // this.authStore.updateCurrentUser(formData)
+        
+        this.userService.updateUserData(this.currentUser.id, formData).subscribe({
+          next: (response:any) => {
+            console.log('response', response);
+            
+            this.fromSubmitted = false;
+            this.router.navigate(["/"]); 
+            localStorage.setItem('userData',JSON.stringify(response));
+          },
+          error: (err:any) => {
+            console.log(err);
+          }
+        })
   
+  
+  
+        // this.profileForm.reset();
+     
+      }
+      else {
+        console.log('invalid')
+        console.log(this.profileForm);
+  
+        // if(!this.profileForm.controls.fName.valid) console.log(this.fNameValMsg)
+        // if(!this.profileForm.controls.lName.valid) console.log(this.lNameValMsg)    
+        // if(!this.profileForm.controls.email.valid) console.log(this.emailValMsg)
+  
+        console.log(this.profileForm.controls.fName.valid) 
+        console.log(this.profileForm.controls.lName.valid)     
+        console.log(this.profileForm.controls.email.valid)
+  
+  
+        console.log(this.profileForm.controls.address.valid)
+        console.log(this.profileForm.controls.country.valid)
+        console.log(this.profileForm.controls.phone.valid)
+  
+        
+  
+  
+        // console.log(this.profileForm.controls.email)
+        // console.log(this.profileForm.controls.email.value)
+        // console.log(this.profileForm.controls.email.valid)
+      }
+  
+  }
+  
+  
+
+  ageValidator(control: AbstractControl): ValidationErrors | null {    
+   
+    const birthDate = new Date(control.value);
+    const currentDate = new Date();
+    const age = currentDate.getFullYear() - birthDate.getFullYear();
+  
+    const minAge = 18;
+    const maxAge = 100;
+  
+    if (age < minAge || age > maxAge) {
+      console.log('age < minAge || age > maxAge');
+      return {valid: false};
+    }
+  
+    return null;
+  }
+
 // handle form validations
 
 get isfirstNameValid(){
@@ -161,62 +243,6 @@ get isSubmitted(){
 }
 
 
-  // handle form subimission
-  submitProfileData(){
-    this.fromSubmitted = true;
-    this.profileForm.controls.email.enable();
-    
-    // post data
-    if(this.profileForm.valid){
-      console.log('valid');
-      const formData = { ...this.profileForm.value, email: this.currentUser.email, password: 'password' };  
-      console.log(formData);
-      this.userService.updateUserData(this.currentUser.id, formData).subscribe({
-        next: (response:any) => {
-          console.log('return from service')
-          console.log(response);
-         this.authStore.updateCurrentUser(response)
-
-          
-        },
-        error: (err:any) => {
-          console.log(err);
-        }
-      })
-
-
-      this.router.navigate(["/"]);
-
-
-      // this.profileForm.reset();
-      this.fromSubmitted = false;
-    }
-    else {
-      console.log('invalid')
-      console.log(this.profileForm);
-
-      // if(!this.profileForm.controls.fName.valid) console.log(this.fNameValMsg)
-      // if(!this.profileForm.controls.lName.valid) console.log(this.lNameValMsg)    
-      // if(!this.profileForm.controls.email.valid) console.log(this.emailValMsg)
-
-      console.log(this.profileForm.controls.fName.valid) 
-      console.log(this.profileForm.controls.lName.valid)     
-      console.log(this.profileForm.controls.email.valid)
-
-
-      console.log(this.profileForm.controls.address.valid)
-      console.log(this.profileForm.controls.country.valid)
-      console.log(this.profileForm.controls.phone.valid)
-
-      
-
-
-      // console.log(this.profileForm.controls.email)
-      // console.log(this.profileForm.controls.email.value)
-      // console.log(this.profileForm.controls.email.valid)
-    }
-
-}
 
 
 
@@ -283,10 +309,10 @@ selectedCountryHandler(event:any) {
 
 
 ngOnInit(){
-  console.log(this.currentUser.address.country);
-  console.log(this.currentUser.address.postalCode);
-  console.log(this.currentUser.birthDate)
-  console.log(this.currentUser);
+  // console.log(this.currentUser.address.country);
+  // console.log(this.currentUser.address.postalCode);
+  // console.log(this.currentUser.birthDate)
+  // console.log(this.currentUser);
   this.items = [
     {
       label: "Profile",
@@ -313,16 +339,17 @@ ngOnInit(){
 
 this.fetchCountries();
 
+// console.log( this.countries);
+// console.log(this.currentUser.address.country);
 
-// this.selectedCountry = this.countries.filter((country: any) => country.name === this.currentUser.address.country)
-// .map((country: any) => ({
-//   name: country.name,
-//   phoneCode: country.phoneCode,
-//   flag: country.flag
-// }))[0];
+// if(this.currentUser.address.country){
+// this.selectedCountry = this.countries.find(
+//     country => country.name === this.currentUser.address.country
+// )
 // console.log(this.selectedCountry);
 
-// this.flagSrc = this.selectedCountry.flag;
+// // this.flagSrc = this.selectedCountry.flag;
+// }
 
 
 }
