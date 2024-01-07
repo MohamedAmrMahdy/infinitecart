@@ -83,6 +83,7 @@ export class ProductsComponent implements OnInit{
       }
     );
     this.renderProducts()
+    scrollTo(0, 0);
   }
 
   onSortChange() {

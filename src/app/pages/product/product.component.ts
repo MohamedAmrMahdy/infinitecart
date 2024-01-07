@@ -83,6 +83,7 @@ export class ProductComponent {
 
   goToProduct(id:number){
     this.router.navigate(["/products/"+id]);
+    scrollTo(0, 0);
   }
 
   readonly store = inject(MainStore);

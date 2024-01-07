@@ -10,6 +10,7 @@ body {
   height: 100%;
   margin: 0;
   background: var(--surface-c);
+  scroll-behavior: smooth;
 }
 
 .p-card .p-card-content {
