@@ -11,6 +11,8 @@ import { ProductComponent } from "./pages/product/product.component";
 import { WishlistComponent } from "./pages/wishlist/wishlist.component";
 import { BrandsComponent } from "./pages/brands/brands.component";
 import { CategoriesComponent } from "./pages/categories/categories.component";
+import { OrdersComponent } from "./pages/orders/orders.component";
+import { OrderSummaryComponent } from "./pages/order-summary/order-summary.component";
 
 export const routes: Routes = [
   {
@@ -24,7 +26,9 @@ export const routes: Routes = [
       { path: "profile", title: 'InfinitCart - Profile', component: ProfileComponent, canActivate:[authGuard] },
       { path: "wishlist", title: 'InfinitCart - Wishlist',component:WishlistComponent, canActivate:[authGuard]},
       { path: "categories", title: 'InfinitCart - Categories',component:CategoriesComponent},
-      { path: "Brands", title: 'InfinitCart - Brands',component:BrandsComponent}
+      { path: "Brands", title: 'InfinitCart - Brands',component:BrandsComponent},
+      { path: "orders", title: 'InfinitCart - orders',component:OrdersComponent},
+      { path: "order", title: 'InfinitCart - order-summary',component:OrderSummaryComponent},
     ]
   },
   { path: "auth", title: 'InfinitCart - Login / Register', component: AuthComponent },
