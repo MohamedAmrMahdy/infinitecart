@@ -1,33 +1,56 @@
-<div class="mt-2">
-    <p-card [style]="{ width: '240px', 'height': '460px'} ">
+<div class="mt-2 mb-5 relative">
+    <p-card [style]="{ width: '240px', 'height': '400px'} ">
         <ng-template pTemplate="header">
-            <div class="relative">
-                <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images"
-                    [numVisible]="1" [numScroll]="1" [circular]="false">
-                    <ng-template let-image pTemplate="images">
-                        <img routerLink="/products/{{product.id}}" style="width:240px; height:200px;" class="border-3 border-round cursor-pointer" alt="{{image}}"
-                            src="{{image}}" />
-                    </ng-template>
-                </p-carousel>
-                <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
-                <div class="absolute top-100 right-0" style="transform: translate(-1%, 300%);">
-                    <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.stock)"
-                    (onClick)="addToCart(product)" [severity]="getSeverity(product.stock)" />
-                </div>
-                <div class="absolute top-0" style="transform: translate(380%, 10%);">
-                    <p-button icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
-                </div>
-                <div class="text-center relative">
-                    <p-tag [value]="getStock(product.stock)" [severity]="getSeverity(product.stock)"></p-tag>
-                    <!-- <h4>{{product.product.title}}</h4> -->
-                    <!-- <h5 class="absolute left-0">{{'$' + product.price}}</h5>
-                    <h5 class="absolute right-0">{{product.rating}}/10</h5> -->
-                </div>
+            <!-- <div class=""> -->
+            <p-carousel [showNavigators]="false" [showIndicators]="true" [value]="product.product.images"
+                [numVisible]="1" [numScroll]="1" [circular]="false">
+                <ng-template let-image pTemplate="images">
+                    <img routerLink="/products/{{product.id}}" style="width:240px; height:200px;"
+                        class="border-3 border-round cursor-pointer" alt="{{product.product.title}}" src="{{image}}" />
+                </ng-template>
+            </p-carousel>
+            <!-- <img class="border-3 border-round" alt="{{product.name}}" src="{{product.image}}" /> -->
+            <div class="absolute top-100 right-0" style="transform: translate(-20%, -40%);">
+                <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.stock)" (onClick)="addToCart(product)"
+                    [severity]="getSeverity(product.stock)" />
             </div>
+            <div class="absolute top-0" style="transform: translate(380%, 10%);">
+                <p-button (onClick)="addOrRemoveWishlist(product)" [style]="{'box-shadow': '1px 2px'}" icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
+            </div>
+            <div class="text-center">
+                <p-tag [value]="getStock(product.stock)" [severity]="getSeverity(product.stock)"></p-tag>
+                <h3>{{product.product.title}}</h3>
+                <!-- <h4 class="absolute" style="transform: translate(100%, 0%);">{{product.price| currency:'USD'}}</h4> -->
+                <div class="absolute right-0 bottom-0" style="transform: translate(-90%, -80%);">
+                    <p-tag [style]="{ 'background': 'linear-gradient(-225deg,#AC32E4 0%,#7918F2 48%,#4801FF 100%)'}">
+                        <div class="flex align-items-center gap-2">
+                            <span class="text-base">{{product.price| currency:'USD'}}</span>
+                        </div>
+                    </p-tag>
+                </div>
+                <div class="flex absolute top-0" style="transform: translate(10%, 600%);">
+                    <div class="">
+                        <!-- <div class="absolute top-0"> -->
+                        <p-tag
+                            [style]="{ 'background': 'linear-gradient(270deg, rgba(48, 183, 47, 1.0), rgba(126, 180, 164, 1.0))'}">
+                            <div class="flex align-items-center gap-2">
+                                <span class="text-base">{{product.rating}}</span>
+                                <i class="pi pi-star-fill text-xs"></i>
+                            </div>
+                        </p-tag>
+
+                        <!-- <p class="text-base font-bold">{{product.rating}} -->
+                            <!-- <i class="pi pi-star-fill" style="color: green; font-size: 0.7rem"></i> -->
+                        <!-- </p> -->
+                    </div>
+                </div>
+                <!-- <h5 class="absolute right-0">{{product.rating}}/10</h5> -->
+            </div>
+            <!-- </div> -->
         </ng-template>
-        <ng-template pTemplate="title">{{product.product.title}}</ng-template>
-        <ng-template pTemplate="subtitle">{{product.price| currency:'USD'}}</ng-template>
+        <!-- <ng-template pTemplate="title">{{product.product.title}}</ng-template> -->
+        <!-- <ng-template pTemplate="subtitle">{{product.price| currency:'USD'}}</ng-template> -->
         <!-- <ng-template pTemplate="content">{{product.rating}}/10</ng-template> -->
-        <ng-template pTemplate="content">{{product.product.description|longText}}</ng-template>
+        <!-- <ng-template pTemplate="content"><br>{{product.product.description|longText}}</ng-template> -->
     </p-card>
 </div>
