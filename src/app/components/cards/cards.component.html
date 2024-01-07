@@ -6,7 +6,7 @@
       <p-card [style]="{ width: '270px'}">
         <!--Add Favorite button to Card-->
         <div class="absolute heart-btn">
-          <p-button icon="pi pi-heart" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
+          <p-button (onClick)="addWishlist(productData)" icon="pi pi-heart" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
         </div>
          <!--Card Header Image-->
           <ng-template pTemplate="header">

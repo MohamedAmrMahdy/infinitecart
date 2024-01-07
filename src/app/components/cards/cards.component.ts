@@ -1,3 +1,4 @@
+import { WishlistStore } from './../../stores/wishlist.store';
 import { Component, Input, inject } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -16,7 +17,7 @@ import { IProduct } from '../../interfaces/product';
   CommonModule,
 FormsModule,
 RouterModule],
-providers: [MainStore],
+providers: [MainStore,WishlistStore],
 
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css'
@@ -24,7 +25,7 @@ providers: [MainStore],
 export class CardsComponent {
   @Input() productData:any;
   readonly store = inject(MainStore);
-
+  readonly wishlist = inject(WishlistStore)
 
   addToCart(item:any){
     let flag=true;
@@ -37,4 +38,22 @@ export class CardsComponent {
     }
     localStorage.setItem('cart',JSON.stringify(this.store.cart().product))
   }
+  isExist(item:any){
+    let flag=false;
+    this.wishlist.wishlist().product.map((WishlistItem:any)=>{
+      if(WishlistItem.id == item.id)
+        flag = true;
+    })
+    return flag;
+  }
+  addWishlist(item:any){
+    if(!this.isExist(item)){
+      this.wishlist.wishlist().product.push({...item} as any);
+      localStorage.setItem('wishlist',JSON.stringify(this.wishlist.wishlist().product))
+    }
+    else{
+        this.wishlist.wishlist().product=this.wishlist.wishlist().product.filter((item2:any) => item.id != item2.id);
+        localStorage.setItem('wishlist',JSON.stringify(this.wishlist.wishlist().product))
+      }
+    }
 }
