@@ -1,110 +1,110 @@
 <div class="w-11 m-auto">
-
-
-<div class="mt-3 mb-3">
-  <div class="flex justify-content-center flex-wrap">
-    <div class="flex align-items-center justify-content-center font-bold border-round m-2">
-      <img class="productImg" title="Card"
-        src="{{ this.product[0].product.thumbnail }}" />
-    </div>
-    <div class="flex flex-column justify-content-start font-bold border-round pl-7 m-2 contSideCard">
-      <span class="flex flex-row justify-content-between flex-wrap">
-        <span class="flex flex-row mt-2">
-          <img class="productBrandImg" title="Brand"
-            src="{{ this.product[0].seller.image }}" />
-            <p class="text-sm text-blue-500 my-2 ml-2">{{ this.product[0].seller.name }}</p>
-            <p class="text-sm text-blue-500 m-2">|</p>
-            <p class="text-sm text-blue-500 my-2">{{ this.product[0].product.brand.name }}</p>
-        </span>
-        <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3"></p-rating>
-      </span>
-      <p class="text-4xl m-0 mt-2">{{ this.product[0].product.title }}</p>
-      <p-breadcrumb class="max-w-full mt-3" [model]="[{ label: 'Products' },{ label: this.product[0].product.category.name }]" [home]="{ icon: 'pi pi-home', routerLink: '/' }"></p-breadcrumb>
-      <p-panel header="Description" [toggleable]="true" class="mt-3">
-        @for (detail of this.product[0].product.details; track detail) {
-          <p><b>{{ detail.title }}: </b> {{ detail.info }}</p>
-        }
-        <p class="text-base text-400">{{ this.product[0].product.description }}</p>
-      </p-panel>
-      <span class="flex flex-row mt-3">
-        <p class="text-6xl my-0 mr-3">{{ this.product[0].price | priceFormat }}</p>
-        @if (this.product[0].discount > 0){
-          <span class="mt-1">
-            <p-tag icon="pi pi-info-circle" severity="info" value="{{this.product[0].discount*100}}% OFF"></p-tag>
-            <p class="text-red-500 line-through my-1 text-right justify-content-end">{{ (this.product[0].price / (1 - this.product[0].discount)) | priceFormat }}</p>
+  @if(this.product){
+    <div class="mt-3 mb-3">
+      <div class="flex justify-content-center flex-wrap">
+        <div class="flex align-items-center justify-content-center font-bold border-round m-2">
+          <img class="productImg" title="Card"
+            src="{{ this.product[0].product.thumbnail }}" />
+        </div>
+        <div class="flex flex-column justify-content-start font-bold border-round pl-7 m-2 contSideCard">
+          <span class="flex flex-row justify-content-between flex-wrap">
+            <span class="flex flex-row mt-2">
+              <img class="productBrandImg" title="Brand"
+                src="{{ this.product[0].seller.image }}" />
+                <p class="text-sm text-blue-500 my-2 ml-2">{{ this.product[0].seller.name }}</p>
+                <p class="text-sm text-blue-500 m-2">|</p>
+                <p class="text-sm text-blue-500 my-2">{{ this.product[0].product.brand.name }}</p>
+            </span>
+            <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3"></p-rating>
           </span>
-        }
-        <p-button (click)="addToCart(this.product[0])" label="ADD TO CART" icon="pi pi-cart-plus" size="large"
-          class="flex-grow-1 flex align-items-center justify-content-end"></p-button>
-      </span>
-    </div>
-  </div>
-  <div class="flex justify-content-center flex-wrap mt-5">
-    <div class="flex flex-column justify-content-center font-bold border-round m-2">
-      <p class="text-3xl my-0 uppercase">other sellers</p>
-      <p class="text-400 my-0 uppercase">You may also like</p>
-      <div class="flex flex-column mt-2">
-        @for (sellerProduct of this.otherSellers; track sellerProduct.id) {
-          <p-card class="mt-3 {{sellerProduct.id == this.product[0].id ?'sameSeller':''}}">
-            <p class="m-0">
-              <span class="flex flex-row sellerCard">
-                <span>
-                  <p-avatar image="{{ sellerProduct.seller.image }}" pBadge value="4" severity="success" styleClass="mr-2"
-                    size="xlarge"></p-avatar>
-                </span>
-                <span class="flex flex-column align-items-start mt-2 ml-3">
-                  <p class="text-xl text-500 font-bold my-1 text-right justify-content-end">{{ sellerProduct.seller.name }}</p>
-                  <span class="flex flex-row my-1">
-                    <i class="pi pi-star"></i>
-                    <p class="text-sm m-0 ml-1 justify-content-end">POSITIVE ({{ sellerProduct.seller.rating }})</p>
-                    <i class="pi pi-bolt ml-2"></i>
-                    <p class="text-sm m-0 ml-1 justify-content-end">INSTANT ({{ sellerProduct.seller.speed }})</p>
-                    <i class="pi pi-shopping-cart ml-2"></i>
-                    <p class="text-sm m-0 ml-1 justify-content-end">{{ sellerProduct.seller.sales.toLocaleString('en-US') }}</p>
-                  </span>
-                </span>
-                <span class="flex-grow-1 flex align-items-center justify-content-end">
-                  @if (sellerProduct.discount > 0){
-                    <span class="mt-1 mr-3">
-                      <p-tag icon="pi pi-info-circle" severity="info" value="{{(sellerProduct.discount*100).toFixed(0)}}% OFF" [rounded]="true"></p-tag>
-                      <p class="text-sm text-red-500 line-through my-1 text-right justify-content-end">{{ (sellerProduct.price / (1 - sellerProduct.discount)) | priceFormat }}</p>
-                    </span>
-                  }
-                  <p class="text-4xl my-0 mr-3">{{ sellerProduct.price | priceFormat }}</p>
-                  <p-button icon="pi pi-angle-double-right" size="large" (onClick)="goToProduct(sellerProduct.id)"></p-button>
-                </span>
-              </span>
-            </p>
-          </p-card>
-        } @empty {
-          NO SELLERS
-        }
-      </div>
-    </div>
-    <div class="flex flex-column justify-content-center font-bold border-round mt-5">
-      <p class="text-3xl my-0 uppercase text-center">Reviews</p>
-      <p class="text-400 my-0 uppercase text-center">Know More from others</p>
-      <div class="flex flex-column mt-5 mb-5">
-        @for (review of this.product[0].reviews; track review) {
-          <p-panel [toggleable]="true" class="mb-3">
-            <ng-template pTemplate="header">
-                <div class="flex align-items-center gap-2">
-                    <p-avatar image="{{ review.user.image }}" size="large" shape="circle" />
-                    <span class="font-bold">{{ review.user.firstName }} {{ review.user.lastName }}</span>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="icons">
-              <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3 mr-3"></p-rating>
-            </ng-template>
-            <p class="m-0">
-              {{ review.review }}
-            </p>
+          <p class="text-4xl m-0 mt-2">{{ this.product[0].product.title }}</p>
+          <p-breadcrumb class="max-w-full mt-3" [model]="[{ label: 'Products' },{ label: this.product[0].product.category.name }]" [home]="{ icon: 'pi pi-home', routerLink: '/' }"></p-breadcrumb>
+          <p-panel header="Description" [toggleable]="true" class="mt-3">
+            @for (detail of this.product[0].product.details; track detail) {
+              <p><b>{{ detail.title }}: </b> {{ detail.info }}</p>
+            }
+            <p class="text-base text-400">{{ this.product[0].product.description }}</p>
           </p-panel>
-        } @empty {
-          NO SELLERS
-        }
+          <span class="flex flex-row mt-3">
+            <p class="text-6xl my-0 mr-3">{{ this.product[0].price | priceFormat }}</p>
+            @if (this.product[0].discount > 0){
+              <span class="mt-1">
+                <p-tag icon="pi pi-info-circle" severity="info" value="{{this.product[0].discount*100}}% OFF"></p-tag>
+                <p class="text-red-500 line-through my-1 text-right justify-content-end">{{ (this.product[0].price / (1 - this.product[0].discount)) | priceFormat }}</p>
+              </span>
+            }
+            <p-button (click)="addToCart(this.product[0])" label="ADD TO CART" icon="pi pi-cart-plus" size="large"
+              class="flex-grow-1 flex align-items-center justify-content-end"></p-button>
+          </span>
+        </div>
+      </div>
+      <div class="flex justify-content-center flex-wrap mt-5">
+        <div class="flex flex-column justify-content-center font-bold border-round m-2">
+          <p class="text-3xl my-0 uppercase">other sellers</p>
+          <p class="text-400 my-0 uppercase">You may also like</p>
+          <div class="flex flex-column mt-2">
+            @for (sellerProduct of this.otherSellers; track sellerProduct.id) {
+              <p-card class="mt-3 {{sellerProduct.id == this.product[0].id ?'sameSeller':''}}">
+                <p class="m-0">
+                  <span class="flex flex-row sellerCard">
+                    <span>
+                      <p-avatar image="{{ sellerProduct.seller.image }}" pBadge value="4" severity="success" styleClass="mr-2"
+                        size="xlarge"></p-avatar>
+                    </span>
+                    <span class="flex flex-column align-items-start mt-2 ml-3">
+                      <p class="text-xl text-500 font-bold my-1 text-right justify-content-end">{{ sellerProduct.seller.name }}</p>
+                      <span class="flex flex-row my-1">
+                        <i class="pi pi-star"></i>
+                        <p class="text-sm m-0 ml-1 justify-content-end">POSITIVE ({{ sellerProduct.seller.rating }})</p>
+                        <i class="pi pi-bolt ml-2"></i>
+                        <p class="text-sm m-0 ml-1 justify-content-end">INSTANT ({{ sellerProduct.seller.speed }})</p>
+                        <i class="pi pi-shopping-cart ml-2"></i>
+                        <p class="text-sm m-0 ml-1 justify-content-end">{{ sellerProduct.seller.sales.toLocaleString('en-US') }}</p>
+                      </span>
+                    </span>
+                    <span class="flex-grow-1 flex align-items-center justify-content-end">
+                      @if (sellerProduct.discount > 0){
+                        <span class="mt-1 mr-3">
+                          <p-tag icon="pi pi-info-circle" severity="info" value="{{(sellerProduct.discount*100).toFixed(0)}}% OFF" [rounded]="true"></p-tag>
+                          <p class="text-sm text-red-500 line-through my-1 text-right justify-content-end">{{ (sellerProduct.price / (1 - sellerProduct.discount)) | priceFormat }}</p>
+                        </span>
+                      }
+                      <p class="text-4xl my-0 mr-3">{{ sellerProduct.price | priceFormat }}</p>
+                      <p-button icon="pi pi-angle-double-right" size="large" (onClick)="goToProduct(sellerProduct.id)"></p-button>
+                    </span>
+                  </span>
+                </p>
+              </p-card>
+            } @empty {
+              NO SELLERS
+            }
+          </div>
+        </div>
+        <div class="flex flex-column justify-content-center font-bold border-round mt-5">
+          <p class="text-3xl my-0 uppercase text-center">Reviews</p>
+          <p class="text-400 my-0 uppercase text-center">Know More from others</p>
+          <div class="flex flex-column mt-5 mb-5">
+            @for (review of this.product[0].reviews; track review) {
+              <p-panel [toggleable]="true" class="mb-3">
+                <ng-template pTemplate="header">
+                    <div class="flex align-items-center gap-2">
+                        <p-avatar image="{{ review.user.image }}" size="large" shape="circle" />
+                        <span class="font-bold">{{ review.user.firstName }} {{ review.user.lastName }}</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="icons">
+                  <p-rating [(ngModel)]="this.product[0].rating" [cancel]="false" class="mt-3 mr-3"></p-rating>
+                </ng-template>
+                <p class="m-0">
+                  {{ review.review }}
+                </p>
+              </p-panel>
+            } @empty {
+              NO SELLERS
+            }
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  }
 </div>

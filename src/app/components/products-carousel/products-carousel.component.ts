@@ -19,11 +19,14 @@ export class ProductsCarouselComponent implements OnInit {
   products: any;
 
   ngOnInit(): void {
-    this.productService.getProductsByCategory(this.cat_title).subscribe({
-      next: (data) => {
+    this.productService.getAllProducts({
+      limit: 10,
+      category: this.cat_title,
+    }).subscribe({
+      next:(data)=>{
         this.products = data;
-        // console.log(this.products[0]);
-      }
+      },
+      error:(e) => {console.log(e)}
     })
   }
 
@@ -54,7 +57,7 @@ export class ProductsCarouselComponent implements OnInit {
 
   @Input() cat_title = "";
   // placeholder "products"
-  // to-do: implement onInit and fetch the needed data then 
+  // to-do: implement onInit and fetch the needed data then
   @Input() sign: any;
 
   getStock(text: string) {

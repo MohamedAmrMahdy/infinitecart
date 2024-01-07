@@ -17,17 +17,17 @@ import { IProduct } from '../../interfaces/product';
   selector: 'app-navbar',
   standalone: true,
   imports: [ReactiveFormsModule,
-            DropdownModule,
-            RouterModule,
-            RouterLinkActive,
-            InputTextModule,
-            FormsModule,
-            MenubarModule,
-            CommonModule,
-            ButtonModule,
-            AvatarModule,
-            OverlayPanelModule
-          ],
+    DropdownModule,
+    RouterModule,
+    RouterLinkActive,
+    InputTextModule,
+    FormsModule,
+    MenubarModule,
+    CommonModule,
+    ButtonModule,
+    AvatarModule,
+    OverlayPanelModule
+  ],
   providers:[AuthStore,MainStore],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -40,20 +40,17 @@ export class NavbarComponent {
   user=this.store.currentUser() as any;
   searchValue:any;
   value:any;
-  products:IProduct[]=[];
-  searchProduct:IProduct[]=[];
+  searchProduct:any;
   product_search(){
-    this.productService.getProducts1().subscribe(
-      (data)=>{
-        this.products=data
-        console.log(this.products)
-        for (let i = 0; i < this.products?.length; i++) {
-          if(this.products[i]["product"].title.toLowerCase().includes(this.searchValue.toLowerCase())){
-            this.searchProduct.push(this.products[i])
-          }
-        }
-      }
-    )
+    this.productService.getAllProducts({
+      limit: 3,
+      titleLike: this.searchValue
+    }).subscribe({
+      next:(data)=>{
+        this.searchProduct = data;
+      },
+      error:(e) => {console.log(e)}
+    })
   }
   profile_img:any="";
   Mode:string="Dark";

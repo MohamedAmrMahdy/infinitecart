@@ -10,33 +10,35 @@
           <!--Filter For Price-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Price">
-              <input class="w-3 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceRange1" type="text">
+              <input class="w-3 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceMin" type="text">
               <span class="p-2 text-300">To</span>
-              <input class="w-3 border-300 border-solid border-1" [(ngModel)]="priceRange2" type="text">
-              <input class="cursor-pointer bg-white text-300" type="button" value="Go" (click)="filterForPrice()">
+              <input class="w-3 border-300 border-solid border-1" [(ngModel)]="priceMax" type="text">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Sellers-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Sellers">
               <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a seller" [(ngModel)]="seller" type="text">
-              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForSeller()">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Brands-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Brands">
               <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Brand" [(ngModel)]="brand" type="text">
-              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForBrand()">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Categories-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Categories">
               <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Category" [(ngModel)]="category" type="text">
-              <input class="cursor-pointer border-1 surface-border border-solid border-round bg-blue-50 text-600" type="button" value="Go" (click)="filterForCategory()">
             </p-accordionTab>
           </p-accordion>
+          <div class="flex justify-content-center pt-3">
+            <p-button class="p-0" (onClick)="filterProducts()">
+              <i class="pi pi-search px-1"></i>
+              <span class="px-4"><b>Filter</b></span>
+          </p-button>
+          </div>
       </p-accordionTab>
   </p-accordion>
 </div>

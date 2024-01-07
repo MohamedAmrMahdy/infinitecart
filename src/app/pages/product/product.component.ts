@@ -40,37 +40,51 @@ export class ProductComponent {
   productId: number = 1;
   product: any;
   otherSellers: any;
-  constructor(private myRoute:ActivatedRoute, private productsService:ProductsService, private router:Router){
-    this.productId = myRoute.snapshot.params['id']
-  }
+
+  constructor(
+    private myRoute:ActivatedRoute,
+    private productsService:ProductsService,
+    private router:Router
+  ){}
+
   ngOnInit(){
-    this.productsService.getProductById(this.productId).subscribe({
-      next: response => {
-        this.product = response;
-        if (this.product.length > 0){
-          this.productsService.getProductsById(this.product[0].product.id).subscribe({
-            next: response => {
-              this.otherSellers = response;
-            },
-            error: err => {
-              this.router.navigate(["/products"]);
-              console.log(err);
-            }
-          });
-        }else{
+    this.myRoute.paramMap.subscribe(params=>{
+      this.productId = this.myRoute.snapshot.params['id']
+
+      this.productsService.getAllProducts({
+        limit: 1,
+        productId: this.productId,
+      }).subscribe({
+        next:(data)=>{
+          this.product = data;
+          if (this.product.length > 0){
+            this.productsService.getAllProducts({
+              metaId: this.product[0].product.id,
+            }).subscribe({
+              next: response => {
+                this.otherSellers = response;
+              },
+              error: err => {
+                this.router.navigate(["/products"]);
+                console.log(err);
+              }
+            });
+          }else{
+            this.router.navigate(["/products"]);
+          }
+        },
+        error:(e) => {
           this.router.navigate(["/products"]);
+          console.log(e)
         }
-      },
-      error: err => {
-        this.router.navigate(["/products"]);
-        console.log(err);
-      }
-    });
+      })
+    })
   }
+
   goToProduct(id:number){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(["/products/"+id])});
+    this.router.navigate(["/products/"+id]);
   }
+
   readonly store = inject(MainStore);
 
   addToCart(item:any){
