@@ -27,6 +27,6 @@ export class CardsComponent {
 
   addToCart(item:any){
     this.store.cart().product.push({...item,quentity:1} as any);
-    localStorage.setItem('cart',this.store.cart().product)
+    localStorage.setItem('cart',JSON.stringify(this.store.cart().product))
   }
 }

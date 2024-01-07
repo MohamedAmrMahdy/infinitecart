@@ -78,7 +78,7 @@
                 <h3 class="mb-0 font-bold" style="color: black !important;">Cart Items</h3>
                 <div class="px-2 flex flex-column gap-1">
                   <hr class="w-12">
-                  @for (cartItem of cartItems.product; track $index ; let i = $count) {
+                  @for (cartItem of getcartItems(); track $index) {
                     @if ($index <= 3) {
                       <div class="flex gap-5 my-0" style="height: 65px;">
                         <div class="w-3">

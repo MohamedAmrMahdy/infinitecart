@@ -1,5 +1,5 @@
 import { MainStore } from './../../stores/main.store';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -32,7 +32,7 @@ import { IProduct } from '../../interfaces/product';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent{
   readonly store = inject(AuthStore)
   readonly cart = inject(MainStore)
   constructor(private productService:ProductsService){}
@@ -41,6 +41,12 @@ export class NavbarComponent {
   searchValue:any;
   value:any;
   searchProduct:any;
+  cartItems:any;
+
+  getcartItems(){
+    this.cartItems=JSON.parse(localStorage.getItem('cart') || "");
+    return this.cartItems;
+  }
   product_search(){
     this.productService.getAllProducts({
       limit: 3,
@@ -67,13 +73,12 @@ export class NavbarComponent {
       this.colorIcon="goldenrod"
     }
   }
-  cartItems=this.cart.cart();
   getTotal(){
     let sum = 0;
-    for (let i = 0; i < this.cartItems.product.length; i++) {
-      if(i >= 3)
-        break;
-      sum += +this.cartItems.product[i].price * +this.cartItems.product[i].quentity
+    for (let i = 0; i < this.cartItems.length; i++) {
+      // if(i >= 3)
+      //   break;
+      sum += +this.cartItems[i].price * +this.cartItems[i].quentity
     }
     return sum;
   }
