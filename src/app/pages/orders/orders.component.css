@@ -1,0 +1,98 @@
+.modal-body{
+    padding: 1rem;
+  }
+  #progressbar {
+    margin-bottom: 3vh;
+    overflow: hidden;
+    color: white;
+    padding-left: 0px;
+    margin-top: 3vh
+  }
+  
+  #progressbar li {
+    list-style-type: none;
+    font-size: 0.8rem;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    color: #040404ff;
+  }
+  
+  #progressbar #step1:before {
+    content: "";
+    color: rgb(0, 0, 0);
+    width: 20px;
+    height: 20px;
+    margin-left: 0px !important;
+  }
+  
+  #progressbar #step2:before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    margin-left: 32%;
+  }
+  
+  #progressbar #step3:before {
+    content: "";
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    margin-right: 32% ; 
+  }
+  
+  #progressbar #step4:before {
+    content: "";
+    color: rgb(151, 149, 149, 0.651);
+    width: 20px;
+    height: 20px;
+    margin-right: 0px !important;
+  }
+  
+  #progressbar li:before {
+    line-height: 29px;
+    display: block;
+    font-size: 12px;
+    background: rgb(151, 149, 149);
+    border-radius: 50%;
+    margin: auto;
+    z-index: -1;
+    margin-bottom: 1vh;
+  }
+  
+  #progressbar li:after {
+    content: '';
+    height: 3px;
+    background: rgb(151, 149, 149, 0.651);
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    margin-bottom: 2vh;
+    top: 8px;
+    z-index: 1;
+  }
+  .progress-track{
+    padding: 0 8%;
+  }
+  #progressbar li:nth-child(2):after {
+    margin-right: auto;
+  }
+  
+  #progressbar li:nth-child(1):after {
+    margin: auto;
+  }
+  
+  #progressbar li:nth-child(3):after {
+    /* float: left; */
+    width: 68%;
+  }
+  #progressbar li:nth-child(4):after {
+    margin-left: auto;
+    width: 132%;
+  }
+  
+  #progressbar li.active:before,
+  #progressbar li.active:after {
+    background: rgb(35, 192, 203);
+  }
