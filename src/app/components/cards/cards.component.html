@@ -2,8 +2,12 @@
   <!--Select Products Data To Display In Card-->
   <div class=" cards mt-3">
     <!--Card Component-->
-    <div class="card flex justify-content-center ">
+    <div class="card relative flex justify-content-center ">
       <p-card [style]="{ width: '270px'}">
+        <!--Add Favorite button to Card-->
+        <div class="absolute heart-btn">
+          <p-button icon="pi pi-heart" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
+        </div>
          <!--Card Header Image-->
           <ng-template pTemplate="header">
               <img class="img-card" alt="Card" src="{{productData.product.images[0]}}" routerLink="/products/{{productData.id}}" />
