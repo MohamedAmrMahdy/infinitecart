@@ -19,15 +19,22 @@ export class ProductsCarouselComponent implements OnInit {
   products: any;
 
   ngOnInit(): void {
-    this.productService.getAllProducts({
-      limit: 10,
-      category: this.cat_title,
+    // Cat_title data passed from one componenet to another takes some time apparently.
+    // set-timeout is needed to make sure the request includes the right category.
+    // Can it be solved in a better way? 
+    setTimeout(()=> {
+
+      this.productService.getAllProducts({
+        limit: 10,
+      category: this.cat_title
     }).subscribe({
       next:(data)=>{
         this.products = data;
+        console.log(this.products);
       },
       error:(e) => {console.log(e)}
     })
+  },100)
   }
 
   // depending on the screen-size, it will decide how many are visible.
