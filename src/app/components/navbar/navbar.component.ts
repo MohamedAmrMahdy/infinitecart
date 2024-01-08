@@ -13,6 +13,10 @@ import { AuthStore } from '../../stores/auth.store';
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/product';
 
+import { ThemeService } from '../../services/Theme.service';
+
+
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -28,14 +32,14 @@ import { IProduct } from '../../interfaces/product';
     AvatarModule,
     OverlayPanelModule
   ],
-  providers:[AuthStore,MainStore],
+  providers:[AuthStore,MainStore, ThemeService],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
   readonly store = inject(AuthStore)
   readonly cart = inject(MainStore)
-  constructor(private productService:ProductsService){}
+  constructor(private productService:ProductsService, private themeService: ThemeService){}
   ngOnInit(): void {
     this.getcartItems();
   }
@@ -65,7 +69,10 @@ export class NavbarComponent implements OnInit{
   Mode:string="Dark";
   classIcon:string ="fa-moon";
   colorIcon:string ="white"
+
+
   changeTheme(){
+    this.themeService.toggleTheme();
     if(this.Mode == "Light"){
       this.Mode = "Dark";
       this.classIcon="fa-moon"
