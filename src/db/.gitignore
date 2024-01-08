@@ -42,3 +42,8 @@ testem.log
 Thumbs.db
 
 db.json
+
+# local testing
+orders.json
+cart.json
+tst.js
