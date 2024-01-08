@@ -64,10 +64,10 @@ export class ProductsComponent implements OnInit{
       if(params['category']) this.category = params['category'];
       if(params['brand']) this.brand = params['brand'];
       if(params['seller']) this.seller = params['seller'];
-      if(params['min']) this.priceMin = params['min'];
-      if(params['max']) this.priceMax = params['max'];
-      if(params['start']) this.start = params['start'];
-      if(params['limit']) this.limit = params['limit'];
+      if(params['min']) this.priceMin = Number(params['min']);
+      if(params['max']) this.priceMax = Number(params['max']);
+      if(params['start']) this.start = Number(params['start']);
+      if(params['limit']) this.limit = Number(params['limit']);
       this.renderProducts()
     })
   }
@@ -87,6 +87,7 @@ export class ProductsComponent implements OnInit{
         queryParamsHandling: 'merge'
       }
     );
+
     this.renderProducts()
     scrollTo(0, 0);
   }
