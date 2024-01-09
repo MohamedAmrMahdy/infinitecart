@@ -33,10 +33,10 @@ export class OrdersComponent {
   
   readonly authStore = inject(AuthStore)
   currentUser = this.authStore.currentUser() as any
-
+  num = '4';
 
   
-  orders = [];
+  orders: any[] =  [];
   visible = false;
   products= [
     {id: 1, name: 'n1', category: 'c1', price: '300', quantity: 1,rating: 3, image:"https://waltonbd.com/image/catalog/home-page/half-block/nexg-n6-block.jpg"},
@@ -49,23 +49,40 @@ export class OrdersComponent {
     this.ordersService.getOrders().subscribe({
       next: (response:any) => {
         this.orders =  response.filter((order:any) => {
-           return order.user.id === this.currentUser.id;
-          } )
+          return order.user.id === this.currentUser.id;
+        } )        
           console.log(this.orders)
-          
-          
 
-        // this.router.navigate(["/"]); 
-        // localStorage.setItem('userData',JSON.stringify(response));
       },
       error: (err:any) => {
         console.log(err);
-      }
+      },     
     })
 
-    console.log(this.orders)
+
    
   }
+
+  orderDate(order:any) {
+    const date = new Date(order.placedAt);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    }).replace(/,/, '');
+  }
+  
+
+  orderTime(order:any) {
+    const date = new Date(order.placedAt);
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  }
+  
 
   viewDetails() {
     this.visible = true

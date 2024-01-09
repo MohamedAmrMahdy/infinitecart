@@ -16,8 +16,6 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   updateUserData(id:number, userData:any): Observable<any> {
-    console.log('inside updateUserData()')
-    console.log(userData)
     return this.http.patch(API + 'users' + '/' + id, {
       email:userData.email ,
       image: "",
