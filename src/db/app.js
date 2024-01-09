@@ -156,7 +156,10 @@ mySellers.forEach((seller) => {
           delivered: Date.now(),
         },
         items: [
-          myListedProducts[myListedProducts.length-1]
+          {
+            count: Math.floor(Math.random() * 3) + 1,
+            item: myListedProducts[myListedProducts.length-1]
+          }
         ]
       })
     }

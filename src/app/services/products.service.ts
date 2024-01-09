@@ -13,6 +13,7 @@ export class ProductsService{
 
   getAllProducts(
     {
+      start,
       limit,
       metaId,
       productId,
@@ -25,6 +26,7 @@ export class ProductsService{
       maxPrice,
       search
     }: {
+      start?: number;
       limit?: number;
       metaId?: number;
       productId?: number;
@@ -40,6 +42,7 @@ export class ProductsService{
   ){
     let queryParams = new HttpParams();
 
+    if (start) queryParams = queryParams.append('_start', start);
     if (limit) queryParams = queryParams.append('_limit', limit);
     if (metaId) queryParams = queryParams.append('product.id', metaId);
     if (productId) queryParams = queryParams.append('id', productId);

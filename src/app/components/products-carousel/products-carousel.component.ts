@@ -33,7 +33,7 @@ export class ProductsCarouselComponent implements OnInit {
       },
       error:(e) => {console.log(e)}
     })
-  },100)
+  },1000)
   }
 
   // depending on the screen-size, it will decide how many are visible.

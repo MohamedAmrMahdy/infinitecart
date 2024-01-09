@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductsService } from '../../services/products.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
   selector: 'app-products',
@@ -20,14 +21,16 @@ import { ButtonModule } from 'primeng/button';
     AccordionModule,
     CardsComponent,
     HttpClientModule,
-    DropdownModule
+    DropdownModule,
+    PaginatorModule
   ],
   providers:[ProductsService],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit{
-  limit: number=100;
+  start: number=0;
+  limit: number=10;
   priceMin:number=0; //price ranges to select ranges from user to filter
   priceMax:number=999999999;
   seller:string = ''; //for select sellers and brands to filter
@@ -41,6 +44,7 @@ export class ProductsComponent implements OnInit{
 
   renderProducts(){
     this.productService.getAllProducts({
+      start: this.start,
       limit: this.limit,
       categoryLike: this.category,
       brandLike: this.brand,
@@ -60,9 +64,10 @@ export class ProductsComponent implements OnInit{
       if(params['category']) this.category = params['category'];
       if(params['brand']) this.brand = params['brand'];
       if(params['seller']) this.seller = params['seller'];
-      if(params['min']) this.priceMin = params['min'];
-      if(params['max']) this.priceMax = params['max'];
-      if(params['limit']) this.limit = params['limit'];
+      if(params['min']) this.priceMin = Number(params['min']);
+      if(params['max']) this.priceMax = Number(params['max']);
+      if(params['start']) this.start = Number(params['start']);
+      if(params['limit']) this.limit = Number(params['limit']);
       this.renderProducts()
     })
   }
@@ -82,6 +87,7 @@ export class ProductsComponent implements OnInit{
         queryParamsHandling: 'merge'
       }
     );
+
     this.renderProducts()
     scrollTo(0, 0);
   }
@@ -96,5 +102,11 @@ export class ProductsComponent implements OnInit{
     }else if(this.selectedSort.SORT === 'RECOMMENDED'){
       this.products.sort((a:any, b:any) => b.seller.sales - a.seller.sales);
     }
+  }
+  onPageChange(event: any){
+    this.start = event.first
+    this.limit = event.rows
+    this.renderProducts()
+    scrollTo(0, 0);
   }
 }

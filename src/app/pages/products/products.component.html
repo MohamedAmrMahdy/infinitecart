@@ -55,6 +55,9 @@
         <app-cards [productData]="product"></app-cards>
       }
     </div>
+    <div class="card flex justify-content-center mt-4">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="start" [rows]="limit" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+  </div>
   </div>
  </div>
 </div>

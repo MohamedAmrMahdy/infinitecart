@@ -7,14 +7,14 @@ import { RouterModule } from '@angular/router';
 import { LongTextPipe } from '../../pipes/long-text.pipe';
 import { CurrencyPipe } from '@angular/common';
 import { MainStore } from '../../stores/main.store';
-
-
+import { RatingModule } from 'primeng/rating';
+import { WishlistStore } from './../../stores/wishlist.store';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [RouterModule, CardModule, ButtonModule, TagModule, CarouselModule, LongTextPipe, CurrencyPipe],
-  providers: [MainStore],
+  imports: [RouterModule, CardModule, ButtonModule, TagModule, CarouselModule, RatingModule, LongTextPipe, CurrencyPipe],
+  providers: [MainStore, WishlistStore],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
@@ -22,7 +22,8 @@ import { MainStore } from '../../stores/main.store';
 export class ProductCardComponent {
   @Input() product: any;
   readonly store = inject(MainStore);
-
+  readonly wishlist = inject(WishlistStore)
+  
   addToCart(item:any){
     let flag=true;
     this.store.cart().product.map((cartItem:any)=>{
@@ -34,6 +35,24 @@ export class ProductCardComponent {
     }
     localStorage.setItem('cart',JSON.stringify(this.store.cart().product))
   }
+  isExist(item:any){
+    let flag=false;
+    this.wishlist.wishlist().product.map((WishlistItem:any)=>{
+      if(WishlistItem.id == item.id)
+        flag = true;
+    })
+    return flag;
+  }
+  addOrRemoveWishlist(item:any){
+    if(!this.isExist(item)){
+      this.wishlist.wishlist().product.push({...item} as any);
+      localStorage.setItem('wishlist',JSON.stringify(this.wishlist.wishlist().product))
+    }
+    else{
+        this.wishlist.wishlist().product=this.wishlist.wishlist().product.filter((item2:any) => item.id != item2.id);
+        localStorage.setItem('wishlist',JSON.stringify(this.wishlist.wishlist().product))
+      }
+    }
 
   getStock(num: number) {
     if (num <= 0)
