@@ -1,0 +1,130 @@
+{
+    "orders": [
+      {
+        "id": 1,
+        "user": {
+          "id": 69,
+          "image": "https://robohash.org/asperioressolutaet.png",
+          "firstName": "Oda",
+          "lastName": "Schmidt",
+          "gender": "male",
+          "birthDate": "1970-10-07",
+          "phone": "+55 537 574 0273",
+          "email": "btegler1w@elegantthemes.com",
+          "password": "$2a$10$fKYmZOXtq211iu654bz.xu59fwmtgDvf8Q5kgNvlfVDpHoDGMbvSm",
+          "address": {
+            "address": "6657 West Rose Garden Lane",
+            "country": "Christmas Island",
+            "city": "Glendale",
+            "state": "AZ",
+            "postalCode": "85308"
+          }
+        },
+        "timeline": {
+          "placed": 1704653388403,
+          "inTransit": 1704653388403,
+          "outForDelivery": 1704653388403,
+          "delivered": 1704653388403
+        },
+        "items": [
+          {
+            "id": 1,
+            "seller": {
+              "id": 1,
+              "user": {
+                "id": 1,
+                "image": "https://robohash.org/hicveldicta.png",
+                "firstName": "Terry",
+                "lastName": "Medhurst",
+                "gender": "male",
+                "birthDate": "2000-12-25",
+                "phone": "+63 791 675 8914",
+                "email": "atuny0@sohu.com",
+                "password": "$2a$10$bVt//Fh4Xcyr4dUY3nC0fen/KzIQgfyFSa6ObSXHCNpNeglwWNWUW",
+                "address": {
+                  "address": "1745 T Street Southeast",
+                  "country": "Norway",
+                  "city": "Washington",
+                  "state": "DC",
+                  "postalCode": "20020"
+                }
+              },
+              "image": "https://avatars.githubusercontent.com/u/58897343",
+              "name": "Schulist,",
+              "rating": 9.5,
+              "speed": 4.9,
+              "sales": 10298
+            },
+            "product": {
+              "id": 96,
+              "thumbnail": "https://i.dummyjson.com/data/products/96/thumbnail.jpg",
+              "title": "lighting ceiling kitchen",
+              "description": "Wholesale slim hanging decorative kid room lighting ceiling kitchen chandeliers pendant light modern",
+              "category": {
+                "id": 19,
+                "image": "",
+                "name": "Lighting",
+                "desc": ""
+              },
+              "brand": {
+                "id": 74,
+                "image": "",
+                "name": "lightingbrilliance",
+                "desc": ""
+              },
+              "details": [
+                {
+                  "title": "Weight",
+                  "info": "7.3 KG"
+                },
+                {
+                  "title": "Size",
+                  "info": "9.1 x 9.52 x 2.22 CM"
+                },
+                {
+                  "title": "Color",
+                  "info": "Red"
+                }
+              ],
+              "images": [
+                "https://i.dummyjson.com/data/products/96/1.jpg",
+                "https://i.dummyjson.com/data/products/96/2.jpg",
+                "https://i.dummyjson.com/data/products/96/3.jpg",
+                "https://i.dummyjson.com/data/products/96/4.jpg",
+                "https://i.dummyjson.com/data/products/96/thumbnail.jpg"
+              ]
+            },
+            "stock": 528,
+            "price": 25781,
+            "rating": 4.6,
+            "discount": 0,
+            "reviews": [
+              {
+                "id": 1,
+                "product_id": 1,
+                "user": {
+                  "id": 36,
+                  "image": "https://robohash.org/vitaenonqui.png",
+                  "firstName": "Angelica",
+                  "lastName": "Baumbach",
+                  "gender": "female",
+                  "birthDate": "1971-05-11",
+                  "phone": "+62 805 799 5971",
+                  "email": "dalmondz@joomla.org",
+                  "password": "$2a$10$GWXEYPNLps2X7BmlX/.vmuBF8Z8Uucn4qN9WQ45LJ6AOKiCGoCNmu",
+                  "address": {
+                    "address": "2905 Stonebridge Court",
+                    "country": "Chile",
+                    "city": "Norman",
+                    "state": "OK",
+                    "postalCode": "73071"
+                  }
+                },
+                "review": "Comprehendo venio aetas adamo. Vicissitudo cernuus fugiat temptatio debeo. Sponte avaritia tui capitulus atrocitas clementia tertius sonitus aeneus correptius."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

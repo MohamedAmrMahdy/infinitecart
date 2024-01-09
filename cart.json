@@ -1,0 +1,221 @@
+[
+    {
+      "id": 83,
+      "seller": {
+        "id": 17,
+        "user": {
+          "id": 17,
+          "image": "https://robohash.org/accusantiumvoluptateseos.png",
+          "firstName": "Bradford",
+          "lastName": "Prohaska",
+          "gender": "male",
+          "birthDate": "1975-10-20",
+          "phone": "+420 874 628 3710",
+          "email": "vcholdcroftg@ucoz.com",
+          "password": "$2a$10$Xj9RXaS/QnEGvauTkDFKeeUl34HwtdegDJ7qFqbm4IQmH3oedjMfK",
+          "address": {
+            "address": "1649 Timberridge Court",
+            "country": "French Southern Territories",
+            "city": "Fayetteville",
+            "state": "AR",
+            "postalCode": "72704"
+          }
+        },
+        "image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/14.jpg",
+        "name": "Wintheiser",
+        "rating": 2.4,
+        "speed": 9.1,
+        "sales": 35597
+      },
+      "product": {
+        "id": 87,
+        "thumbnail": "https://i.dummyjson.com/data/products/87/thumbnail.jpg",
+        "title": "t Temperature Controller Incubator Controller",
+        "description": "Both Heat and Cool Purpose, Temperature control range; -50 to +110, Temperature measurement accuracy; 0.1, Control accuracy; 0.1",
+        "category": {
+          "id": 17,
+          "image": "",
+          "name": "Automotive",
+          "desc": ""
+        },
+        "brand": {
+          "id": 66,
+          "image": "",
+          "name": "W1209 DC12V",
+          "desc": ""
+        },
+        "details": [
+          {
+            "title": "Weight",
+            "info": "9.5 KG"
+          },
+          {
+            "title": "Size",
+            "info": "9.7 x 3.62 x 3.32 CM"
+          },
+          {
+            "title": "Color",
+            "info": "Red"
+          }
+        ],
+        "images": [
+          "https://i.dummyjson.com/data/products/87/1.jpg",
+          "https://i.dummyjson.com/data/products/87/2.jpg",
+          "https://i.dummyjson.com/data/products/87/3.jpg",
+          "https://i.dummyjson.com/data/products/87/4.jpg",
+          "https://i.dummyjson.com/data/products/87/thumbnail.jpg"
+        ]
+      },
+      "stock": 378,
+      "price": 42748,
+      "rating": 6.2,
+      "discount": 0.45,
+      "reviews": [
+        {
+          "id": 156,
+          "product_id": 83,
+          "user": {
+            "id": 5,
+            "image": "https://robohash.org/adverovelit.png",
+            "firstName": "Mavis",
+            "lastName": "Schultz",
+            "gender": "male",
+            "birthDate": "1968-11-03",
+            "phone": "+372 285 771 1911",
+            "email": "kmeus4@upenn.edu",
+            "password": "$2a$10$lUmXUT8lvGpoBJm5WSNLyOL.Flm3wWDLn0VuT.8ij472auBHfnGmy",
+            "address": {
+              "address": "2721 Lindsay Avenue",
+              "country": "Colombia",
+              "city": "Louisville",
+              "state": "KY",
+              "postalCode": "40206"
+            }
+          },
+          "review": "Patior timor pecco ambulo vitium conculco utilis. Patruus saepe videlicet voluptates demonstro usitas sumptus cultellus. Quasi comparo placeat uberrime celer totus ascisco summopere talus undique."
+        },
+        {
+          "id": 157,
+          "product_id": 83,
+          "user": {
+            "id": 83,
+            "image": "https://robohash.org/sapientelaborumminima.png",
+            "firstName": "Rita",
+            "lastName": "Shields",
+            "gender": "female",
+            "birthDate": "1983-11-19",
+            "phone": "+86 148 509 2978",
+            "email": "gconford2a@wordpress.com",
+            "password": "$2a$10$OidfxJ9hfIFgxDZ7vynvSOyFwgraCVpn73HRMBf57w/E3nFyFBIG.",
+            "address": {
+              "address": "6601 West Ocotillo Road",
+              "country": "Yemen",
+              "city": "Glendale",
+              "state": "AZ",
+              "postalCode": "85301"
+            }
+          },
+          "review": "Suscipio theatrum attollo tabella consuasor rem conicio volo verbera spiculum. Temptatio corporis corpus tenax creator. Turba vindico ulterius cras."
+        }
+      ],
+      "quentity": 1
+    },
+    {
+      "id": 5,
+      "seller": {
+        "id": 1,
+        "user": {
+          "id": 1,
+          "image": "https://robohash.org/hicveldicta.png",
+          "firstName": "Terry",
+          "lastName": "Medhurst",
+          "gender": "male",
+          "birthDate": "2000-12-25",
+          "phone": "+63 791 675 8914",
+          "email": "atuny0@sohu.com",
+          "password": "$2a$10$bVt//Fh4Xcyr4dUY3nC0fen/KzIQgfyFSa6ObSXHCNpNeglwWNWUW",
+          "address": {
+            "address": "1745 T Street Southeast",
+            "country": "Norway",
+            "city": "Washington",
+            "state": "DC",
+            "postalCode": "20020"
+          }
+        },
+        "image": "https://avatars.githubusercontent.com/u/58897343",
+        "name": "Schulist,",
+        "rating": 9.5,
+        "speed": 4.9,
+        "sales": 10298
+      },
+      "product": {
+        "id": 46,
+        "thumbnail": "https://i.dummyjson.com/data/products/46/thumbnail.jpg",
+        "title": "women's shoes",
+        "description": "Close: Lace, Style with bottom: Increased inside, Sole Material: Rubber",
+        "category": {
+          "id": 9,
+          "image": "",
+          "name": "Womens Shoes",
+          "desc": ""
+        },
+        "brand": {
+          "id": 39,
+          "image": "",
+          "name": "IELGY fashion",
+          "desc": ""
+        },
+        "details": [
+          {
+            "title": "Weight",
+            "info": "3.6 KG"
+          },
+          {
+            "title": "Size",
+            "info": "8.9 x 2.52 x 3.42 CM"
+          },
+          {
+            "title": "Color",
+            "info": "Gold"
+          }
+        ],
+        "images": [
+          "https://i.dummyjson.com/data/products/46/1.webp",
+          "https://i.dummyjson.com/data/products/46/2.jpg",
+          "https://i.dummyjson.com/data/products/46/3.jpg",
+          "https://i.dummyjson.com/data/products/46/4.jpg",
+          "https://i.dummyjson.com/data/products/46/thumbnail.jpg"
+        ]
+      },
+      "stock": 263,
+      "price": 69770,
+      "rating": 0.7,
+      "discount": 0.56,
+      "reviews": [
+        {
+          "id": 10,
+          "product_id": 5,
+          "user": {
+            "id": 66,
+            "image": "https://robohash.org/facilisomnisvoluptatem.png",
+            "firstName": "Terrence",
+            "lastName": "Koelpin",
+            "gender": "male",
+            "birthDate": "1996-02-05",
+            "phone": "+63 460 531 0660",
+            "email": "hfasey1t@home.pl",
+            "password": "$2a$10$hyOn63O0o.knO4x7QmH5uOVSUyIO4stIfmjSF2vWwWo2esNW.NQcS",
+            "address": {
+              "address": "310 Timrod Road",
+              "country": "Mali",
+              "city": "Manchester",
+              "state": "CT",
+              "postalCode": "06040"
+            }
+          },
+          "review": "Incidunt curis vitiosus animus aedificium beatus crepusculum texo alienus. Tui subnecto bardus antiquus amicitia custodia tabgo spiculum tribuo. Corrupti ascisco provident tredecim repellat defluo demitto."
+        }
+      ],
+      "quentity": 1
+    }
+  ]

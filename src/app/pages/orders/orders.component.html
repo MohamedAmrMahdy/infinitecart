@@ -1,4 +1,96 @@
-<p-inplace [closable]="true">
+@for(order of orders; track order.id){
+
+<div class="grid p-grid d-flex flex-column align-items-center mt-4">
+  <div class="md:col-8 content">
+
+      <p-fieldset [legend]="order.id | order " [toggleable]="true">
+      <div class="flex flex-wrap justify-content-center align-items-center ">
+        <div class="grid p-grid">
+
+          <div class="col-11 md:col-4">
+            <img class="md:w-full sm:w-30rem " [src]="order.items[0].product.thumbnail  " alt="Product Image">
+          </div>
+
+          <div class="col-12 md:col-6 lg:col-4 mx-auto">
+            <p-fieldset legend="Date/Time" styleClass="border-none">
+  
+              <p-button label="placed on " [badge]="orderDate(order)"  styleClass="mr-2 lg:w-max "></p-button>
+              <p-badge [value]="orderTime(order)" styleClass="mt-3" size="large" severity="info"></p-badge>
+            
+        </p-fieldset>
+          </div>
+          <div class="col-12 md:col-3 align-self-center text-right">
+<p-button (click)="viewDetails()" label="Show Details" icon="pi pi-list" styleClass="p-button-secondary"></p-button>
+        </div>
+        <div class="col-12 align-self-center">
+          <div class="modal-body">
+            <div class="progress-track">
+              <ul id="progressbar">
+                <li class="step0 active " id="step1">Order placed</li>
+                <li class="step0  text-center" id="step2">In Transit</li>
+                <li class="step0  text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                <li class="step0  text-right" id="step4">Delivered</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-fieldset>
+
+</div>
+</div>
+<!-- Dialog -->
+<p-dialog [header]="order.id | orderDetails" [(visible)]="visible" [style]="{width: 'w-auto', height: 'h-auto', }">
+  <p-dataView styleClass="w-min mx-auto"  #dv [value]="products">
+    <ng-template pTemplate="list" let-products>
+        <div class="grid grid-nogutter">
+            <div class="col-12" *ngFor="let item of order.items; let first = first">
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.image" [alt]="item.name" />
+                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                            <div class="text-2xl font-bold text-900">{{ item.product.title }}</div>
+                          <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            <div class="flex align-items-center gap-3">
+                                <span class="flex align-items-center gap-2">
+                                    <i class="pi pi-tag"></i>
+                                    <span class="font-semibold">{{ item.product.category.name }}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                            <span class="text-2xl font-semibold">{{item.price * item.quentity | priceFormat }}</span>
+                            <p-badge [value]="item.quentity" size="large" severity="warning"></p-badge>
+                        </div>
+                    </div>
+                </div>
+            </div>      
+          </div>
+          <div style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 10px; 
+          padding: 10px;
+          border-radius: 5px; 
+          background-color: #f5f5f5;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        ">
+          <p style="font-size: 2rem; font-weight: 500;">Total</p>
+          <p style="
+            font-weight: bold;
+            font-size: 2rem;
+            color: #dc3545;
+          ">$10,000</p>
+        </div>
+    </ng-template>
+</p-dataView>
+</p-dialog>
+
+}
+
+<!-- <p-inplace [closable]="true">
   <ng-template pTemplate="display">
     <div class="grid p-grid d-flex flex-column align-items-center mt-4 ">
       <div class="col-12 md:col-9 content">
@@ -86,94 +178,4 @@
       </ng-template>
   </p-dataView>
   </ng-template>
-</p-inplace>
-
-
-
-<div class="grid p-grid d-flex flex-column align-items-center mt-4">
-  <div class="col-12 md:col-9 content">
-    <p-fieldset legend="Order #16123222" [toggleable]="true">
-      <div class="flex flex-wrap justify-content-center align-items-center ">
-        <div class="grid p-grid">
-
-          <div class="col-11 md:col-4">
-            <img class="md:w-full sm:w-30rem "  src="https://images.unsplash.com/photo-1558864559-ed673ba3610b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRlbGwlMjBsYXB0b3B8ZW58MHx8MHx8fDA%3D" alt="Product Image">
-          </div>
-
-          <div class="col-12 md:col-6 lg:col-4 mx-auto">
-            <p-fieldset legend="Date/Time" styleClass="bg-gray-300">
-  
-              <p-button label="placed on " badge="Tuesday 12/20/2024"  styleClass="mr-2 lg:w-max "></p-button>
-              <p-badge value="08:00 AM" styleClass="mt-3" size="large" severity="info"></p-badge>
-            
-        </p-fieldset>
-          </div>
-          <div class="col-12 md:col-3 align-self-center text-right">
-<p-button (click)="viewDetails()" label="Show Details" icon="pi pi-list" styleClass="p-button-secondary"></p-button>
-        </div>
-        <div class="col-12 align-self-center">
-          <div class="modal-body">
-            <div class="progress-track">
-              <ul id="progressbar">
-                <li class="step0 active " id="step1">Order placed</li>
-                <li class="step0 active text-center" id="step2">In Transit</li>
-                <li class="step0  text-right" id="step3"><span id="three">Out for Delivery</span></li>
-                <li class="step0  text-right" id="step4">Delivered</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </p-fieldset>
-</div>
-</div>
-<p-dialog header="Order #16123222 Details" [(visible)]="visible" [style]="{width: 'w-auto', height: 'h-auto', }">
-  <p-dataView styleClass="w-min mx-auto"  #dv [value]="products">
-    <ng-template pTemplate="list" let-products>
-        <div class="grid grid-nogutter">
-            <div class="col-12" *ngFor="let item of products; let first = first">
-                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.image" [alt]="item.name" />
-                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                            <div class="text-2xl font-bold text-900">{{ item.name }}</div>
-                            <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
-                            <div class="flex align-items-center gap-3">
-                                <span class="flex align-items-center gap-2">
-                                    <i class="pi pi-tag"></i>
-                                    <span class="font-semibold">{{ item.category }}</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                            <span class="text-2xl font-semibold">{{ '$' + item.price * item.quantity }}</span>
-                            <p-badge [value]="item.quantity" size="large" severity="warning"></p-badge>
-                        </div>
-                    </div>
-                </div>
-            </div>      
-          </div>
-          <div style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 10px; 
-          padding: 10px;
-          border-radius: 5px; 
-          background-color: #f5f5f5;
-          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        ">
-          <p style="font-size: 2rem; font-weight: 500;">Total</p>
-          <p style="
-            font-weight: bold;
-            font-size: 2rem;
-            color: #dc3545;
-          ">$10,000</p>
-        </div>
-    </ng-template>
-</p-dataView>
-</p-dialog>
-
-
-
+</p-inplace> -->

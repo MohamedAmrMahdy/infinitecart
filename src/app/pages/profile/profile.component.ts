@@ -73,27 +73,18 @@ constructor (private http: HttpClient,private router: Router,private userService
     this.visible = true;
   }
 
-  clickCallBack(event:any) {
-    console.log(event);
-  }
+  
     // handle form subimission
     submitProfileData(){      
-      console.log(this.profileForm.controls.birthDate.value);
-      console.log(this.profileForm.controls.birthDate.valid);
-      // console.log(this.profileForm.controls.country.value);
-      // console.log(this.profileForm.controls.country.valid);
-      
       this.fromSubmitted = true;
       this.profileForm.controls.email.enable();
       
       // post data
       if(this.profileForm.valid){
         console.log('valid');
-        const formData = { ...this.profileForm.value, email: this.currentUser.email};  
-        console.log('this.currentUser', this.currentUser);        
+        const formData = { ...this.profileForm.value, email: this.currentUser.email};        
         console.log('local storage', JSON.parse(localStorage.getItem('userData') || '{}'));
-        console.log('formData', formData);
-        // this.authStore.updateCurrentUser(formData)
+     
         
         this.userService.updateUserData(this.currentUser.id, formData).subscribe({
           next: (response:any) => {
@@ -108,34 +99,11 @@ constructor (private http: HttpClient,private router: Router,private userService
           }
         })
   
-  
-  
-        // this.profileForm.reset();
      
       }
       else {
         console.log('invalid')
         console.log(this.profileForm);
-  
-        // if(!this.profileForm.controls.fName.valid) console.log(this.fNameValMsg)
-        // if(!this.profileForm.controls.lName.valid) console.log(this.lNameValMsg)    
-        // if(!this.profileForm.controls.email.valid) console.log(this.emailValMsg)
-  
-        console.log(this.profileForm.controls.fName.valid) 
-        console.log(this.profileForm.controls.lName.valid)     
-        console.log(this.profileForm.controls.email.valid)
-  
-  
-        console.log(this.profileForm.controls.address.valid)
-        console.log(this.profileForm.controls.country.valid)
-        console.log(this.profileForm.controls.phone.valid)
-  
-        
-  
-  
-        // console.log(this.profileForm.controls.email)
-        // console.log(this.profileForm.controls.email.value)
-        // console.log(this.profileForm.controls.email.valid)
       }
   
   }
@@ -309,10 +277,6 @@ selectedCountryHandler(event:any) {
 
 
 ngOnInit(){
-  // console.log(this.currentUser.address.country);
-  // console.log(this.currentUser.address.postalCode);
-  // console.log(this.currentUser.birthDate)
-  // console.log(this.currentUser);
   this.items = [
     {
       label: "Profile",
