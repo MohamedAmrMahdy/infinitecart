@@ -14,7 +14,7 @@
                 <p-button icon="pi pi-cart-plus" [disabled]="disableChk(product.stock)" (onClick)="addToCart(product)"
                     [severity]="getSeverity(product.stock)" />
             </div>
-            <div class="absolute top-0" style="transform: translate(380%, 10%);">
+            <div class="absolute top-0 border-circle" style="transform: translate(380%, 10%);" [ngClass]="{'bg-pink-400':isExist(product)}">
                 <p-button (onClick)="addOrRemoveWishlist(product)" [style]="{'box-shadow': '1px 2px'}" icon="pi pi-heart" [outlined]="true" [rounded]="true" severity="secondary" />
             </div>
             <div class="text-center">

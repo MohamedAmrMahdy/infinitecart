@@ -27,11 +27,13 @@ export class ProductCardComponent {
   addToCart(item:any){
     let flag=true;
     this.store.cart().product.map((cartItem:any)=>{
-      if(cartItem.id == item.id)
+      if(cartItem.id == item.id){
         flag = false;
+        cartItem.count++;
+      }
     })
     if(flag){
-      this.store.cart().product.push({...item,quentity:1} as any);
+      this.store.cart().product.push({...item,count:1} as any);
     }
     localStorage.setItem('cart',JSON.stringify(this.store.cart().product))
   }

@@ -11,9 +11,8 @@ import { AvatarModule } from 'primeng/avatar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { AuthStore } from '../../stores/auth.store';
 import { ProductsService } from '../../services/products.service';
-import { IProduct } from '../../interfaces/product';
-
 import { ThemeService } from '../../services/Theme.service';
+import { WishlistStore } from '../../stores/wishlist.store';
 
 
 
@@ -32,16 +31,18 @@ import { ThemeService } from '../../services/Theme.service';
     AvatarModule,
     OverlayPanelModule
   ],
-  providers:[AuthStore,MainStore, ThemeService],
+  providers:[AuthStore,MainStore, ThemeService,WishlistStore],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
   readonly store = inject(AuthStore)
   readonly cart = inject(MainStore)
+  readonly wishlist = inject(WishlistStore)
   constructor(private productService:ProductsService, private themeService: ThemeService){}
   ngOnInit(): void {
     this.getcartItems();
+    this.getWishlist();
   }
   guest:any;
   user=this.store.currentUser() as any;
@@ -53,6 +54,9 @@ export class NavbarComponent implements OnInit{
     this.cartItems=JSON.parse(localStorage.getItem('cart') || "[]");
     this.cart.cart().product = this.cartItems;
     return this.cartItems;
+  }
+  getWishlist(){
+    this.wishlist.wishlist().product = JSON.parse(localStorage.getItem('wishlist') || "[]");
   }
   product_search(){
     this.productService.getAllProducts({
@@ -86,7 +90,7 @@ export class NavbarComponent implements OnInit{
   getTotal(){
     let sum = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
-      sum += +this.cartItems[i].price * +this.cartItems[i].quentity
+      sum += +this.cartItems[i].price * +this.cartItems[i].count
     }
     return sum;
   }

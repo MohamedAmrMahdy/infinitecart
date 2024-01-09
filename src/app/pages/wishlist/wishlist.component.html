@@ -1,13 +1,9 @@
-<div class="contain">
-  <p-dataView #dv [value]="wishlist">
-    <ng-template pTemplate="list" let-products>
-        <div class="grid grid-nogutter">
-              <div class="flex flex-wrap gap-3 lg:gap-7 md:gap-3  xl:gap-3 xl:justify-content-start lg:justify-content-start md:justify-content-center sm:justify-content-center justify-content-center">
-                @for(product of this.getWishlist(); track product.id){
-                  <app-cards class="m-auto" [productData]="product"></app-cards>
-                }
-              </div>
-          </div>
-    </ng-template>
-  </p-dataView>
+<div class="contain mb-2">
+  <div class="grid grid-nogutter">
+        <div class="flex flex-wrap gap-3 lg:gap-7 md:gap-3 mx-auto  xl:gap-3 xl:justify-content-start lg:justify-content-start md:justify-content-center sm:justify-content-center justify-content-center">
+          @for(product of this.getWishlist(); track product.id){
+            <app-cards class="m-auto" [productData]="product"></app-cards>
+          }
+        </div>
+    </div>
 </div>

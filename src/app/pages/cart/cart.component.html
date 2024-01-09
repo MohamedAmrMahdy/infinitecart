@@ -1,8 +1,11 @@
 <div class="contain">
-    <p-dataView #dv [value]="cartIems">
-      <ng-template pTemplate="list" let-products>
+  <p-dataView #dv [value]="getCart()">
+    <ng-template pTemplate="list" let-products>
+      <div class="heading col-12">
+        <h2 class="heading xl:text-8xl lg:xl:text-8xl text-5xl text-200 text-center font-bold m-0">My Cart</h2>
+      </div>
           <div class="grid grid-nogutter">
-              <div class="col-12" *ngFor="let item of cartIems; let first = first">
+              <div class="col-12" *ngFor="let item of getCart(); let first = first">
                   <div class="grid flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }" >
                     <div class="col-5 flex" style="height: 100%;">
                       <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.product.thumbnail" [alt]="item.product.title" />
@@ -10,7 +13,7 @@
                         <button (click)="increment(item)" type="text" class="flex justify-content-center align-content-center border-none" style="color: green;background-color: white;font-weight: bold;">
                           <i class="pi pi-plus-circle text-xl"></i>
                         </button>
-                        <span class="font-semibold">{{ item.quentity }}</span>
+                        <span class="font-semibold">{{ item.count }}</span>
                         <button (click)="decrement(item)" type="text" class="flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
                           <i class="pi pi-minus-circle text-xl"></i>
                         </button>
@@ -29,17 +32,16 @@
                       </div>
                   </div>
               </div>
-
             </div>
-            <hr>
-            @if (cartIems.length>0) {
+            @if (cartItems.length>0) {
+              <hr>
               <div class="flex justify-content-between px-5 text-2xl">
                 <p>SubTotal</p>
                 <p class="font-bold text-black-alpha-90">{{getTotal()}} $</p>
               </div>
-              <div class="flex justify-content-end">
-                <button type="text" class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3" style="color: white;background-color: black;font-weight: bold;">
-                  Go To Order ➩
+              <div class="flex justify-content-center">
+                <button type="text" (click)="postOrder()"  class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3" style="color: white;background-color: black;font-weight: bold;">
+                  Checkout
                 </button>
               </div>
             }

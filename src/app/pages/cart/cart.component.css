@@ -7,3 +7,7 @@ img{
   width: 80vw;
   margin: auto;
 }
+.heading{
+  font-size: 100px;
+  letter-spacing: -3px;
+}

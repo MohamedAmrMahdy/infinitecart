@@ -5,7 +5,7 @@
     <div class="card relative flex justify-content-center ">
       <p-card [style]="{ width: '270px'}">
         <!--Add Favorite button to Card-->
-        <div class="absolute heart-btn">
+        <div class="absolute heart-btn border-circle" [ngClass]="{'bg-pink-400':isExist(productData)}">
           <p-button (onClick)="addOrRemoveWishlist(productData)" icon="pi pi-heart" [rounded]="true" severity="secondary" [outlined]="true"></p-button>
         </div>
          <!--Card Header Image-->
