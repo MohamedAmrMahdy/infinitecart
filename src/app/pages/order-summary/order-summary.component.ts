@@ -11,12 +11,14 @@ import { OrdersService } from '../../services/orders.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
+import { OrderPipe } from '../../pipes/order.pipe';
 
 
 @Component({
   selector: 'app-order-summary',
   standalone: true,
-  imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule, BadgeModule, PriceFormatPipe ],
+  imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule,
+     BadgeModule, PriceFormatPipe, OrderPipe ],
   providers: [MainStore, AuthStore],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'

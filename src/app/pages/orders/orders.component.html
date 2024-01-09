@@ -3,7 +3,7 @@
 <div class="grid p-grid d-flex flex-column align-items-center mt-4">
   <div class="md:col-8 content">
 
-      <p-fieldset [legend]="order.id" [toggleable]="true">
+      <p-fieldset [legend]="order.id | order " [toggleable]="true">
       <div class="flex flex-wrap justify-content-center align-items-center ">
         <div class="grid p-grid">
 
@@ -41,7 +41,7 @@
 </div>
 </div>
 <!-- Dialog -->
-<p-dialog [header]="order.id" [(visible)]="visible" [style]="{width: 'w-auto', height: 'h-auto', }">
+<p-dialog [header]="order.id | orderDetails" [(visible)]="visible" [style]="{width: 'w-auto', height: 'h-auto', }">
   <p-dataView styleClass="w-min mx-auto"  #dv [value]="products">
     <ng-template pTemplate="list" let-products>
         <div class="grid grid-nogutter">

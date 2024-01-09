@@ -1,4 +1,5 @@
     @for(item of order.items; track item.id){
+        
      <div class="md:col-8 sm:col-12 mx-auto">
         <p-card [header]="item.product.title" [style]="{ width: '75%', margin:'2rem auto'  }">
             
@@ -34,7 +35,7 @@
     }
 
     <div class="md:col-4 sm:col-8 mx-auto">
-        <p-card [header]="order.id.toString()"  [style]="{ width: '100%', margin:'2rem auto'  }">
+        <p-card [header]="order.id | order"  [style]="{ width: '100%', margin:'2rem auto'  }">
             <hr>
             <div class="flex space-between">
                 <div class="">Sub Total: </div>

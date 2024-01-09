@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthStore } from '../../stores/auth.store';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
+import { OrderPipe } from '../../pipes/order.pipe';
+import { OrderDetailsPipe } from '../../pipes/order-details.pipe';
 
 @Component({
   selector: 'app-orders',
@@ -23,7 +25,8 @@ import { PriceFormatPipe } from '../../pipes/price-format.pipe';
   imports: [FormsModule  ,
       DialogModule,
       CardModule, FieldsetModule, BlockUIModule, PanelModule, InplaceModule,
-     BadgeModule, DataViewModule, RatingModule, TagModule, CommonModule, PriceFormatPipe],
+     BadgeModule, DataViewModule, RatingModule,
+     TagModule, CommonModule, PriceFormatPipe, OrderPipe, OrderDetailsPipe],
   templateUrl: './orders.component.html',
   providers: [OrdersService, AuthStore],
   styleUrl: './orders.component.css'
