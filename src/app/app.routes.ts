@@ -12,7 +12,7 @@ import { WishlistComponent } from "./pages/wishlist/wishlist.component";
 import { BrandsComponent } from "./pages/brands/brands.component";
 import { CategoriesComponent } from "./pages/categories/categories.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
-import { OrderSummaryComponent } from "./pages/order-summary/order-summary.component";
+import { CheckoutComponent } from "./pages/order-summary/checkout.component";
 
 export const routes: Routes = [
   {
@@ -28,7 +28,7 @@ export const routes: Routes = [
       { path: "categories", title: 'InfinitCart - Categories',component:CategoriesComponent},
       { path: "Brands", title: 'InfinitCart - Brands',component:BrandsComponent},
       { path: "orders", title: 'InfinitCart - orders',component:OrdersComponent},
-      { path: "order", title: 'InfinitCart - order-summary',component:OrderSummaryComponent},
+      { path: "checkout", title: 'InfinitCart - order-summary',component:CheckoutComponent},
     ]
   },
   { path: "auth", title: 'InfinitCart - Login / Register', component: AuthComponent },

@@ -15,15 +15,15 @@ import { OrderPipe } from '../../pipes/order.pipe';
 
 
 @Component({
-  selector: 'app-order-summary',
+  selector: 'app-checkout',
   standalone: true,
   imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule,
      BadgeModule, PriceFormatPipe, OrderPipe ],
   providers: [MainStore, AuthStore],
-  templateUrl: './order-summary.component.html',
-  styleUrl: './order-summary.component.css'
+  templateUrl: './checkout.component.html',
+  styleUrl: './checkout.component.css'
 })
-export class OrderSummaryComponent {
+export class CheckoutComponent {
   constructor(private http: HttpClient,private router: Router,private ordersService: OrdersService){}
   readonly mainStore = inject(MainStore);
   readonly authStore = inject(AuthStore);
