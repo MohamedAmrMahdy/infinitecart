@@ -17,15 +17,15 @@
                 <div>
                 @if(itemOriginalPrice(item) !== itemPriceAfterDiscount(item) ){
 
-                    <span style="text-decoration:line-through; color: #999;">${{itemOriginalPrice(item).toString()}}</span><br>
+                    <span style="text-decoration:line-through; color: #999;">{{itemOriginalPrice(item) | priceFormat}}</span><br>
                 }
-                <span>${{ itemPriceAfterDiscount(item)}}</span>
+                <span>{{ itemPriceAfterDiscount(item) | priceFormat}}</span>
                 </div>
                 <div class="mr-5 ">
                     <p-badge [value]="item.quentity" severity="warning" ></p-badge>
                     <!-- <p>{{item.product.quentity.toString()}}</p> -->
                 </div>
-                <div >{{itemTotalItemPrice(item)}}</div>
+                <div >{{itemTotalItemPrice(item) | priceFormat}}</div>
             </div>            
         </p-card>
 
@@ -38,22 +38,22 @@
             <hr>
             <div class="flex space-between">
                 <div class="">Sub Total: </div>
-                <div class="ml-8">$ {{orderTotalInitialPrice}}</div>                
+                <div class="ml-8"> {{orderTotalInitialPrice | priceFormat}}</div>                
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Discount: </div>
-                <div class="ml-8">- $ {{orderTotalDiscount}}</div>                
+                <div class="ml-8"> {{orderTotalDiscount | priceFormat}}</div>                
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Total: </div>
-                <div class="ml-8">$ {{orderFinalPrice}}</div>                
+                <div class="ml-8">{{orderFinalPrice | priceFormat}}</div>                
             </div>
-            <p-button 
+            <p-button (click) = "AddOrder($event)" 
                         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
                         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 mt-4 w-full sm:mx-auto" label="Confirm"
-            ></p-button>
+             ></p-button>
         </p-card>
     </div>
 

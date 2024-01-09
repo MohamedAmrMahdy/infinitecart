@@ -20,4 +20,9 @@ export class OrdersService {
     
   }
 
+  AddOrder(newOrder:any):Observable<any> {
+    return this.http.post(`${this.API}`,newOrder)    
+  }
+
 }
+

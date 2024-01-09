@@ -15,7 +15,7 @@ import { OrdersService } from '../../services/orders.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthStore } from '../../stores/auth.store';
-import { filter } from 'rxjs';
+import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 
 @Component({
   selector: 'app-orders',
@@ -23,7 +23,7 @@ import { filter } from 'rxjs';
   imports: [FormsModule  ,
       DialogModule,
       CardModule, FieldsetModule, BlockUIModule, PanelModule, InplaceModule,
-     BadgeModule, DataViewModule, RatingModule, TagModule, CommonModule],
+     BadgeModule, DataViewModule, RatingModule, TagModule, CommonModule, PriceFormatPipe],
   templateUrl: './orders.component.html',
   providers: [OrdersService, AuthStore],
   styleUrl: './orders.component.css'
@@ -46,15 +46,15 @@ export class OrdersComponent {
   closable= false;
 
   ngOnInit() {
-    const userId = 101;
     this.ordersService.getOrders().subscribe({
       next: (response:any) => {
-        console.log('response', response);           
         this.orders =  response.filter((order:any) => {
-           return order.user.id = this.currentUser.id;
-        } )
+           return order.user.id === this.currentUser.id;
+          } )
+          console.log(this.orders)
+          
+          
 
-        console.log('this.orders',this.orders);
         // this.router.navigate(["/"]); 
         // localStorage.setItem('userData',JSON.stringify(response));
       },

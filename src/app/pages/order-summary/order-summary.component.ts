@@ -7,17 +7,22 @@ import { FormsModule } from '@angular/forms';
 import { BadgeModule } from 'primeng/badge';
 import { MainStore } from '../../stores/main.store';
 import { AuthStore } from '../../stores/auth.store';
+import { OrdersService } from '../../services/orders.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 
 
 @Component({
   selector: 'app-order-summary',
   standalone: true,
-  imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule, BadgeModule ],
+  imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule, BadgeModule, PriceFormatPipe ],
   providers: [MainStore, AuthStore],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.css'
 })
 export class OrderSummaryComponent {
+  constructor(private http: HttpClient,private router: Router,private ordersService: OrdersService){}
   readonly mainStore = inject(MainStore);
   readonly authStore = inject(AuthStore);
 
@@ -72,14 +77,27 @@ get orderFinalPrice() {
 }
 
   ngOnInit() {
-    console.log(this.cart)
-   this.order.id = 1;
+   console.log('this.cart', this.cart)
+   this.order.id = Math.floor(Math.random() * (99999999 - 1 + 1)) + 1;
    this.order.user = this.currentUser;
    this.order.placedAt = Date.now();
    this.order.items = [...this.cart.product];
-   console.log(this.order)    
+   console.log('this.order', this.order)    
+   console.log('this.currentUser',this.currentUser);
+
   }
   
+  AddOrder(event:any) {
+    this.ordersService.AddOrder(this.order).subscribe({
+      next: (response:any) => {
+        console.log('response', response);              
+        this.router.navigate(["/orders"]); 
+      },
+      error: (err:any) => {
+        console.log(err);
+      }
+    })
+  }
 //  order = {
 //   id:13213456,
 //   subTotal: 200,
