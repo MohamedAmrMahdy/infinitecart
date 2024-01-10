@@ -64,7 +64,7 @@ export class ProfileComponent {
     state:new FormControl(this.currentUser.address.state, [Validators.required]),
     city:new FormControl(this.currentUser.address.city, [Validators.required]),
     zipCode: new FormControl(this.currentUser.address.postalCode, [Validators.required, Validators.pattern(/^\d{5}$/)]),
-    phone:new FormControl(this.currentUser.phone, [Validators.required])    
+    phone:new FormControl(this.currentUser.phone, [Validators.required])
   })
 
 constructor (private http: HttpClient,private router: Router,private userService: UserService){}
@@ -73,251 +73,256 @@ constructor (private http: HttpClient,private router: Router,private userService
     this.visible = true;
   }
 
-  
+
     // handle form subimission
-    submitProfileData(){      
+    submitProfileData(){
       this.fromSubmitted = true;
       this.profileForm.controls.email.enable();
-      
+
       // post data
       if(this.profileForm.valid){
         console.log('valid');
-        const formData = { ...this.profileForm.value, email: this.currentUser.email};        
+        const formData = { ...this.profileForm.value, email: this.currentUser.email};
         console.log('local storage', JSON.parse(localStorage.getItem('userData') || '{}'));
-     
-        
+
+
         this.userService.updateUserData(this.currentUser.id, formData).subscribe({
           next: (response:any) => {
             console.log('response', response);
-            
+
             this.fromSubmitted = false;
-            this.router.navigate(["/"]); 
+            this.router.navigate(["/"]);
             localStorage.setItem('userData',JSON.stringify(response));
           },
           error: (err:any) => {
             console.log(err);
           }
         })
-  
-     
+
+
       }
       else {
         console.log('invalid')
         console.log(this.profileForm);
       }
-  
-  }
-  
-  
 
-  ageValidator(control: AbstractControl): ValidationErrors | null {    
-   
+  }
+
+
+
+  ageValidator(control: AbstractControl): ValidationErrors | null {
+
     const birthDate = new Date(control.value);
     const currentDate = new Date();
     const age = currentDate.getFullYear() - birthDate.getFullYear();
-  
+
     const minAge = 18;
     const maxAge = 100;
-  
+
     if (age < minAge || age > maxAge) {
       console.log('age < minAge || age > maxAge');
       return {valid: false};
     }
-  
+
     return null;
   }
 
-// handle form validations
+  // handle form validations
 
-get isfirstNameValid(){
-  return this.profileForm.controls.fName.valid
-}
+  get isfirstNameValid(){
+    return this.profileForm.controls.fName.valid
+  }
 
-get isLastNameValid(){
-  return this.profileForm.controls.lName.valid
-}
+  get isLastNameValid(){
+    return this.profileForm.controls.lName.valid
+  }
 
-get isBirthDateValid(){
-  return this.profileForm.controls.birthDate.valid
-}
+  get isBirthDateValid(){
+    return this.profileForm.controls.birthDate.valid
+  }
 
-get isAddressValid(){
-  return this.profileForm.controls.address.valid
-}
+  get isAddressValid(){
+    return this.profileForm.controls.address.valid
+  }
 
-get isCountryValid(){
-  return this.profileForm.controls.country.valid
-}
+  get isCountryValid(){
+    return this.profileForm.controls.country.valid
+  }
 
-get isStateValid(){
-  return this.profileForm.controls.state.valid
-}
+  get isStateValid(){
+    return this.profileForm.controls.state.valid
+  }
 
-get isCityValid(){
-  return this.profileForm.controls.city.valid
-}
+  get isCityValid(){
+    return this.profileForm.controls.city.valid
+  }
 
-get isZipCodeValid(){
-  return this.profileForm.controls.zipCode.valid
-}
+  get isZipCodeValid(){
+    return this.profileForm.controls.zipCode.valid
+  }
 
-get isPhoneValid(){
-  return this.profileForm.controls.phone.valid
-}
-
-
-////////////////////////////////
-
-get firstNameValChanged() {
-  return this.profileForm.controls.fName.dirty;
-}
-
-get lastNameValChanged() {
-  return this.profileForm.controls.lName.dirty;
-}
-
-get birthDateValChanged(){
-  return this.profileForm.controls.birthDate.dirty
-}
-
-get addressValChanged(){
-  return this.profileForm.controls.address.dirty
-}
-
-get CountryValChanged(){
-  return this.profileForm.controls.country.dirty
-}
-
-get stateValChanged(){
-  return this.profileForm.controls.state.dirty
-}
-
-get cityValChanged(){
-  return this.profileForm.controls.city.dirty
-}
-
-get zipCodeValChanged(){
-  return this.profileForm.controls.zipCode.dirty
-}
-
-get phoneValChanged(){
-  return this.profileForm.controls.phone.dirty
-}
+  get isPhoneValid(){
+    return this.profileForm.controls.phone.valid
+  }
 
 
-//////////////////
-get isSubmitted(){
-  return this.fromSubmitted;
-}
+  ////////////////////////////////
+
+  get firstNameValChanged() {
+    return this.profileForm.controls.fName.dirty;
+  }
+
+  get lastNameValChanged() {
+    return this.profileForm.controls.lName.dirty;
+  }
+
+  get birthDateValChanged(){
+    return this.profileForm.controls.birthDate.dirty
+  }
+
+  get addressValChanged(){
+    return this.profileForm.controls.address.dirty
+  }
+
+  get CountryValChanged(){
+    return this.profileForm.controls.country.dirty
+  }
+
+  get stateValChanged(){
+    return this.profileForm.controls.state.dirty
+  }
+
+  get cityValChanged(){
+    return this.profileForm.controls.city.dirty
+  }
+
+  get zipCodeValChanged(){
+    return this.profileForm.controls.zipCode.dirty
+  }
+
+  get phoneValChanged(){
+    return this.profileForm.controls.phone.dirty
+  }
 
 
+  //////////////////
+  get isSubmitted(){
+    return this.fromSubmitted;
+  }
 
 
 
 
-// handle uploading image
-onUpload(event:any) {
-  let reader = new FileReader();
-      reader.readAsDataURL(event.files[0]);
-      reader.onload = (event: any) => {
-        this.imgSrc = event.target.result;
-      };
 
-}
 
-// getting list of all countries
-fetchCountries() {
-  const {apiUrl, apiKey}  = environment;
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${apiKey}`
-  });
-
-  this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
-    next:(response: any)=>{
-
-      const countryList: any[] = response.data;
-      countryList.forEach(countryData => {
-        const country: ICountry = {
-          name: countryData.name,
-          phoneCode: countryData.phone_code,
-          flag: countryData.href.flag
+  // handle uploading image
+  onUpload(event:any) {
+    let reader = new FileReader();
+        reader.readAsDataURL(event.files[0]);
+        reader.onload = (event: any) => {
+          this.imgSrc = event.target.result;
         };
-        this.countries.push(country);
-      });
-    },
-    error:(err)=> console.error('Error fetching countries:', err)
-   });
+
+  }
+
+  // getting list of all countries
+  fetchCountries() {
+    const {apiUrl, apiKey}  = environment;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    });
+
+    this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
+      next:(response: any)=>{
+
+        const countryList: any[] = response.data;
+        countryList.forEach(countryData => {
+          const country: ICountry = {
+            name: countryData.name,
+            phoneCode: countryData.phone_code,
+            flag: countryData.href.flag
+          };
+          this.countries.push(country);
+        });
+      },
+      error:(err)=> console.error('Error fetching countries:', err)
+    });
 
 
 
-}
+  }
 
 
-// handle selecting country
-selectedCountryHandler(event:any) {
-  let selectedCountryName = this.profileForm.controls.country.value;
+  // handle selecting country
+  selectedCountryHandler(event:any) {
+    let selectedCountryName = this.profileForm.controls.country.value;
 
-  console.log(this.profileForm.controls.country.value);
-  this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
-  .map((country: any) => ({
-    name: country.name,
-    phoneCode: country.phoneCode,
-    flag: country.flag
-  }))[0];
+    console.log(this.profileForm.controls.country.value);
+    this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
+    .map((country: any) => ({
+      name: country.name,
+      phoneCode: country.phoneCode,
+      flag: country.flag
+    }))[0];
 
-  this.flagSrc = this.selectedCountry.flag;
-  this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
-}
+    this.flagSrc = this.selectedCountry.flag;
+    this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
+  }
 
+  signout(){
+    this.authStore.logout()
+    this.router.navigate(['/']).then(() => {
+      location.reload();
+    });
+  }
 
+  ngOnInit(){
+    this.items = [
+      {
+        label: "Profile",
+        icon: "pi pi-fw pi-user",
+      },
+      {
+        label: "Security",
+        icon: "pi pi-fw pi-lock",
+      },
+      {
+        label: "Orders",
+        icon: "pi pi-fw pi-bars",
 
-  
+      },
+      {
+        label: "Wishlists",
+        icon: "pi pi-fw pi-heart",
+      },
+      {
+        label: "Returns",
+        icon: "pi pi-fw pi-spinner",
+      },
+      {
+        label: "Sign Out",
+        icon: "pi pi-fw pi-sign-out",
+        command: () => {
+          this.signout();
+      }
+      },
+    ];
 
+    this.fetchCountries();
 
+    // console.log( this.countries);
+    // console.log(this.currentUser.address.country);
 
-ngOnInit(){
-  this.items = [
-    {
-      label: "Profile",
-      icon: "pi pi-fw pi-user",
-    },
-    {
-      label: "Security",
-      icon: "pi pi-fw pi-lock",
-    },
-    {
-      label: "Orders",
-      icon: "pi pi-fw pi-bars",
+    // if(this.currentUser.address.country){
+    // this.selectedCountry = this.countries.find(
+    //     country => country.name === this.currentUser.address.country
+    // )
+    // console.log(this.selectedCountry);
 
-    },
-    {
-      label: "Wishlists",
-      icon: "pi pi-fw pi-heart",
-    },
-    {
-      label: "Returns",
-      icon: "pi pi-fw pi-spinner",
-    },
-];
-
-this.fetchCountries();
-
-// console.log( this.countries);
-// console.log(this.currentUser.address.country);
-
-// if(this.currentUser.address.country){
-// this.selectedCountry = this.countries.find(
-//     country => country.name === this.currentUser.address.country
-// )
-// console.log(this.selectedCountry);
-
-// // this.flagSrc = this.selectedCountry.flag;
-// }
-
-
-}
-
+    // // this.flagSrc = this.selectedCountry.flag;
+    // }
+  }
 }
 
 
