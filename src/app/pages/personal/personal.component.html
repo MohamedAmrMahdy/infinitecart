@@ -1,27 +1,21 @@
 <!-- <input type="text" pInputText [(ngModel)]="value" /> -->
-<div class="w-11 m-auto">
-    <div class="grid mt-5 mb-5">
-        <div class="md:col-6 lg:col-2 my-auto mr-3 w-auto" >
-            <p-menu [model]="items" ></p-menu>
-            <!-- <button pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show"></button> -->
-        </div>
-    <div class="lg:col-10">
+
         <form autocomplete="off" (ngSubmit)="submitProfileData()" [formGroup]="profileForm" class="form">
             <div class="formgrid grid">
-    
+
                 <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
                     <p class="text-3xl my-0 uppercase">Personal Info</p>
                     <p class="text-400 my-0 uppercase">Please provide your correct information</p>
                   </div>
-    
-    
+
+
                 <div class="field col-12 md:col-6">
                     <label for="firstname6">Firstname</label>
                     <input id="firstname6" formControlName="fName" type="text" class="form-control text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     @if ((!isfirstNameValid && firstNameValChanged)  || (!isfirstNameValid && isSubmitted)) {
                         <p class = "error" style="color: red;">{{validtionMsg.fNameValMsg}}</p>
                     }
-    
+
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="lastname6">Lastname</label>
@@ -41,17 +35,17 @@
                         <p class = "error" style="color: red;">{{validtionMsg.birthDateValMsg}}</p>
                     }
                 </div>
-    
-    
-    
-    
+
+
+
+
                 <div class="field col-12">
                     <label for="address">Address</label>
                     <textarea id="address" formControlName="address" type="text" rows="3" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea>
                     @if ((!isAddressValid && addressValChanged)  || (!isAddressValid && isSubmitted)) {
                         <p class = "error" style="color: red;">{{validtionMsg.addressValMsg}}</p>
                     }
-    
+
                 </div>
                 <div class="field col-12 md:col-6">
                     <label for="country">Country</label>
@@ -66,11 +60,11 @@
                 </div>
                 <div class="field col-12 md:col-3">
                     <label for="state">State</label>
-                    <input id="state" formControlName="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">                    
+                    <input id="state" formControlName="state" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     @if ((!isStateValid && stateValChanged)  || (!isStateValid && isSubmitted)) {
                         <p class = "error" style="color: red;">{{validtionMsg.stateValMsg}}</p>
                     }
-                    
+
                 </div>
                 <div class="field col-12 md:col-2">
                     <label for="city">City</label>
@@ -81,11 +75,11 @@
                 </div>
                 <div class="field col-12 md:col-1">
                     <label for="zip">Zip</label>
-                    <input id="zip" formControlName="zipCode"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">                 
+                    <input id="zip" formControlName="zipCode"  type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                     @if ((!isZipCodeValid && zipCodeValChanged)  || (!isZipCodeValid && isSubmitted)) {
                         <p class = "error" style="color: red;">{{validtionMsg.zipCodeValMsg}}</p>
                     }
-                  
+
                 </div>
             </div>
             <div class="field lg:col-2 md:col-6 sm:col-6 pl-0">
@@ -100,7 +94,7 @@
                 }
                 </div>
             </div>
-    
+
             <div class="field col-12 md:col-3 pl-0">
                 <label for="pic" class="">Profile Picture</label>
             <p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*"
@@ -109,13 +103,13 @@
                 <img width="250" height="250" [src]="imgSrc" class="mt-2" alt="pic"/>
             }
             </div>
-    
+
             <div class="flex flex-column justify-content-center font-bold border-round mb-4 col-12">
                 <p class="text-3xl my-0 uppercase">Security details</p>
                 <p class="text-400 my-0 uppercase">Don't share your account data</p>
               </div>
-    
-    
+
+
             <div class="lg:flex items-center" >
                 <div class="field lg:col-3 sm:12 pl-0 ">
                     <label for="email">Email</label>
@@ -124,33 +118,33 @@
                         <p class = "error" style="color: red;">{{emailValMsg}}</p>
                     } -->
                 </div>
-    
+
                 <div class="field lg:col-3 sm:12 "  >
-    
+
                     <label for="password">Password</label>
                     <input id="password" disabled [value]="this.currentUser.password" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
                 </div>
-    
+
                 <div class="field lg:col-3 sm:12 mb-0 p-0 lg:ml-3 lg:mb-0 w-auto h-min sm:ml-0 sm:mb-3 md:mb-3"  style="align-self:center;">
-    
-    
+
+
                     <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
                     <p-dialog header="Change Password" appendTo="body" [(visible)]="visible" [style]="{width: '20vw'}" [style]="{height: '75vh'}">
-    
+
                         <div class="field">
                             <!-- <label for="oldPassword">Old Password</label> -->
                             <!-- <input id="oldPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"> -->
-    
+
                             <span class="p-float-label">
                                 <p-password [feedback]="false" [toggleMask]="true"></p-password>
                                 <label for="password">Old Password</label>
-    
+
                             </span>
                         </div>
-    
+
                         <div class="field">
                             <span class="p-float-label">
-    
+
                             <p-password [toggleMask]="true">
                                 <ng-template pTemplate="header">
                                     <h6>New password</h6>
@@ -165,42 +159,41 @@
                                 </ng-template>
                         </p-password>
                         <label for="password">New Password</label>
-    
+
                         </span>
                         </div>
-    
+
                         <div class="field w-full mt-4">
-    
+
                             <span class="p-float-label">
                                 <p-password [toggleMask]="true" [feedback]="false"></p-password>
                                 <label for="password">Confirm Password</label>
                             </span>
                         </div>
-    
+
                         <p-button
                         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
                         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700" label="Submit"
                         type="submit"></p-button>
-    
+
                     </p-dialog>
                 </div>
             </div>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
             <p-button
             styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
             transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 w-10rem h-4rem" label="Submit" size="large"
             type="submit"></p-button>
         </form>
-    </div>
-    </div>
+
     <!--
     <div class="grid mt-5 mb-5">
-    
+
     <div class="field sm:col-12 md:col-6 lg:col-3">
         <label for="email">Email</label>
         <input id="email" formControlName="email" type="email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
@@ -208,12 +201,12 @@
             <p class = "error" style="color: red;">{{emailValMsg}}</p>
         }
     </div>
-    
+
     <div class="field sm:col-12 md:col-6 lg:col-3">
         <label for="password">Password</label>
         <input id="password" disabled [value]="userPassword" type="password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
     </div>
-    
+
     <div class="field sm:col-12 md:col-6 lg:col-3">
         <p-button (click)="showDialog()" severity="danger" icon="pi pi-fw pi-lock" label="Change Password"></p-button>
         <p-dialog header="Header" appendTo="body" [(visible)]="visible" [style]="{width: '50vw'}">
@@ -224,20 +217,20 @@
         </p-dialog>
     </div>
     </div> -->
-    
-    
+
+
     <!-- </div> -->
-    
+
     <!-- <img src="https://flagcdn.com/al.svg" alt="Albania Flag" style="width: 50px; height: 50px;"> -->
-    
-    
-    
+
+
+
     <!-- <button type="button" class="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
          transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700">Submit</button> -->
-    
-    
-    
-    
+
+
+
+
     <!--
          <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a Country">
             <ng-template pTemplate="selectedItem">
@@ -253,4 +246,3 @@
                 </div>
             </ng-template>
         </p-dropdown> -->
-    

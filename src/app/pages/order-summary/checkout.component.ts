@@ -30,13 +30,13 @@ export class CheckoutComponent {
 
   cart = this.mainStore.cart() as any
   currentUser = this.authStore.currentUser() as any;
-  
+
   order: {
     id: number;
     user: any;
-    items: any[]; 
+    items: any[];
     placedAt: number;
-  } = { id: 1, user: null, items: [], placedAt: Date.now() }; 
+  } = { id: 1, user: null, items: [], placedAt: Date.now() };
 
 
 itemOriginalPrice(item:any):number {
@@ -45,7 +45,7 @@ itemOriginalPrice(item:any):number {
 
 
 itemPriceAfterDiscount(item:any):number {
-  return  +((1-item.discount)* item.price).toFixed(2); 
+  return  +((1-item.discount)* item.price).toFixed(2);
 }
 
 
@@ -84,16 +84,16 @@ get orderFinalPrice() {
    this.order.user = this.currentUser;
    this.order.placedAt = Date.now();
    this.order.items = [...this.cart.product];
-   console.log('this.order', this.order)    
+   console.log('this.order', this.order)
    console.log('this.currentUser',this.currentUser);
 
   }
-  
+
   AddOrder(event:any) {
     this.ordersService.AddOrder(this.order).subscribe({
       next: (response:any) => {
-        console.log('response', response);              
-        this.router.navigate(["/orders"]); 
+        console.log('response', response);
+        this.router.navigate(["/profile/orders"]);
       },
       error: (err:any) => {
         console.log(err);
@@ -109,7 +109,7 @@ get orderFinalPrice() {
 
 //  item =  {
 //   name: 'watch',
-//   img: 'https://www.bootdey.com/image/380x380/008B8B/000000',  
+//   img: 'https://www.bootdey.com/image/380x380/008B8B/000000',
 //   price: 400,
 //   quantity: 2,
 //   total: 800,
@@ -118,11 +118,11 @@ get orderFinalPrice() {
 
 //   products =   [
 //     1, 'Waterproof Mobile Phone', 'https://www.bootdey.com/image/380x380/008B8B/000000', 'Gray', 500, 450, 2
-    
+
 //   ];
 
 
-  
+
 }
 
 

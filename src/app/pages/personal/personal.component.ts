@@ -20,22 +20,21 @@ import { UserService } from '../../services/user.service';
 
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-personal',
   standalone: true,
   imports: [FormsModule , DropdownModule ,ReactiveFormsModule,
      InputTextModule, RadioButtonModule , CalendarModule,
       FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
   providers: [AuthStore, UserService],
 
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  templateUrl: './personal.component.html',
+  styleUrl: './personal.component.css'
 })
 
 
-export class ProfileComponent {
+export class PersonalComponent {
   readonly authStore = inject(AuthStore)
   currentUser = this.authStore.currentUser() as any
-  items?:MenuItem[];
   fromSubmitted = false;
   validtionMsg = {
     fNameValMsg:"min length of first name is 3 litters",
@@ -270,44 +269,7 @@ constructor (private http: HttpClient,private router: Router,private userService
     this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
   }
 
-  signout(){
-    this.authStore.logout()
-    this.router.navigate(['/']).then(() => {
-      location.reload();
-    });
-  }
-
   ngOnInit(){
-    this.items = [
-      {
-        label: "Profile",
-        icon: "pi pi-fw pi-user",
-      },
-      {
-        label: "Security",
-        icon: "pi pi-fw pi-lock",
-      },
-      {
-        label: "Orders",
-        icon: "pi pi-fw pi-bars",
-
-      },
-      {
-        label: "Wishlists",
-        icon: "pi pi-fw pi-heart",
-      },
-      {
-        label: "Returns",
-        icon: "pi pi-fw pi-spinner",
-      },
-      {
-        label: "Sign Out",
-        icon: "pi pi-fw pi-sign-out",
-        command: () => {
-          this.signout();
-      }
-      },
-    ];
 
     this.fetchCountries();
 

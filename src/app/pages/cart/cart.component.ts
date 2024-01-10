@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, inject } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
 import { OrdersService } from '../../services/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -20,12 +21,12 @@ import { OrdersService } from '../../services/orders.service';
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  constructor(private orderService:OrdersService){}
+  constructor(private orderService:OrdersService, private router: Router){}
   readonly store = inject(MainStore);
   user:any;
   cartItems:any;
   ngOnInit(): void {
-    
+
   }
   getCart(){
     this.store.cart().product=JSON.parse(localStorage.getItem('cart') || "[]");
@@ -63,6 +64,7 @@ export class CartComponent implements OnInit{
   }
   postOrder(){
     this.orderService.AddOrder(this.store.cart().product).subscribe();
-    this.store.resetCart();   
+    this.store.resetCart();
+    this.router.navigate(['/checkout'])
   }
 }
