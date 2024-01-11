@@ -62,11 +62,11 @@
     <div class="grid align-items-center text-lg my-auto">
       <div class="flex col-12 lg:col-6 grid align-items-center justify-content-between xl:justify-content-center"
         style="color: black;">
-        <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/">Home</a>
-        <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/products">Products</a>
-        <a class="col-6 md:col-4 lg:col-3 xl:col-2" routerLink="/categories">Categories</a>
-        <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/Brands">Brands</a>
-        <a class="col-5 md:col-4 lg:col-3 xl:col-2" routerLink="/AboutUs">About Us</a>
+        <a class="col-6 md:col-4 lg:col-3 xl:col-2 linkItem" routerLink="/"><i class="pi pi-home" style="font-size: 1.3rem"></i> <span class="pl-2">Home</span></a>
+        <a class="col-5 md:col-4 lg:col-3 xl:col-2 linkItem" routerLink="/products"><i class="pi pi-box" style="font-size: 1.3rem"></i> <span class="pl-2">Products</span></a>
+        <a class="col-6 md:col-4 lg:col-3 xl:col-2 linkItem" routerLink="/categories"><i class="pi pi-book" style="font-size: 1.3rem"></i> <span class="pl-2">Categories</span></a>
+        <a class="col-5 md:col-4 lg:col-3 xl:col-2 linkItem" routerLink="/Brands"><i class="pi pi-verified" style="font-size: 1.3rem"></i> <span class="pl-2">Brands</span></a>
+        <a class="col-5 md:col-4 lg:col-3 xl:col-2 linkItem" routerLink="/AboutUs"><i class="pi pi-info-circle" style="font-size: 1.3rem"></i> <span class="pl-2">About Us</span></a>
       </div>
       <div class="flex grid align-items-center justify-content-center lg:justify-content-end col-12 lg:col-6 grid">
         <p-button type="text" (click)="op.toggle($event)"  class="mr-2" [rounded]="true" [text]="true" icon="pi pi-shopping-cart" severity="secondary">

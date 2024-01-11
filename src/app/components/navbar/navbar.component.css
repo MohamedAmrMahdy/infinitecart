@@ -72,3 +72,14 @@ a {
   text-decoration: none;
   /* color: black !important; */
 }
+.linkItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.linkItem:hover{
+  scale: 1.05;
+  border-radius: 0.75rem;
+  background: var(--surface-c);
+}
