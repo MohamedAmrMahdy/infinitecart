@@ -4,13 +4,14 @@ import { ContentCarouselComponent } from '../../components/content-carousel/cont
 import { ButtonModule } from 'primeng/button';
 import { CategoriesCarouselComponent } from '../../components/categories-carousel/categories-carousel.component';
 import { categoriesService } from '../../services/categories.service';
+import { RouterModule } from '@angular/router';
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ProductsCarouselComponent, ContentCarouselComponent, CategoriesCarouselComponent, ButtonModule],
+  imports: [RouterModule, ProductsCarouselComponent, ContentCarouselComponent, CategoriesCarouselComponent, ButtonModule],
   providers: [categoriesService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'

@@ -1,14 +1,11 @@
 .more_style {
-    background: url(https://i.imgur.com/a76UDqJ.jpg) no-repeat top center;
-    /* background-size: 100% 100%; */
-    background-size: 100% 100%;
+    background-image: linear-gradient( rgb(11 15 53), rgb(43 136 255 / 25%) ),url(https://i.imgur.com/gqSrSWq.jpg);
+    background-size: cover;
     width: 100% !important;
-    border-bottom: 1px solid #e1e1e1;
 
     /* margin-top: 5rem; */
     padding: 5rem;
     z-index: -100;
-    box-shadow: 4px 5px 6px #c9c9ca;
 }
 
 .skewing {
@@ -22,4 +19,7 @@ hr {
     height: 50px;
     border-bottom: 1px solid #1f1209;
     box-shadow: 0 15px 15px -20px #333;
+}
+.myShadow{
+  filter: drop-shadow(2px 4px 14px rgba(0,0,0,0.3));
 }
