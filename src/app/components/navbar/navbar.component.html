@@ -3,7 +3,7 @@
     <div class="grid align-items-center lg:gap-3">
       <div class="col-3 lg:col-4 grid align-items-center" routerLink="/">
         <img class="col-1 lg:col-3 cursor-pointer" src="../../../assets/ic_logo.png" alt="" style="min-width: 50px;;width: 100px;">
-        <h1 class="hidden lg:block lg:col-6 cursor-pointer select-none" style="color: var(--primary-color-text);">InfiniteCart</h1>
+        <h1 class="hidden lg:block lg:col-6 cursor-pointer select-none" style="color: var(--primary-color);">InfiniteCart</h1>
       </div>
       <div class="move_icon col-6 lg:col-4 grid mx-auto " #targetEl>
         <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="searchValue" />
@@ -43,7 +43,7 @@
 
       <div class="col-2 lg:col-3">
         <a routerLink="/profile" class="grid lg:justify-content-end align-items-center">
-          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color-text);">Hello, {{user.firstName || 'Guest'}}</p>
+          <p class="mr-2 text-xl fw-bold" style="color: var(--primary-color);">Hello, {{user.firstName || 'Guest'}}</p>
           <p-avatar size="large" shape="circle" class="hidden lg:block">
             @if(user.image){
               <img [src]="user.image" alt="">
