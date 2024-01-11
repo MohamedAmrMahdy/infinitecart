@@ -10,3 +10,8 @@ ul{
 .mission p{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+.more_style {
+  background: url(https://i.imgur.com/a76UDqJ.jpg) no-repeat top center;
+  background-size: 100% 100%; 
+}
