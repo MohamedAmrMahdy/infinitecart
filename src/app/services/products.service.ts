@@ -24,7 +24,8 @@ export class ProductsService{
       sellerLike,
       minPrice,
       maxPrice,
-      search
+      search,
+      sorting,
     }: {
       start?: number;
       limit?: number;
@@ -38,6 +39,7 @@ export class ProductsService{
       minPrice?: number;
       maxPrice?: number;
       search?: string;
+      sorting?: string;
     }
   ){
     let queryParams = new HttpParams();
@@ -54,6 +56,22 @@ export class ProductsService{
     if (minPrice) queryParams = queryParams.append("price_gte", minPrice);
     if (maxPrice) queryParams = queryParams.append("price_lte", maxPrice);
     if (search) queryParams = queryParams.append("q", search);
+    if (sorting === 'PRICE: LOW TO HIGH') {
+      queryParams = queryParams.append('_sort','price');
+      queryParams = queryParams.append('_order','asc');
+    }
+    if (sorting === 'PRICE: HIGH TO LOW') {
+      queryParams = queryParams.append('_sort','price');
+      queryParams = queryParams.append('_order','desc');
+    }
+    if (sorting === 'BEST RATED') {
+      queryParams = queryParams.append('_sort','rating');
+      queryParams = queryParams.append('_order','desc');
+    }
+    if (sorting === 'RECOMMENDED') {
+      queryParams = queryParams.append('_sort','seller.sales');
+      queryParams = queryParams.append('_order','desc');
+    }
 
     return this.products.get(this.DB_URL, {params: queryParams});
   }
