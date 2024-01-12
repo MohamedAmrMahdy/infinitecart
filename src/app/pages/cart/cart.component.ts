@@ -72,8 +72,6 @@ export class CartComponent implements OnInit{
       return this.counter;
   }
   postOrder(){
-    this.orderService.AddOrder(this.store.cart().product).subscribe();
-    this.store.resetCart();
     this.router.navigate(['/checkout'])
   }
 }
