@@ -15,12 +15,20 @@
                 <p class="p-2 text-300">To</p>
                 <input pInputText class="w-9 border-300 border-solid border-1" [(ngModel)]="priceMax" type="text">
               </div>
+              <div class="flex justify-content-center pt-3">
+                <p-button class="p-0" (onClick)="filterProducts()">
+                  <i class="pi pi-search px-1"></i>
+                  <span class="px-4"><b>Filter</b></span>
+              </p-button>
+              </div>
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Sellers-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Sellers">
-              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Seller" [(ngModel)]="seller" type="text">
+              <div class="card flex justify-content-center">
+                <p-dropdown [options]="allSellers" [(ngModel)]="selectedSeller" placeholder="Select a Seller" [editable]="true" optionLabel="name" (ngModelChange)="filterProducts()"></p-dropdown>
+              </div>
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Brands-->
@@ -39,12 +47,6 @@
               </div>
             </p-accordionTab>
           </p-accordion>
-          <div class="flex justify-content-center pt-3">
-            <p-button class="p-0" (onClick)="filterProducts()">
-              <i class="pi pi-search px-1"></i>
-              <span class="px-4"><b>Filter</b></span>
-          </p-button>
-          </div>
       </p-accordionTab>
   </p-accordion>
 </div>

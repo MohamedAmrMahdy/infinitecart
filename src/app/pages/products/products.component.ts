@@ -12,11 +12,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { categoriesService } from '../../services/categories.service';
 import { BrandsService } from '../../services/brands.service';
-
-interface AutoCompleteCompleteEvent {
-  originalEvent: Event;
-  query: string;
-}
+import { SellersService } from '../../services/sellers.service';
 
 @Component({
   selector: 'app-products',
@@ -33,7 +29,7 @@ interface AutoCompleteCompleteEvent {
     PaginatorModule,
     InputTextModule,
   ],
-  providers:[ProductsService,categoriesService],
+  providers:[ProductsService,categoriesService,BrandsService,SellersService],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -50,12 +46,14 @@ export class ProductsComponent implements OnInit{
   sortVal:string = '';
   allCategories?:any[];
   allBrands?:any[];
+  allSellers?:any[];
   sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'},{SORT:'RECOMMENDED'}];
   selectedSort:{SORT:String} = {SORT:''};
   selectedCategory:{name:String} = {name:''};
   selectedBrand:{name:String} = {name:''};
+  selectedSeller:{name:String} = {name: ''};
 
-  constructor(private productService:ProductsService, private route:ActivatedRoute, private router:Router, private categories:categoriesService,private brands:BrandsService){}
+  constructor(private productService:ProductsService, private route:ActivatedRoute, private router:Router, private categories:categoriesService,private brands:BrandsService,private sellers:SellersService){}
 
   renderProducts(){
     this.productService.getAllProducts({
@@ -85,6 +83,10 @@ export class ProductsComponent implements OnInit{
       next: (data: any) => this.allBrands = data,
       error: (e) => console.log(e)
     })
+    this.sellers.getSellers().subscribe({
+      next: (data:any) => {this.allSellers = data},
+      error: (e) => console.log(e)
+    })
     this.route.queryParams.subscribe(params=>{
       if(params['category']) this.category = params['category'];
       if(params['brand']) this.brand = params['brand'];
@@ -100,6 +102,7 @@ export class ProductsComponent implements OnInit{
   filterProducts(){
     this.category = this.selectedCategory.name.toString();
     this.brand = this.selectedBrand.name.toString();
+    this.seller = this.selectedSeller.name.toString();
     this.router.navigate(
       [],
       {
