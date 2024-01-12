@@ -169,6 +169,10 @@ mySellers.forEach((seller) => {
   }
 })
 
+myOrders.map(order => {
+  order.total = order.items.reduce((sum, x) => sum + (x.count * x.item.price), 0);
+  return order
+})
 
 const db = {
   users: myUsers,
