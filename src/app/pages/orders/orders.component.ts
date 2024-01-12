@@ -33,12 +33,12 @@ import { OrderDetailsPipe } from '../../pipes/order-details.pipe';
 })
 export class OrdersComponent {
   constructor(private http: HttpClient,private router: Router,private ordersService: OrdersService) {}
-  
+
   readonly authStore = inject(AuthStore)
   currentUser = this.authStore.currentUser() as any
   num = '4';
 
-  
+
   orders: any[] =  [];
   visible = false;
   products= [
@@ -49,21 +49,18 @@ export class OrdersComponent {
   closable= false;
 
   ngOnInit() {
-    this.ordersService.getOrders().subscribe({
+    this.ordersService.getOrders(this.currentUser.id).subscribe({
       next: (response:any) => {
-        this.orders =  response.filter((order:any) => {
-          return order.user.id === this.currentUser.id;
-        } )        
+        this.orders =  response
           console.log(this.orders)
-
       },
       error: (err:any) => {
         console.log(err);
-      },     
+      },
     })
 
 
-   
+
   }
 
   orderDate(order:any) {
@@ -75,7 +72,7 @@ export class OrdersComponent {
       year: 'numeric'
     }).replace(/,/, '');
   }
-  
+
 
   orderTime(order:any) {
     const date = new Date(order.placedAt);
@@ -85,14 +82,14 @@ export class OrdersComponent {
       hour12: true
     });
   }
-  
+
 
   viewDetails() {
     this.visible = true
   }
 
 
-  
+
   // orders = [
   //   {
   //     time: "10/10/2023",
@@ -101,7 +98,7 @@ export class OrdersComponent {
   //       image: "https://images.unsplash.com/photo-1558864559-ed673ba3610b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGRlbGwlMjBsYXB0b3B8ZW58MHx8MHx8fDA%3D",
   //       name: 'iphone',
 
-  //     } 
+  //     }
   //   }
   // ]
   // listed_products = [
