@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +74,13 @@ export class ProductsService{
       queryParams = queryParams.append('_order','desc');
     }
 
-    return this.products.get(this.DB_URL, {params: queryParams});
+    return this.products.get(this.DB_URL, {params: queryParams, observe: 'response'}).pipe(
+      map((response: HttpResponse<any>) => {
+        const totalCountHeader = response.headers.get('X-Total-Count');
+        let responseBody = response.body;
+        responseBody.totalCountHeader = totalCountHeader
+        return responseBody;
+      })
+    );
   }
 }

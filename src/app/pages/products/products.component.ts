@@ -33,6 +33,7 @@ import { InputTextModule } from 'primeng/inputtext';
 export class ProductsComponent implements OnInit{
   start: number=0;
   limit: number=10;
+  prodNum: number=0;
   priceMin:number=0; //price ranges to select ranges from user to filter
   priceMax:number=999999999;
   seller:string = ''; //for select sellers and brands to filter
@@ -56,7 +57,9 @@ export class ProductsComponent implements OnInit{
       maxPrice: this.priceMax,
       sorting: this.sortVal,
     }).subscribe({
-      next:(data)=>{
+      next:(data:any)=>{
+        console.log(data)
+        this.prodNum = data.totalCountHeader;
         this.products = data;
       },
       error:(e) => {console.log(e)}
