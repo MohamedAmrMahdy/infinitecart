@@ -10,27 +10,29 @@
           <!--Filter For Price-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Price">
-              <input class="w-3 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceMin" type="text">
-              <span class="p-2 text-300">To</span>
-              <input class="w-3 border-300 border-solid border-1" [(ngModel)]="priceMax" type="text">
+              <div class="text-center">
+                <input pInputText class="w-9 border-300 border-solid border-1 mt-3 mb-3" [(ngModel)]="priceMin" type="text">
+                <p class="p-2 text-300">To</p>
+                <input pInputText class="w-9 border-300 border-solid border-1" [(ngModel)]="priceMax" type="text">
+              </div>
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Sellers-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Sellers">
-              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a seller" [(ngModel)]="seller" type="text">
+              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Seller" [(ngModel)]="seller" type="text">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Brands-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Brands">
-              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Brand" [(ngModel)]="brand" type="text">
+              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Brand" [(ngModel)]="brand" type="text">
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Categories-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Categories">
-              <input class="text-center border-round h-2rem w-11 border-300 border-solid border-1 mt-3 mb-3" placeholder="Enter a Category" [(ngModel)]="category" type="text">
+              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Category" [(ngModel)]="category" type="text">
             </p-accordionTab>
           </p-accordion>
           <div class="flex justify-content-center pt-3">

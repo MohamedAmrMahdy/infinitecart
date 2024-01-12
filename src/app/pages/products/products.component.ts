@@ -9,6 +9,7 @@ import { ProductsService } from '../../services/products.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-products',
@@ -22,7 +23,8 @@ import { PaginatorModule } from 'primeng/paginator';
     CardsComponent,
     HttpClientModule,
     DropdownModule,
-    PaginatorModule
+    PaginatorModule,
+    InputTextModule
   ],
   providers:[ProductsService],
   templateUrl: './products.component.html',
