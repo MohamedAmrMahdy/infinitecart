@@ -15,13 +15,15 @@ export class OrdersService {
 
   constructor(private http: HttpClient)  { }
 
-  getOrders():Observable<any> {
-    return this.http.get(`${this.API}`)
-    
+  getOrders(userId: number):Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('user.id', userId);
+    return this.http.get(`${this.API}`, {params: queryParams})
+
   }
 
   AddOrder(newOrder:any):Observable<any> {
-    return this.http.post(`${this.API}`,newOrder)    
+    return this.http.post(`${this.API}`,newOrder)
   }
 
 }
