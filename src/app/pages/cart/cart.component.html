@@ -1,50 +1,52 @@
 <div class="contain">
   <p-dataView #dv [value]="getCart()">
     <ng-template pTemplate="list" let-products>
-      <div class="heading col-12">
-        <h2 class="heading xl:text-8xl lg:xl:text-8xl text-5xl text-200 text-center font-bold m-0">My Cart</h2>
-      </div>
-          <div class="grid grid-nogutter">
-              <div class="col-12" *ngFor="let item of getCart(); let first = first">
-                  <div class="grid flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }" >
-                    <div class="col-5 flex" style="height: 100%;">
-                      <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.product.thumbnail" [alt]="item.product.title" />
-                      <div class="flex flex-column gap-2 align-items-center">
-                        <button (click)="increment(item)" type="text" class="flex justify-content-center align-content-center border-none" style="color: green;background-color: white;font-weight: bold;">
-                          <i class="pi pi-plus-circle text-xl"></i>
-                        </button>
-                        <span class="font-semibold">{{ item.count }}</span>
-                        <button (click)="decrement(item)" type="text" class="flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
-                          <i class="pi pi-minus-circle text-xl"></i>
-                        </button>
-                      </div>
+        <div class="col-12">
+          <h2 class="ml-3 mb-0 mt-1 text-6xl font-bold">My Cart</h2>
+        </div>
+        <p class="ml-8 font-bold text-2xl">Total Items: {{getItemsNo()}}</p>
+        <div class="grid grid-nogutter">
+          <p></p>
+            <div class="col-12" *ngFor="let item of getCart(); let first = first">
+                <div class="grid flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }" >
+                  <div class="col-5 flex" style="height: 100%;">
+                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.product.thumbnail" [alt]="item.product.title" />
+                    <div class="flex flex-column gap-2 align-items-center">
+                      <button (click)="increment(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: green;background-color: white;font-weight: bold;">
+                        <i class="pi pi-plus-circle text-xl"></i>
+                      </button>
+                      <span class="font-semibold">{{ item.count }}</span>
+                      <button (click)="decrement(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
+                        <i class="pi pi-minus-circle text-xl"></i>
+                      </button>
                     </div>
-                    <div class="col-6 flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                          <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                              <div class="text-2xl font-bold text-900">{{ item.product.title }}</div>
-                          </div>
-                          <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                              <span  class="text-2xl font-semibold">{{ item.price}} $</span>
-                              <button (click)="deleteFromCart(item)" type="text" class="flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
-                                <i class="pi pi-trash text-3xl"></i>
-                              </button>
-                          </div>
-                      </div>
                   </div>
-              </div>
+                  <div class="col-6 flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                            <div class="text-2xl font-bold text-900">{{ item.product.title }}</div>
+                        </div>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                            <span  class="text-2xl font-semibold">{{ item.price}} $</span>
+                            <button (click)="deleteFromCart(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
+                              <i class="pi pi-trash text-3xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            @if (cartItems.length>0) {
-              <hr>
-              <div class="flex justify-content-between px-5 text-2xl">
-                <p>SubTotal</p>
-                <p class="font-bold text-black-alpha-90">{{getTotal()}} $</p>
-              </div>
-              <div class="flex justify-content-center">
-                <button type="text" (click)="postOrder()"  class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3" style="color: white;background-color: black;font-weight: bold;">
-                  Checkout
-                </button>
-              </div>
-            }
+          </div>
+          @if (cartItems.length>0) {
+            <hr>
+            <div class="flex justify-content-between px-5 text-2xl">
+              <p>SubTotal</p>
+              <p class="font-bold text-black-alpha-90">{{getTotal()}} $</p>
+            </div>
+            <div class="flex justify-content-center">
+              <button type="text" (click)="postOrder()"  class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3" style="color: white;background-color: black;font-weight: bold;">
+                Checkout
+              </button>
+            </div>
+          }
       </ng-template>
     </p-dataView>
 </div>

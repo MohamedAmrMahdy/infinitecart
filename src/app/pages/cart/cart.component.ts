@@ -25,6 +25,7 @@ export class CartComponent implements OnInit{
   readonly store = inject(MainStore);
   user:any;
   cartItems:any;
+  counter:number = 0;
   ngOnInit(): void {
 
   }
@@ -34,23 +35,23 @@ export class CartComponent implements OnInit{
     return this.store.cart().product;
   }
 
-  // delete - update
   deleteFromCart(deleted:any){
     this.cartItems=this.cartItems.filter((item:any)=> deleted.id != item.id);
     localStorage.setItem('cart',JSON.stringify(this.cartItems))
   }
   increment(itemUpdate:any){
     this.cartItems.map((item:any)=> {
-      if(item == itemUpdate && item.stock > item.quentity)
-        item.quentity += 1
+      if(item.id == itemUpdate.id && item.stock > item.count)
+        item.count += 1
       return item;
     })
     localStorage.setItem('cart',JSON.stringify(this.cartItems))
   }
+
   decrement(itemUpdate:any){
     this.cartItems.map((item:any)=> {
-      if(item == itemUpdate && item.quentity > 1 )
-        item.quentity -= 1
+      if(item.id == itemUpdate.id && item.count > 1 )
+        item.count -= 1
       return item;
     })
     localStorage.setItem('cart',JSON.stringify(this.cartItems))
@@ -58,9 +59,17 @@ export class CartComponent implements OnInit{
   getTotal(){
     let sum = 0;
     for (let i = 0; i < this.cartItems.length; i++) {
-      sum += +this.cartItems[i].price * +this.cartItems[i].count
+      sum += +this.cartItems[i].price * +this.cartItems[i].count;
     }
     return sum;
+  }
+
+  getItemsNo(){
+    this.counter = 0;
+    this.cartItems.map((item:any)=> {
+        this.counter += item.count
+      })
+      return this.counter;
   }
   postOrder(){
     this.orderService.AddOrder(this.store.cart().product).subscribe();

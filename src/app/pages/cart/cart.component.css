@@ -11,3 +11,6 @@ img{
   font-size: 100px;
   letter-spacing: -3px;
 }
+.btn:hover{
+  cursor: pointer;
+}
