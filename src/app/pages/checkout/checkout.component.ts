@@ -13,6 +13,12 @@ import { HttpClient } from '@angular/common/http';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 import { OrderPipe } from '../../pipes/order.pipe';
 
+interface TimeLine {
+  placed: number;
+  inTransit: number;
+  outForDelivery: number;
+  delivered: number;
+}
 
 @Component({
   selector: 'app-checkout',
@@ -23,6 +29,9 @@ import { OrderPipe } from '../../pipes/order.pipe';
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
+
+
+
 export class CheckoutComponent {
   constructor(private http: HttpClient,private router: Router,private ordersService: OrdersService){}
   readonly mainStore = inject(MainStore);
@@ -31,12 +40,19 @@ export class CheckoutComponent {
   cart = this.mainStore.cart() as any
   currentUser = this.authStore.currentUser() as any;
 
+  
+
   order: {
     id: number;
     user: any;
     items: any[];
-    placedAt: number;
-  } = { id: 1, user: null, items: [], placedAt: Date.now() };
+    total: number;
+    timeline: TimeLine;
+  } = {
+    id: 1, user: null, items: [],
+    total: 0,
+    timeline: { placed: 0, inTransit: 0, outForDelivery: 0, delivered: 0 }
+  };
 
 
 itemOriginalPrice(item:any):number {
@@ -49,15 +65,15 @@ itemPriceAfterDiscount(item:any):number {
 }
 
 
-itemTotalItemPrice(item:any):number {
-  return  this.itemPriceAfterDiscount(item) * (item.quentity);
+itemTotalPrice(item:any):number {
+  return  this.itemPriceAfterDiscount(item) * (item.count);
 }
 
 
 get orderTotalInitialPrice() {
   let sum = 0;
   this.order.items.forEach(item => {
-    sum += this.itemOriginalPrice(item) * (item.quentity);
+    sum += this.itemOriginalPrice(item) * (item.count);
   });
   return sum;
 }
@@ -65,7 +81,7 @@ get orderTotalInitialPrice() {
 get orderTotalDiscount() {
   let sum = 0;
   this.order.items.forEach(item => {
-    sum = sum + ((this.itemOriginalPrice(item) - this.itemPriceAfterDiscount(item)) * item.quentity);
+    sum = sum + ((this.itemOriginalPrice(item) - this.itemPriceAfterDiscount(item)) * item.count);
   });
   return sum;
 }
@@ -73,7 +89,7 @@ get orderTotalDiscount() {
 get orderFinalPrice() {
   let sum = 0;
   this.order.items.forEach(item => {
-    sum += this.itemTotalItemPrice(item) ;
+    sum += this.itemTotalPrice(item) ;
   });
   return sum;
 }
@@ -82,8 +98,10 @@ get orderFinalPrice() {
    console.log('this.cart', this.cart)
    this.order.id = Math.floor(Math.random() * (99999999 - 1 + 1)) + 1;
    this.order.user = this.currentUser;
-   this.order.placedAt = Date.now();
+  //  this.order.timeline.placed = Date.now();
    this.order.items = [...this.cart.product];
+   this.order.total = this.orderFinalPrice;
+   this.order.timeline.placed = Date.now();
    console.log('this.order', this.order)
    console.log('this.currentUser',this.currentUser);
 

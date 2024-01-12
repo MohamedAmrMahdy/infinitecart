@@ -12,7 +12,7 @@ import { BrandsComponent } from "./pages/brands/brands.component";
 import { CategoriesComponent } from "./pages/categories/categories.component";
 import { OrdersComponent } from "./pages/orders/orders.component";
 
-import { CheckoutComponent } from "./pages/order-summary/checkout.component";
+import { CheckoutComponent } from "./pages/checkout/checkout.component";
 import { AboutUsComponent } from "./pages/about-us/about-us.component";
 import { ProfileComponent } from "./layouts/profile/profile.component";
 import { PersonalComponent } from "./pages/personal/personal.component";

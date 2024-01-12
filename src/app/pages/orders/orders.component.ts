@@ -36,10 +36,10 @@ export class OrdersComponent {
 
   readonly authStore = inject(AuthStore)
   currentUser = this.authStore.currentUser() as any
-  num = '4';
 
 
   orders: any[] =  [];
+  selectedOrder: any;
   visible = false;
   products= [
     {id: 1, name: 'n1', category: 'c1', price: '300', quantity: 1,rating: 3, image:"https://waltonbd.com/image/catalog/home-page/half-block/nexg-n6-block.jpg"},
@@ -63,8 +63,26 @@ export class OrdersComponent {
 
   }
 
+ viewDetails(order:any) {
+    this.selectedOrder = order;
+    console.log(this.selectedOrder)
+    this.visible = true
+  }
+
+  orderTotal(orderId:number) {
+    const foundOrder = this.orders.find((order) => order.id === orderId);
+    return foundOrder?.total;
+  }
+
+  onDialogClose() {    
+    this.selectedOrder = null; 
+    this.visible = false;    
+  }
+
+
+
   orderDate(order:any) {
-    const date = new Date(order.placedAt);
+    const date = new Date(order.timeline.placed);
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: '2-digit',
@@ -75,7 +93,7 @@ export class OrdersComponent {
 
 
   orderTime(order:any) {
-    const date = new Date(order.placedAt);
+    const date = new Date(order.timeline.placed);
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -84,9 +102,7 @@ export class OrdersComponent {
   }
 
 
-  viewDetails() {
-    this.visible = true
-  }
+ 
 
 
 
