@@ -58,7 +58,6 @@ export class ProductsComponent implements OnInit{
       sorting: this.sortVal,
     }).subscribe({
       next:(data:any)=>{
-        console.log(data)
         this.prodNum = data.totalCountHeader;
         this.products = data;
       },
