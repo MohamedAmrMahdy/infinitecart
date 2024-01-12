@@ -100,7 +100,7 @@ get orderFinalPrice() {
    this.order.user = this.currentUser;
   //  this.order.timeline.placed = Date.now();
    this.order.items = [...this.cart.product];
-   this.order.total = this.orderTotalDiscount;
+   this.order.total = this.orderFinalPrice;
    this.order.timeline.placed = Date.now();
    console.log('this.order', this.order)
    console.log('this.currentUser',this.currentUser);
