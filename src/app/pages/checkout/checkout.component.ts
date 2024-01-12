@@ -40,7 +40,7 @@ export class CheckoutComponent {
   cart = this.mainStore.cart() as any
   currentUser = this.authStore.currentUser() as any;
 
-  
+
 
   order: {
     id: number;
@@ -56,12 +56,12 @@ export class CheckoutComponent {
 
 
 itemOriginalPrice(item:any):number {
-  return item.price;
+  return item.item.price;
 }
 
 
 itemPriceAfterDiscount(item:any):number {
-  return  +((1-item.discount)* item.price).toFixed(2);
+  return  +((1-item.item.discount)* item.item.price).toFixed(2);
 }
 
 
@@ -73,7 +73,7 @@ itemTotalPrice(item:any):number {
 get orderTotalInitialPrice() {
   let sum = 0;
   this.order.items.forEach(item => {
-    sum += this.itemOriginalPrice(item) * (item.count);
+    sum += (this.itemOriginalPrice(item) * item.count);
   });
   return sum;
 }
@@ -99,7 +99,12 @@ get orderFinalPrice() {
    this.order.id = Math.floor(Math.random() * (99999999 - 1 + 1)) + 1;
    this.order.user = this.currentUser;
   //  this.order.timeline.placed = Date.now();
-   this.order.items = [...this.cart.product];
+   this.order.items = this.cart.product.map((product: any) => {
+    return {
+      count: product.count,
+      item: product
+    }
+   });
    this.order.total = this.orderFinalPrice;
    this.order.timeline.placed = Date.now();
    console.log('this.order', this.order)

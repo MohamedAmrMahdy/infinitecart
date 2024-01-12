@@ -1,11 +1,11 @@
     @for(item of order.items; track item.id){
-        
+
      <div class="md:col-8 sm:col-12 mx-auto">
-        <p-card [header]="item.product.title" [style]="{ width: '75%', margin:'2rem auto'  }">
-            
-            <img [src]="item.product.thumbnail" alt="img here" style="width: 7rem; height:  7rem;" >
+        <p-card [header]="item.item.product.title" [style]="{ width: '75%', margin:'2rem auto'  }">
+
+            <img [src]="item.item.product.thumbnail" alt="img here" style="width: 7rem; height:  7rem;" >
             <div class="mt-2 mb-5">
-                <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false" [style]=""></p-rating>
+                <p-rating [(ngModel)]="item.item.rating" [readonly]="true" [cancel]="false" [style]=""></p-rating>
             </div>
             <hr>
             <div class="sm:col-12 grid justify-content-between ">
@@ -27,10 +27,10 @@
                     <!-- <p>{{item.product.count.toString()}}</p> -->
                 </div>
                 <div >{{itemTotalPrice(item) | priceFormat}}</div>
-            </div>            
+            </div>
         </p-card>
 
-        
+
     </div>
     }
 
@@ -39,19 +39,19 @@
             <hr>
             <div class="flex space-between">
                 <div class="">Sub Total: </div>
-                <div class="ml-8"> {{orderTotalInitialPrice | priceFormat}}</div>                
+                <div class="ml-8"> {{orderTotalInitialPrice | priceFormat}}</div>
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Discount: </div>
-                <div class="ml-8"> {{orderTotalDiscount | priceFormat}}</div>                
+                <div class="ml-8"> {{orderTotalDiscount | priceFormat}}</div>
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Total: </div>
-                <div class="ml-8">{{orderFinalPrice | priceFormat}}</div>                
+                <div class="ml-8">{{orderFinalPrice | priceFormat}}</div>
             </div>
-            <p-button (click) = "AddOrder($event)" 
+            <p-button (click) = "AddOrder($event)"
                         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
                         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 mt-4 w-full sm:mx-auto" label="Confirm"
              ></p-button>
@@ -61,11 +61,11 @@
 
 
 
-<!-- 
+<!--
 
     <div class="md:col-8 sm:col-12 mx-auto">
         <p-card [header]="item.name" [style]="{ width: '75%', margin:'2rem auto'  }">
-            
+
             <img [src]="item.img" alt="img here" style="width: 7rem; height:  7rem;" >
             <div class="mt-2 mb-5">
                 <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false" [style]=""></p-rating>
@@ -86,10 +86,10 @@
                     <p-badge [value]="item.quantity.toString()" severity="warning" ></p-badge>
                 </div>
                 <div class="">${{item.total}}</div>
-            </div>            
+            </div>
         </p-card>
 
-        
+
     </div>
 
     <div class="md:col-4 sm:col-8 mx-auto">
@@ -97,19 +97,19 @@
             <hr>
             <div class="flex space-between">
                 <div class="">Sub Total: </div>
-                <div class="ml-8">$ {{order.subTotal}}</div>                
+                <div class="ml-8">$ {{order.subTotal}}</div>
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Discount: </div>
-                <div class="ml-8">- $ {{order.discount}}</div>                
+                <div class="ml-8">- $ {{order.discount}}</div>
             </div>
             <hr>
             <div class="flex space-between">
                 <div class="">Total: </div>
-                <div class="ml-8">$ {{order.subTotal}}</div>                
+                <div class="ml-8">$ {{order.subTotal}}</div>
             </div>
-            <p-button 
+            <p-button
                         styleClass="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer
                         transition-all transition-duration-200 hover:bg-primary-800 hover:border-primary-200 active:bg-primary-700 active:border-primary-700 mt-4 w-full sm:mx-auto" label="Confirm"
             ></p-button>

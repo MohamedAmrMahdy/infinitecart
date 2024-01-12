@@ -8,15 +8,15 @@
         <div class="grid p-grid">
 
           <div class="col-11 md:col-4">
-            <img class="md:w-full sm:w-30rem " [src]="order.items[0].product.thumbnail  " alt="Product Image">
+            <img class="md:w-full sm:w-30rem " [src]="order.items[0].item.product.thumbnail" alt="Product Image">
           </div>
 
           <div class="col-12 md:col-6 lg:col-4 mx-auto">
             <p-fieldset legend="Date/Time" styleClass="border-none">
-  
+
               <p-button label="placed on " [badge]="orderDate(order)"  styleClass="mr-2 lg:w-max "></p-button>
               <p-badge [value]="orderTime(order)" styleClass="mt-3" size="large" severity="info"></p-badge>
-            
+
         </p-fieldset>
           </div>
           <div class="col-12 md:col-3 align-self-center text-right">
@@ -49,46 +49,48 @@
               @for( item of selectedOrder?.items; track item.id){
 
                 <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.product.thumbnail" [alt]="item.name" />
+                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.item.product.thumbnail" [alt]="item.item.name" />
                     <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                            <div class="text-2xl font-bold text-900">{{ item.product.title }}</div>
-                          <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            <div class="text-2xl font-bold text-900">{{ item.item.product.title }}</div>
+                          <p-rating [(ngModel)]="item.item.rating" [readonly]="true" [cancel]="false"></p-rating>
                             <div class="flex align-items-center gap-3">
                                 <span class="flex align-items-center gap-2">
                                     <i class="pi pi-tag"></i>
-                                    <span class="font-semibold">{{ item.product.category.name }}</span>
+                                    <span class="font-semibold">{{ item.item.product.category.name }}</span>
                                 </span>
                             </div>
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                            <span class="text-2xl font-semibold">{{(1-item.discount) * item.price * item.count | priceFormat }}</span>
+                            <span class="text-2xl font-semibold">{{(1-item.item.discount) * item.item.price * item.count | priceFormat }}</span>
                             <p-badge [value]="item.count" size="large" severity="warning"></p-badge>
                         </div>
                     </div>
                   </div>
-              
+
                 }
-              </div>    
+              </div>
             </div>
-             <div style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin: 10px; 
-                  padding: 10px;
-                  border-radius: 5px; 
-                  background-color: #f5f5f5;
-                  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-                ">
-                  <p style="font-size: 2rem; font-weight: 500;">Total</p>
-                  <p style="
-                    font-weight: bold;
-                    font-size: 2rem;
-                    color: #dc3545;
-                  ">{{orderTotal(selectedOrder?.id) | priceFormat}}</p>
-                  <p>{{selectedOrder?.id}}</p>
-                </div>
+            @if(selectedOrder){
+              <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #f5f5f5;
+                box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+              ">
+                <p style="font-size: 2rem; font-weight: 500;">Total</p>
+                <p style="
+                  font-weight: bold;
+                  font-size: 2rem;
+                  color: #dc3545;
+                ">{{selectedOrder.total | priceFormat}}</p>
+                <p>{{selectedOrder.id}}</p>
+              </div>
+            }
     </ng-template>
 </p-dataView>
 </p-dialog>
