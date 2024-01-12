@@ -217,34 +217,38 @@ export class PersonalComponent {
     formData.append('image', file);
     formData.append('key', '4d196b587c2bc1f1fcae2d0f22973a7e');
     let headers = new HttpHeaders();
-    let res:any;
+    let res: any;
     headers.set('Content-Type', 'multipart/form-data');
     this.http.post('https://api.imgbb.com/1/upload', formData, { headers: headers })
-    .subscribe({
-      next:(data)=>{
-        res = data;
-        this.userService.updateUserImage(this.currentUser.id, res.data.display_url).subscribe({
-          next: (response: any) => {
-            // console.log('response', response);
-            // console.log("Successfully updated User ID: ", this.currentUser.id);
-            // console.log("New Image: ", res.data.display_url);
-            let storedUserData = localStorage.getItem('userData');
-            if(storedUserData)
-            {
-              let parsedUserData = JSON.parse(storedUserData);
-              parsedUserData.image = res.data.display_url;
-              localStorage.setItem('userData', JSON.stringify(parsedUserData));
+      .subscribe({
+        next: (data) => {
+          res = data;
+          this.userService.updateUserImage(this.currentUser.id, res.data.display_url).subscribe({
+            next: (response: any) => {
+              // console.log('response', response);
+              // console.log("Successfully updated User ID: ", this.currentUser.id);
+              // console.log("New Image: ", res.data.display_url);
+              let storedUserData = localStorage.getItem('userData');
+              if (storedUserData) {
+                let parsedUserData = JSON.parse(storedUserData);
+                parsedUserData.image = res.data.display_url;
+                localStorage.setItem('userData', JSON.stringify(parsedUserData));
+              }
+              let reader = new FileReader();
+              reader.readAsDataURL(event.files[0]);
+              reader.onload = (event: any) => {
+                this.imgSrc = res.data.display_url;
+                console.log("image upload success");
+              };
+            },
+            error: (err: any) => {
+              console.log(err);
             }
+          })
 
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        })
-        
-      },
-      error:(e) => {console.log(e)}
-    });
+        },
+        error: (e) => { console.log(e) }
+      });
   }
 
   // getting list of all countries
