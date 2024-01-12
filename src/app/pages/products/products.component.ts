@@ -10,6 +10,13 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
+import { categoriesService } from '../../services/categories.service';
+import { BrandsService } from '../../services/brands.service';
+
+interface AutoCompleteCompleteEvent {
+  originalEvent: Event;
+  query: string;
+}
 
 @Component({
   selector: 'app-products',
@@ -24,9 +31,9 @@ import { InputTextModule } from 'primeng/inputtext';
     HttpClientModule,
     DropdownModule,
     PaginatorModule,
-    InputTextModule
+    InputTextModule,
   ],
-  providers:[ProductsService],
+  providers:[ProductsService,categoriesService],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -41,10 +48,14 @@ export class ProductsComponent implements OnInit{
   products:any;
   category:string = '';
   sortVal:string = '';
+  allCategories?:any[];
+  allBrands?:any[];
   sorted = [{SORT:'PRICE: HIGH TO LOW'},{SORT:'PRICE: LOW TO HIGH'},{SORT:'BEST RATED'},{SORT:'RECOMMENDED'}];
   selectedSort:{SORT:String} = {SORT:''};
+  selectedCategory:{name:String} = {name:''};
+  selectedBrand:{name:String} = {name:''};
 
-  constructor(private productService:ProductsService, private route:ActivatedRoute, private router:Router){}
+  constructor(private productService:ProductsService, private route:ActivatedRoute, private router:Router, private categories:categoriesService,private brands:BrandsService){}
 
   renderProducts(){
     this.productService.getAllProducts({
@@ -66,6 +77,14 @@ export class ProductsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.categories.getCategories().subscribe({
+      next:(data: any) => {this.allCategories = data},
+      error: (e) => console.log(e)
+    })
+    this.brands.getBrands().subscribe({
+      next: (data: any) => this.allBrands = data,
+      error: (e) => console.log(e)
+    })
     this.route.queryParams.subscribe(params=>{
       if(params['category']) this.category = params['category'];
       if(params['brand']) this.brand = params['brand'];
@@ -79,6 +98,8 @@ export class ProductsComponent implements OnInit{
   }
 
   filterProducts(){
+    this.category = this.selectedCategory.name.toString();
+    this.brand = this.selectedBrand.name.toString();
     this.router.navigate(
       [],
       {
@@ -108,4 +129,6 @@ export class ProductsComponent implements OnInit{
     this.renderProducts()
     scrollTo(0, 0);
   }
+
+
 }

@@ -26,13 +26,17 @@
           <!--Filter For Brands-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Brands">
-              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Brand" [(ngModel)]="brand" type="text">
+              <div class="card flex justify-content-center">
+                <p-dropdown [options]="allBrands" [(ngModel)]="selectedBrand" placeholder="Select a Brand" [editable]="true" optionLabel="name" (ngModelChange)="filterProducts()"></p-dropdown>
+              </div>
             </p-accordionTab>
           </p-accordion>
           <!--Filter For Categories-->
           <p-accordion [activeIndex]="0">
             <p-accordionTab header="Categories">
-              <input pInputText class="text-center border-round h-2rem w-12 border-300 border-solid border-1 mt-3 mb-2" placeholder="Enter Category" [(ngModel)]="category" type="text">
+              <div class="card flex justify-content-center">
+                <p-dropdown [options]="allCategories" [(ngModel)]="selectedCategory" placeholder="Select a Category" [editable]="true" optionLabel="name" (ngModelChange)="filterProducts()"></p-dropdown>
+              </div>
             </p-accordionTab>
           </p-accordion>
           <div class="flex justify-content-center pt-3">
