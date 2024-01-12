@@ -33,6 +33,12 @@ export class UserService {
     }, httpOptions);
   }
 
+  updateUserImage(id:number, imageLink:string): Observable<any> {
+    return this.http.patch(API + 'users' + '/' + id, {
+      image: imageLink,
+    }, httpOptions);
+  }
+
 
 
 // updateUserData(userData:any): Observable<any> {

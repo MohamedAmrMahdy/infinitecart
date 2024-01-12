@@ -1,15 +1,15 @@
 import { Component, Input, inject } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormControl,FormsModule, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, FormsModule, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { MenuModule } from 'primeng/menu';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { MenuItem } from 'primeng/api';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {ICountry} from '../../interfaces/Country';
-import {environment} from '../../../environments/environment'
+import { Header, MenuItem } from 'primeng/api';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { ICountry } from '../../interfaces/Country';
+import { environment } from '../../../environments/environment'
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
@@ -22,9 +22,9 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-personal',
   standalone: true,
-  imports: [FormsModule , DropdownModule ,ReactiveFormsModule,
-     InputTextModule, RadioButtonModule , CalendarModule,
-      FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
+  imports: [FormsModule, DropdownModule, ReactiveFormsModule,
+    InputTextModule, RadioButtonModule, CalendarModule,
+    FileUploadModule, MenuModule, DialogModule, PasswordModule, DividerModule],
   providers: [AuthStore, UserService],
 
   templateUrl: './personal.component.html',
@@ -37,8 +37,8 @@ export class PersonalComponent {
   currentUser = this.authStore.currentUser() as any
   fromSubmitted = false;
   validtionMsg = {
-    fNameValMsg:"min length of first name is 3 litters",
-    lNameValMsg:"min length of last name is 3 litters",
+    fNameValMsg: "min length of first name is 3 litters",
+    lNameValMsg: "min length of last name is 3 litters",
     birthDateValMsg: 'Age must be above 18',
     addressValMsg: 'too short address',
     countryValMsg: 'Must select a country',
@@ -48,62 +48,62 @@ export class PersonalComponent {
     phoneValMsg: 'phone is invalid',
   };
 
-  flagSrc:any;
-  imgSrc:string = '';
+  flagSrc: any;
+  imgSrc: string = '';
   selectedCountry?: ICountry;
   countries: ICountry[] = [];
   visible = false;
   profileForm = new FormGroup({
-    fName:new FormControl(this.currentUser.firstName, [Validators.required, Validators.minLength(3)]),
-    lName:new FormControl(this.currentUser.lastName, [Validators.required, Validators.minLength(3)]),
-    email:new FormControl({ value: this.currentUser.email, disabled: true}, { updateOn: 'change' }),
-    birthDate: new FormControl(new Date(this.currentUser.birthDate).toLocaleDateString('en-US'),[Validators.required,this.ageValidator] ),
-    address:new FormControl(this.currentUser.address.address,[Validators.required, Validators.minLength(5)]),
-    country:new FormControl(this.currentUser.address.country,[Validators.required] ),
-    state:new FormControl(this.currentUser.address.state, [Validators.required]),
-    city:new FormControl(this.currentUser.address.city, [Validators.required]),
+    fName: new FormControl(this.currentUser.firstName, [Validators.required, Validators.minLength(3)]),
+    lName: new FormControl(this.currentUser.lastName, [Validators.required, Validators.minLength(3)]),
+    email: new FormControl({ value: this.currentUser.email, disabled: true }, { updateOn: 'change' }),
+    birthDate: new FormControl(new Date(this.currentUser.birthDate).toLocaleDateString('en-US'), [Validators.required, this.ageValidator]),
+    address: new FormControl(this.currentUser.address.address, [Validators.required, Validators.minLength(5)]),
+    country: new FormControl(this.currentUser.address.country, [Validators.required]),
+    state: new FormControl(this.currentUser.address.state, [Validators.required]),
+    city: new FormControl(this.currentUser.address.city, [Validators.required]),
     zipCode: new FormControl(this.currentUser.address.postalCode, [Validators.required, Validators.pattern(/^\d{5}$/)]),
-    phone:new FormControl(this.currentUser.phone, [Validators.required])
+    phone: new FormControl(this.currentUser.phone, [Validators.required])
   })
 
-constructor (private http: HttpClient,private router: Router,private userService: UserService){}
+  constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
 
   showDialog() {
     this.visible = true;
   }
 
 
-    // handle form subimission
-    submitProfileData(){
-      this.fromSubmitted = true;
-      this.profileForm.controls.email.enable();
+  // handle form subimission
+  submitProfileData() {
+    this.fromSubmitted = true;
+    this.profileForm.controls.email.enable();
 
-      // post data
-      if(this.profileForm.valid){
-        console.log('valid');
-        const formData = { ...this.profileForm.value, email: this.currentUser.email};
-        console.log('local storage', JSON.parse(localStorage.getItem('userData') || '{}'));
-
-
-        this.userService.updateUserData(this.currentUser.id, formData).subscribe({
-          next: (response:any) => {
-            console.log('response', response);
-
-            this.fromSubmitted = false;
-            this.router.navigate(["/"]);
-            localStorage.setItem('userData',JSON.stringify(response));
-          },
-          error: (err:any) => {
-            console.log(err);
-          }
-        })
+    // post data
+    if (this.profileForm.valid) {
+      console.log('valid');
+      const formData = { ...this.profileForm.value, email: this.currentUser.email };
+      console.log('local storage', JSON.parse(localStorage.getItem('userData') || '{}'));
 
 
-      }
-      else {
-        console.log('invalid')
-        console.log(this.profileForm);
-      }
+      this.userService.updateUserData(this.currentUser.id, formData).subscribe({
+        next: (response: any) => {
+          console.log('response', response);
+
+          this.fromSubmitted = false;
+          this.router.navigate(["/"]);
+          localStorage.setItem('userData', JSON.stringify(response));
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      })
+
+
+    }
+    else {
+      console.log('invalid')
+      console.log(this.profileForm);
+    }
 
   }
 
@@ -120,7 +120,7 @@ constructor (private http: HttpClient,private router: Router,private userService
 
     if (age < minAge || age > maxAge) {
       console.log('age < minAge || age > maxAge');
-      return {valid: false};
+      return { valid: false };
     }
 
     return null;
@@ -128,39 +128,39 @@ constructor (private http: HttpClient,private router: Router,private userService
 
   // handle form validations
 
-  get isfirstNameValid(){
+  get isfirstNameValid() {
     return this.profileForm.controls.fName.valid
   }
 
-  get isLastNameValid(){
+  get isLastNameValid() {
     return this.profileForm.controls.lName.valid
   }
 
-  get isBirthDateValid(){
+  get isBirthDateValid() {
     return this.profileForm.controls.birthDate.valid
   }
 
-  get isAddressValid(){
+  get isAddressValid() {
     return this.profileForm.controls.address.valid
   }
 
-  get isCountryValid(){
+  get isCountryValid() {
     return this.profileForm.controls.country.valid
   }
 
-  get isStateValid(){
+  get isStateValid() {
     return this.profileForm.controls.state.valid
   }
 
-  get isCityValid(){
+  get isCityValid() {
     return this.profileForm.controls.city.valid
   }
 
-  get isZipCodeValid(){
+  get isZipCodeValid() {
     return this.profileForm.controls.zipCode.valid
   }
 
-  get isPhoneValid(){
+  get isPhoneValid() {
     return this.profileForm.controls.phone.valid
   }
 
@@ -175,65 +175,88 @@ constructor (private http: HttpClient,private router: Router,private userService
     return this.profileForm.controls.lName.dirty;
   }
 
-  get birthDateValChanged(){
+  get birthDateValChanged() {
     return this.profileForm.controls.birthDate.dirty
   }
 
-  get addressValChanged(){
+  get addressValChanged() {
     return this.profileForm.controls.address.dirty
   }
 
-  get CountryValChanged(){
+  get CountryValChanged() {
     return this.profileForm.controls.country.dirty
   }
 
-  get stateValChanged(){
+  get stateValChanged() {
     return this.profileForm.controls.state.dirty
   }
 
-  get cityValChanged(){
+  get cityValChanged() {
     return this.profileForm.controls.city.dirty
   }
 
-  get zipCodeValChanged(){
+  get zipCodeValChanged() {
     return this.profileForm.controls.zipCode.dirty
   }
 
-  get phoneValChanged(){
+  get phoneValChanged() {
     return this.profileForm.controls.phone.dirty
   }
 
 
   //////////////////
-  get isSubmitted(){
+  get isSubmitted() {
     return this.fromSubmitted;
   }
 
 
-
-
-
-
   // handle uploading image
-  onUpload(event:any) {
-    let reader = new FileReader();
-        reader.readAsDataURL(event.files[0]);
-        reader.onload = (event: any) => {
-          this.imgSrc = event.target.result;
-        };
+  onUpload(event: any) {
+    let file = event.files[0];
+    let formData = new FormData();
+    formData.append('image', file);
+    formData.append('key', '4d196b587c2bc1f1fcae2d0f22973a7e');
+    let headers = new HttpHeaders();
+    let res:any;
+    headers.set('Content-Type', 'multipart/form-data');
+    this.http.post('https://api.imgbb.com/1/upload', formData, { headers: headers })
+    .subscribe({
+      next:(data)=>{
+        res = data;
+        this.userService.updateUserImage(this.currentUser.id, res.data.display_url).subscribe({
+          next: (response: any) => {
+            // console.log('response', response);
+            // console.log("Successfully updated User ID: ", this.currentUser.id);
+            // console.log("New Image: ", res.data.display_url);
+            let storedUserData = localStorage.getItem('userData');
+            if(storedUserData)
+            {
+              let parsedUserData = JSON.parse(storedUserData);
+              parsedUserData.image = res.data.display_url;
+              localStorage.setItem('userData', JSON.stringify(parsedUserData));
+            }
 
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        })
+        
+      },
+      error:(e) => {console.log(e)}
+    });
   }
 
   // getting list of all countries
   fetchCountries() {
-    const {apiUrl, apiKey}  = environment;
+    const { apiUrl, apiKey } = environment;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`
     });
 
-    this.http.get<any[]>( apiUrl+'countries', { headers }).subscribe({
-      next:(response: any)=>{
+    this.http.get<any[]>(apiUrl + 'countries', { headers }).subscribe({
+      next: (response: any) => {
 
         const countryList: any[] = response.data;
         countryList.forEach(countryData => {
@@ -245,7 +268,7 @@ constructor (private http: HttpClient,private router: Router,private userService
           this.countries.push(country);
         });
       },
-      error:(err)=> console.error('Error fetching countries:', err)
+      error: (err) => console.error('Error fetching countries:', err)
     });
 
 
@@ -254,22 +277,22 @@ constructor (private http: HttpClient,private router: Router,private userService
 
 
   // handle selecting country
-  selectedCountryHandler(event:any) {
+  selectedCountryHandler(event: any) {
     let selectedCountryName = this.profileForm.controls.country.value;
 
     console.log(this.profileForm.controls.country.value);
     this.selectedCountry = this.countries.filter((country: any) => country.name === selectedCountryName)
-    .map((country: any) => ({
-      name: country.name,
-      phoneCode: country.phoneCode,
-      flag: country.flag
-    }))[0];
+      .map((country: any) => ({
+        name: country.name,
+        phoneCode: country.phoneCode,
+        flag: country.flag
+      }))[0];
 
     this.flagSrc = this.selectedCountry.flag;
     this.profileForm.controls.phone.setValue('+' + this.selectedCountry.phoneCode)
   }
 
-  ngOnInit(){
+  ngOnInit() {
 
     this.fetchCountries();
 
