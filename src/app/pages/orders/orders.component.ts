@@ -36,7 +36,6 @@ export class OrdersComponent {
 
   readonly authStore = inject(AuthStore)
   currentUser = this.authStore.currentUser() as any
-  num = '4';
 
 
   orders: any[] =  [];
@@ -64,7 +63,7 @@ export class OrdersComponent {
   }
 
   orderDate(order:any) {
-    const date = new Date(order.placedAt);
+    const date = new Date(order.timeline.placed);
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: '2-digit',
@@ -75,7 +74,7 @@ export class OrdersComponent {
 
 
   orderTime(order:any) {
-    const date = new Date(order.placedAt);
+    const date = new Date(order.timeline.placed);
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
@@ -83,6 +82,10 @@ export class OrdersComponent {
     });
   }
 
+
+  orderTotal(orderId:number) {
+    return this.orders.find(order => order.id === orderId).total;
+  }
 
   viewDetails() {
     this.visible = true
