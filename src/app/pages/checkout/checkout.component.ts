@@ -116,6 +116,7 @@ get orderFinalPrice() {
     this.ordersService.AddOrder(this.order).subscribe({
       next: (response:any) => {
         console.log('response', response);
+        this.mainStore.resetCart();
         this.router.navigate(["/profile/orders"]);
       },
       error: (err:any) => {

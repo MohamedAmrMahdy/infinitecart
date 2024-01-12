@@ -63,7 +63,7 @@ export class PersonalComponent {
     state: new FormControl(this.currentUser.address.state, [Validators.required]),
     city: new FormControl(this.currentUser.address.city, [Validators.required]),
     zipCode: new FormControl(this.currentUser.address.postalCode, [Validators.required, Validators.pattern(/^\d{5}$/)]),
-    phone: new FormControl(this.currentUser.phone, [Validators.required])
+    phone: new FormControl(this.currentUser.phone, [Validators.required, Validators.pattern(/^[+]?[0-9()-]{10,15}$/)])
   })
 
   constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
