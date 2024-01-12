@@ -113,6 +113,7 @@ export class ProductsComponent implements OnInit{
           min: this.priceMin,
           max: this.priceMax,
           limit: this.limit,
+          seller: this.seller
         },
         queryParamsHandling: 'merge'
       }
