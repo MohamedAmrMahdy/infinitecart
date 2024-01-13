@@ -58,10 +58,10 @@ export class NavbarComponent implements OnInit{
   getWishlist(){
     this.wishlist.wishlist().product = JSON.parse(localStorage.getItem('wishlist') || "[]");
   }
-  product_search(){
+  product_search(search:any){
     this.productService.getAllProducts({
       limit: 3,
-      titleLike: this.searchValue
+      titleLike: search.target.value
     }).subscribe({
       next:(data)=>{
         this.searchProduct = data;

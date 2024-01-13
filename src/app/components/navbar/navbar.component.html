@@ -6,25 +6,25 @@
         <h1 class="hidden lg:block lg:col-6 cursor-pointer select-none" style="color: var(--primary-color);">InfiniteCart</h1>
       </div>
       <div class="move_icon col-6 lg:col-4 grid mx-auto " #targetEl>
-        <input class="col-11" placeholder="I am Shopping for" type="text" pInputText [(ngModel)]="searchValue" />
-        <i style="color: var(--primary-color);" (click)="product_search();search.toggle($event, targetEl)" class="icon fa-solid fa-magnifying-glass"></i>
+        <input class="col-11" placeholder="I am Shopping for" (input)="product_search($event);search.toggle($event, targetEl)" type="text" pInputText  />
+        <i style="color: var(--primary-color);" (click)="search.toggle($event, targetEl)" class="icon fa-solid fa-magnifying-glass"></i>
         <p-overlayPanel #search class="m-auto ">
           <ng-template pTemplate >
             <div class="flex flex-column gap-6 " style="width: 450px;overflow:hidden;">
               <div>
                 <div class="px-2 flex flex-column gap-2">
                   @for (product of searchProduct; track product.id) {
-                    <a routerLink= "products/{{product.id}}" class="flex gap-1 my-0 p-2"  style="height: 85px;">
+                    <a routerLink= "products/{{product.id}}" class="flex my-0 p-2"  style="height: 85px;">
                       <div class="w-4 border-round-bottom">
                         <img [src]="product.product.thumbnail" alt="">
                       </div>
-                      <div class=" m-0" style="width: 100%;">
-                        <p class="font-bold m-1 mx-3" >{{product.product.title}}</p>
-                        <p class="m-0 mx-2 text-left" >Sell by <span style="color: green;">{{product.seller.name}}</span></p>
+                      <div class="m-0" style="width: 100%;">
+                        <p class="font-bold m-1 mx-3 text-left" style="color: black !important;" >{{product.product.title}}</p>
+                        <p class="m-1 mx-3 text-left" style="color: black !important;" >Sell by <span style="color: green;">{{product.seller.name}}</span></p>
                         <div class="flex m-0 mx-2 mb-2 justify-content-between ">
                           <p class="m-0 p-0" *ngIf="product.discount > 0" style="color: red;"> Discount {{product.discount}}%</p>
                           <p class="m-0 p-0" *ngIf="product.discount== 0"></p>
-                          <p class="font-bold m-0 p-0"><span>{{product.price}}</span> $</p>
+                          <p class="font-bold m-0 p-0" style="color: black !important;"><span>{{product.price}}</span> $</p>
                         </div>
                       </div>
                     </a>
