@@ -22,3 +22,30 @@ ul{
 .myShadow{
   filter: drop-shadow(2px 4px 14px rgba(0,0,0,0.3));
 }
+
+hr {
+  border: none;
+  height: 20px;
+  width: 80%;
+  height: 50px;
+  border-bottom: 1px solid #1f1209;
+  box-shadow: 0 15px 15px -20px #333;
+}
+
+.memberCard {
+  width: 280px;
+  height: 460px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  margin-top: 30px;
+  transition: transform 330ms ease-in-out;
+}
+
+.memberCard:hover {
+	transform: translateY(-20px);
+}
+
+.memberImg {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+}
