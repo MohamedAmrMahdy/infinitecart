@@ -40,16 +40,14 @@ export class NavbarComponent implements OnInit{
   readonly cart = inject(MainStore)
   readonly wishlist = inject(WishlistStore)
   constructor(private productService:ProductsService, private themeService: ThemeService){}
+  user=this.store.currentUser() as any;
+  searchValue:any;
+  searchProduct:any;
+  cartItems:any;
   ngOnInit(): void {
     this.getcartItems();
     this.getWishlist();
   }
-  guest:any;
-  user=this.store.currentUser() as any;
-  searchValue:any;
-  value:any;
-  searchProduct:any;
-  cartItems:any;
   getcartItems(){
     this.cartItems=JSON.parse(localStorage.getItem('cart') || "[]");
     this.cart.cart().product = this.cartItems;
@@ -59,9 +57,10 @@ export class NavbarComponent implements OnInit{
     this.wishlist.wishlist().product = JSON.parse(localStorage.getItem('wishlist') || "[]");
   }
   product_search(search:any){
+    this.searchValue = search.target.value;
     this.productService.getAllProducts({
       limit: 3,
-      titleLike: search.target.value
+      titleLike: this.searchValue
     }).subscribe({
       next:(data)=>{
         this.searchProduct = data;
@@ -69,22 +68,16 @@ export class NavbarComponent implements OnInit{
       error:(e) => {console.log(e)}
     })
   }
-  profile_img:any="";
   Mode:string="Dark";
   classIcon:string ="fa-moon";
-  colorIcon:string ="white"
-
-
   changeTheme(){
     this.themeService.toggleTheme();
     if(this.Mode == "Light"){
       this.Mode = "Dark";
       this.classIcon="fa-moon"
-      this.colorIcon = "white"
     }else{
       this.Mode = "Light";
       this.classIcon="fa-sun"
-      this.colorIcon="goldenrod"
     }
   }
   getTotal(){
