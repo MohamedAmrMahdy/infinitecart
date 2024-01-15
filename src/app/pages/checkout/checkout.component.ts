@@ -13,6 +13,9 @@ import { HttpClient } from '@angular/common/http';
 import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 import { OrderPipe } from '../../pipes/order.pipe';
 
+import { NgxPayPalModule } from 'ngx-paypal';
+import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+
 interface TimeLine {
   placed: number;
   inTransit: number;
@@ -24,7 +27,7 @@ interface TimeLine {
   selector: 'app-checkout',
   standalone: true,
   imports: [CardModule, ButtonModule, RatingModule, CommonModule, FormsModule,
-     BadgeModule, PriceFormatPipe, OrderPipe ],
+     BadgeModule, PriceFormatPipe, OrderPipe, NgxPayPalModule ],
   providers: [MainStore, AuthStore],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
@@ -39,7 +42,6 @@ export class CheckoutComponent {
 
   cart = this.mainStore.cart() as any
   currentUser = this.authStore.currentUser() as any;
-
 
 
   order: {
@@ -94,6 +96,9 @@ get orderFinalPrice() {
   return sum;
 }
 
+public payPalConfig ? : IPayPalConfig;
+paypalItems:any;
+
   ngOnInit() {
    console.log('this.cart', this.cart)
    this.order.id = Math.floor(Math.random() * (99999999 - 1 + 1)) + 1;
@@ -107,12 +112,87 @@ get orderFinalPrice() {
    });
    this.order.total = this.orderFinalPrice;
    this.order.timeline.placed = Date.now();
-   console.log('this.order', this.order)
-   console.log('this.currentUser',this.currentUser);
-
+  //  console.log('this.order', this.order)
+  //  console.log('this.currentUser',this.currentUser);
+  this.paypalItems = this.cart.product.map((item:any) => {
+    return {
+      name: item.product.title,
+      category: 'PHYSICAL_GOODS',
+      quantity: item.count,
+      unit_amount: {
+        currency_code: 'USD',
+        value: +((1-item.discount)* item.price).toFixed(2)
+      }
+    };
+  });
+  console.log(this.paypalItems);
+  this.initConfig();
+  }
+  
+  private initConfig(): void {
+    this.payPalConfig = {
+    currency: 'USD',
+    clientId: 'AVBGWP_B4FfXm6Gf_CfzbukkymCvBcPficyj92l8EKEL334SK2UCyX1CIHB1RDRuGtT17LNx-D9qfB1X',
+    createOrderOnClient: (data) => <ICreateOrderRequest>{
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          amount: {
+            currency_code: 'USD',
+            value: ''+this.orderFinalPrice.toFixed(2),
+            breakdown: {
+              item_total: {
+                currency_code: 'USD',
+                value: ''+this.orderFinalPrice.toFixed(2)
+              }
+            }
+          },
+          items: this.paypalItems
+        }
+      ]
+    },
+    advanced: {
+      commit: 'true'
+    },
+    style: {
+      label: 'paypal',
+      layout: 'vertical'
+    },
+    onApprove: (data, actions) => {
+      // console.log('onApprove - transaction was approved, but not authorized', data, actions);
+      // actions.order.get().then(details => {
+      //   console.log('onApprove - you can get full order details inside onApprove: ', details);
+      // });
+    },
+    onClientAuthorization: (data) => {
+      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      this.AddOrder2();
+    },
+    onCancel: (data, actions) => {
+      // console.log('OnCancel', data, actions);
+    },
+    onError: err => {
+      // console.log('OnError', err);
+    },
+    onClick: (data, actions) => {
+      // console.log('onClick', data, actions);
+    },
+  };
   }
 
   AddOrder(event:any) {
+    this.ordersService.AddOrder(this.order).subscribe({
+      next: (response:any) => {
+        console.log('response', response);
+        this.mainStore.resetCart();
+        this.router.navigate(["/profile/orders"]);
+      },
+      error: (err:any) => {
+        console.log(err);
+      }
+    })
+  }
+  AddOrder2() {
     this.ordersService.AddOrder(this.order).subscribe({
       next: (response:any) => {
         console.log('response', response);
