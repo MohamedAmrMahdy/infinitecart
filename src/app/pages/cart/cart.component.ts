@@ -2,7 +2,6 @@ import { MainStore } from './../../stores/main.store';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, inject } from '@angular/core';
 import { DataViewModule } from 'primeng/dataview';
-import { OrdersService } from '../../services/orders.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,20 +13,18 @@ import { Router } from '@angular/router';
   ],
   providers:[
     MainStore,
-    OrdersService
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit{
-  constructor(private orderService:OrdersService, private router: Router){}
+  constructor(private router: Router){}
   readonly store = inject(MainStore);
   user:any;
   cartItems:any;
   counter:number = 0;
   ngOnInit(): void {
-
   }
   getCart(){
     this.store.cart().product=JSON.parse(localStorage.getItem('cart') || "[]");
@@ -36,40 +33,19 @@ export class CartComponent implements OnInit{
   }
 
   deleteFromCart(deleted:any){
-    this.cartItems=this.cartItems.filter((item:any)=> deleted.id != item.id);
-    localStorage.setItem('cart',JSON.stringify(this.cartItems))
+    this.store.removeFromCart(deleted);
   }
-  increment(itemUpdate:any){
-    this.cartItems.map((item:any)=> {
-      if(item.id == itemUpdate.id && item.stock > item.count)
-        item.count += 1
-      return item;
-    })
-    localStorage.setItem('cart',JSON.stringify(this.cartItems))
+  increment(updatedItem:any){
+    this.store.increment(updatedItem);
   }
-
-  decrement(itemUpdate:any){
-    this.cartItems.map((item:any)=> {
-      if(item.id == itemUpdate.id && item.count > 1 )
-        item.count -= 1
-      return item;
-    })
-    localStorage.setItem('cart',JSON.stringify(this.cartItems))
+  decrement(updatedItem:any){
+    this.store.decrement(updatedItem)
   }
   getTotal(){
-    let sum = 0;
-    for (let i = 0; i < this.cartItems.length; i++) {
-      sum += +this.cartItems[i].price * +this.cartItems[i].count;
-    }
-    return sum;
+    return this.store.getTotal();
   }
-
-  getItemsNo(){
-    this.counter = 0;
-    this.cartItems.map((item:any)=> {
-        this.counter += item.count
-      })
-      return this.counter;
+  getItemsNumber(){
+    return this.store.getTotalNumberOfItems();
   }
   postOrder(){
     this.router.navigate(['/checkout'])

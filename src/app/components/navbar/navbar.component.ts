@@ -81,13 +81,6 @@ export class NavbarComponent implements OnInit{
     }
   }
   getTotal(){
-    let sum = 0;
-    for (let i = 0; i < this.cartItems.length; i++) {
-      sum += +this.cartItems[i].price * +this.cartItems[i].count
-    }
-    return sum;
+    return this.cart.getTotal();
   }
-
 }
-
-
