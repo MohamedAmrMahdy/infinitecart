@@ -8,6 +8,6 @@ app.db = router.db
 
 app.use(auth)
 app.use(router)
-app.listen(3000, () => {
-  console.log('JSON Server is running on', 3000)
+app.listen(30124, () => {
+  console.log('JSON Server is running on', 30124)
 })

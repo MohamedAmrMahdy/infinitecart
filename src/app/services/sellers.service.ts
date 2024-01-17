@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class SellersService {
 
   constructor(private sellers:HttpClient) { }
-  private DB_URL = 'http://localhost:3000/sellers';
 
   getSellers() {
-    return this.sellers.get(this.DB_URL)
+    return this.sellers.get(environment.AUTH_API + 'sellers/')
   }
 }
