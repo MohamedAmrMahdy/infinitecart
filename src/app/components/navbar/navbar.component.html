@@ -82,7 +82,7 @@
           <ng-template pTemplate>
             <div class="flex flex-column gap-4 " style="width: 350px;">
               <div>
-                <h3 class="mb-0 font-bold" style="color: black !important;">Cart Items</h3>
+                <h3 class="mb-0 font-bold" style="color: var(--text-color) !important;">Cart Items</h3>
                 <div class="px-2 flex flex-column gap-1">
                   <hr class="w-12">
                   @for (cartItem of getcartItems(); track $index) {
@@ -92,7 +92,7 @@
                           <img [src]="cartItem.product.thumbnail" alt="">
                         </div>
                         <div class="flex flex-column justify-content-between m-0" style="width: 100%;">
-                          <p class="font-bold m-0" style="color: black !important;">{{cartItem.product.title}}</p>
+                          <p class="font-bold m-0" style="color: var(--text-color) !important;">{{cartItem.product.title}}</p>
                           <div class="flex m-0 justify-content-between">
                             <p>{{cartItem.count}} Items</p>
                             <p>{{cartItem.price}} $</p>
@@ -111,7 +111,7 @@
                   </div>
                   <div class="flex gap-2 justify-content-evenly mt-2">
                     <button pButton routerLink="/cart" type="button" class="p-button-rounded px-5 font-bold">View Cart</button>
-                    <button pButton routerLink="/products" type="button" style="background-color: black; border-color: black;" class="p-button-raised p-button-rounded px-4 font-bold">Add Products</button>
+                    <button pButton routerLink="/products" type="button" style="background-color: black; border-color: black;" class="p-button-raised p-button-rounded px-4 font-bold"><span class="text-white">Add Products</span></button>
                   </div>
                 </div>
               </div>
