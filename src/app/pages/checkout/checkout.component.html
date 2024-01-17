@@ -37,17 +37,17 @@
     <div class="md:col-4 sm:col-8 mx-auto">
         <p-card [header]="order.id | order"  [style]="{ width: '100%', margin:'2rem auto'  }">
             <hr>
-            <div class="flex space-between">
+            <div class="flex justify-content-between">
                 <div class="">Sub Total: </div>
                 <div class="ml-8"> {{orderTotalInitialPrice | priceFormat}}</div>
             </div>
             <hr>
-            <div class="flex space-between">
+            <div class="flex justify-content-between">
                 <div class="">Discount: </div>
                 <div class="ml-8"> {{orderTotalDiscount | priceFormat}}</div>
             </div>
             <hr>
-            <div class="flex space-between">
+            <div class="flex justify-content-between">
                 <div class="">Total: </div>
                 <div class="ml-8">{{orderFinalPrice | priceFormat}}</div>
             </div>
