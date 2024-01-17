@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ import { map } from 'rxjs';
 export class ProductsService{
 
   constructor(private products:HttpClient) { }
-  private DB_URL = 'http://localhost:3000/products';
 
   getAllProducts(
     {
@@ -74,7 +74,7 @@ export class ProductsService{
       queryParams = queryParams.append('_order','desc');
     }
 
-    return this.products.get(this.DB_URL, {params: queryParams, observe: 'response'}).pipe(
+    return this.products.get(environment.AUTH_API + 'products/', {params: queryParams, observe: 'response'}).pipe(
       map((response: HttpResponse<any>) => {
         const totalCountHeader = response.headers.get('X-Total-Count');
         let responseBody = response.body;
