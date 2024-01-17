@@ -12,12 +12,12 @@
                   <div class="col-5 flex" style="height: 100%;">
                     <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="item.product.thumbnail" [alt]="item.product.title" />
                     <div class="flex flex-column gap-2 align-items-center">
-                      <button (click)="increment(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: green;background-color: white;font-weight: bold;">
-                        <i class="pi pi-plus-circle text-xl"></i>
+                      <button (click)="increment(item)" type="text" class="btn flex justify-content-center align-content-center border-none surface-overlay">
+                        <i class="pi pi-plus-circle text-xl" style="color:green;"></i>
                       </button>
                       <span class="font-semibold">{{ item.count }}</span>
-                      <button (click)="decrement(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
-                        <i class="pi pi-minus-circle text-xl"></i>
+                      <button (click)="decrement(item)" type="text" class="btn flex justify-content-center align-content-center border-none surface-overlay">
+                        <i class="pi pi-minus-circle text-xl" style="color:red;"></i>
                       </button>
                     </div>
                   </div>
@@ -27,8 +27,8 @@
                         </div>
                         <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
                             <span  class="text-2xl font-semibold">{{ item.price}} $</span>
-                            <button (click)="deleteFromCart(item)" type="text" class="btn flex justify-content-center align-content-center border-none" style="color: red;background-color: white;font-weight: bold;">
-                              <i class="pi pi-trash text-3xl"></i>
+                            <button (click)="deleteFromCart(item)" type="text" class="btn flex justify-content-center align-content-center border-none surface-overlay">
+                              <i class="pi pi-trash text-3xl" style="color:red;"></i>
                             </button>
                         </div>
                     </div>
@@ -37,12 +37,12 @@
           </div>
           @if (cartItems.length>0) {
             <hr>
-            <div class="flex justify-content-between px-5 text-2xl">
+            <div class="flex justify-content-between px-5 text-2xl font-bold">
               <p>SubTotal</p>
-              <p class="font-bold text-black-alpha-90">{{getTotal()}} $</p>
+              <p class="text-color">{{getTotal()}} $</p>
             </div>
             <div class="flex justify-content-center">
-              <button type="text" (click)="postOrder()"  class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3" style="color: white;background-color: black;font-weight: bold;">
+              <button type="text" (click)="postOrder()"  class="flex w-2 m-3 text-xl justify-content-center align-content-center border-round-2xl p-3 text-white" style="background-color: black;font-weight: bold;">
                 Checkout
               </button>
             </div>
