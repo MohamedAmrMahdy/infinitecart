@@ -34,7 +34,7 @@ export const routes: Routes = [
           { path: "wishlist", title: 'InfinitCart - Wishlist',component:WishlistComponent},
         ]
       },
-      { path: "checkout", title: 'InfinitCart - order-summary',component:CheckoutComponent},
+      { path: "checkout", title: 'InfinitCart - order-summary',component:CheckoutComponent, canActivate:[authGuard]},
       { path: "categories", title: 'InfinitCart - Categories',component:CategoriesComponent},
       { path: "Brands", title: 'InfinitCart - Brands',component:BrandsComponent},
       { path: "AboutUs", title: 'InfinitCart - AboutUs',component:AboutUsComponent}
